@@ -96,7 +96,6 @@ export default function TeamPage() {
         email: "rene@salotto.ch"
       }
     },
-    
     {
       id: 5,
       name: "Susana Giménez",
@@ -143,22 +142,10 @@ export default function TeamPage() {
                   src={member.image}
                   alt={member.name}
                   fill
+                  sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   className="team-image"
                   style={{ objectFit: 'cover' }}
                 />
-                <div className="team-card-overlay">
-                  <div className="team-social">
-                    <a href={member.social.instagram} target="_blank" rel="noopener noreferrer">
-                      <Instagram size={18} />
-                    </a>
-                    <a href={member.social.linkedin} target="_blank" rel="noopener noreferrer">
-                      <Linkedin size={18} />
-                    </a>
-                    <a href={`mailto:${member.social.email}`}>
-                      <Mail size={18} />
-                    </a>
-                  </div>
-                </div>
               </div>
               <div className="team-card-content">
                 <div className="team-card-icon">{member.icon}</div>
@@ -166,6 +153,19 @@ export default function TeamPage() {
                 <p className="team-role">{member.role}</p>
                 <p className="team-description">{member.description}</p>
                 <span className="team-specialty">{member.specialty}</span>
+                
+                {/* Redes sociales - Ahora abajo de todo */}
+                <div className="team-social-bottom">
+                  <a href={member.social.instagram} target="_blank" rel="noopener noreferrer" className="social-link">
+                    <Instagram size={18} />
+                  </a>
+                  <a href={member.social.linkedin} target="_blank" rel="noopener noreferrer" className="social-link">
+                    <Linkedin size={18} />
+                  </a>
+                  <a href={`mailto:${member.social.email}`} className="social-link">
+                    <Mail size={18} />
+                  </a>
+                </div>
               </div>
             </div>
           );
@@ -198,7 +198,7 @@ export default function TeamPage() {
         }
 
         .hero-content h1 {
-            color: #ffffff;
+          color: #ffffff;
           font-size: 4rem;
           font-weight: 300;
           letter-spacing: 4px;
@@ -237,6 +237,8 @@ export default function TeamPage() {
           transform: translateY(40px);
           transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
           cursor: default;
+          display: flex;
+          flex-direction: column;
         }
 
         .team-card.visible {
@@ -276,6 +278,7 @@ export default function TeamPage() {
           padding-bottom: 100%;
           overflow: hidden;
           background: #1a1a1a;
+          flex-shrink: 0;
         }
 
         .team-image {
@@ -286,56 +289,12 @@ export default function TeamPage() {
           transform: scale(1.05);
         }
 
-        .team-card-overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(0, 0, 0, 0.5);
-          opacity: 0;
-          transition: all 0.4s ease;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .team-card:hover .team-card-overlay {
-          opacity: 1;
-        }
-
-        .team-social {
-          display: flex;
-          gap: 1.5rem;
-          transform: translateY(20px);
-          transition: all 0.4s ease;
-        }
-
-        .team-card:hover .team-social {
-          transform: translateY(0);
-        }
-
-        .team-social a {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 44px;
-          height: 44px;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          color: #ffffff;
-          transition: all 0.3s ease;
-        }
-
-        .team-social a:hover {
-          background: rgba(255, 255, 255, 0.15);
-          transform: scale(1.1);
-        }
-
         .team-card-content {
           padding: 1.5rem;
           text-align: center;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
         }
 
         .team-card-icon {
@@ -364,6 +323,7 @@ export default function TeamPage() {
           line-height: 1.6;
           color: rgba(255, 255, 255, 0.6);
           margin-bottom: 1rem;
+          flex: 1;
         }
 
         .team-specialty {
@@ -375,6 +335,45 @@ export default function TeamPage() {
           border: 1px solid rgba(255, 255, 255, 0.05);
           padding: 0.25rem 1rem;
           border-radius: 50px;
+          margin-bottom: 1rem;
+          align-self: center;
+        }
+
+        /* Redes sociales - Estilo mejorado */
+        .team-social-bottom {
+          display: flex;
+          justify-content: center;
+          gap: 1rem;
+          padding-top: 0.75rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.05);
+          margin-top: auto;
+        }
+
+        .social-link {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          color: #ffffff;
+          transition: all 0.3s ease;
+          text-decoration: none;
+        }
+
+        .social-link:hover {
+          background: rgba(255, 255, 255, 0.12);
+          border-color: rgba(255, 255, 255, 0.2);
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .social-link svg {
+          color: #ffffff;
+          stroke: #ffffff;
+          fill: none;
         }
 
         /* CTA */
@@ -469,6 +468,16 @@ export default function TeamPage() {
             padding: 1rem;
           }
 
+          .social-link {
+            width: 34px;
+            height: 34px;
+          }
+
+          .social-link svg {
+            width: 16px;
+            height: 16px;
+          }
+
           .cta-content h2 {
             font-size: 1.5rem;
           }
@@ -512,6 +521,16 @@ export default function TeamPage() {
           .cta-button {
             padding: 0.5rem 1.5rem;
             font-size: 0.9rem;
+          }
+
+          .social-link {
+            width: 32px;
+            height: 32px;
+          }
+
+          .social-link svg {
+            width: 14px;
+            height: 14px;
           }
         }
       `}</style>

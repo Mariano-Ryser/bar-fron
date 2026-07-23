@@ -4,25 +4,35 @@ import Image from 'next/image';
 export default function HomeHero() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
+  const [isContentVisible, setIsContentVisible] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const images = [
     { src: '/img/bar1w.webp', alt: 'Bar Ambiente 1' },
-    { src: '/img/bar2.jpg', alt: 'Bar Ambiente 2' },
+    { src: '/img/bar22.jpg', alt: 'Bar Ambiente 2' },
     { src: '/img/bar3.jpg', alt: 'Bar Ambiente 3' },
-    { src: '/img/bar4.jpg', alt: 'Bar Ambiente 4' },
-    { src: '/img/bar5.jpg', alt: 'Bar Ambiente 5' }
+    { src: '/img/bar44.jpg', alt: 'Bar Ambiente 4' },
+    { src: '/img/bar23.jpg', alt: 'Bar Ambiente 5' },
+    { src: '/img/bar5.jpg', alt: 'Bar Ambiente 6' }
   ];
 
   useEffect(() => {
     startAutoPlay();
-    const timer = setTimeout(() => {
+    
+    // Primero, mostrar el contenido después de un breve delay
+    const contentTimer = setTimeout(() => {
+      setIsContentVisible(true);
+    }, 300);
+
+    // Luego, remover el estado de primera carga
+    const loadTimer = setTimeout(() => {
       setIsFirstLoad(false);
-    }, 2000);
+    }, 2500);
 
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
-      clearTimeout(timer);
+      clearTimeout(contentTimer);
+      clearTimeout(loadTimer);
     };
   }, []);
 
@@ -88,7 +98,7 @@ export default function HomeHero() {
         })}
 
         {/* Contenido del hero - Con Logo */}
-        <div className="hero-content">
+        <div className={`hero-content ${isContentVisible ? 'visible' : ''}`}>
           <div className="logo-container">
             <img
               src="/img/logo-salotto.png" 
@@ -100,7 +110,7 @@ export default function HomeHero() {
         </div>
 
         {/* Dots */}
-        <div className="dots-container">
+        <div className={`dots-container ${isContentVisible ? 'visible' : ''}`}>
           {images.map((_, index) => (
             <button
               key={index}
@@ -113,7 +123,7 @@ export default function HomeHero() {
 
         {/* Botones */}
         <button 
-          className="nav-button prev"
+          className={`nav-button prev ${isContentVisible ? 'visible' : ''}`}
           onClick={goToPrevious}
           aria-label="Vorheriges Bild"
         >
@@ -123,7 +133,7 @@ export default function HomeHero() {
         </button>
 
         <button 
-          className="nav-button next"
+          className={`nav-button next ${isContentVisible ? 'visible' : ''}`}
           onClick={goToNext}
           aria-label="Nächstes Bild"
         >
@@ -141,6 +151,7 @@ export default function HomeHero() {
           overflow: hidden;
           margin-top: 0;
           background: #000;
+          will-change: transform;
         }
 
         .carousel-container {
@@ -158,18 +169,16 @@ export default function HomeHero() {
           bottom: 0;
           width: 100%;
           height: 100%;
-          transition: opacity 1.5s ease-in-out, transform 8s ease-in-out;
-          transform: scale(1);
+          transition: opacity 1.5s ease-in-out;
+          will-change: opacity, transform;
         }
 
         .carousel-slide.active {
           opacity: 1;
-          transform: scale(1);
         }
 
         .carousel-slide:not(.active) {
           opacity: 0;
-          transform: scale(1.1);
         }
 
         .carousel-slide.first-load {
@@ -194,6 +203,7 @@ export default function HomeHero() {
           height: 100%;
           position: relative;
           transition: transform 10s ease-in-out;
+          will-change: transform;
         }
 
         .carousel-slide.active .carousel-image {
@@ -222,7 +232,7 @@ export default function HomeHero() {
           z-index: 3;
         }
 
-        /* Hero Content */
+        /* Hero Content - Mejorado */
         .hero-content {
           position: absolute;
           top: 50%;
@@ -234,18 +244,13 @@ export default function HomeHero() {
           width: 90%;
           max-width: 900px;
           pointer-events: none;
-          animation: fadeInContent 2s ease-out;
+          opacity: 0;
+          transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+          will-change: opacity;
         }
 
-        @keyframes fadeInContent {
-          0% {
-            opacity: 0;
-            transform: translate(-50%, -45%);
-          }
-          100% {
-            opacity: 1;
-            transform: translate(-50%, -50%);
-          }
+        .hero-content.visible {
+          opacity: 1;
         }
 
         /* Logo Container */
@@ -254,6 +259,15 @@ export default function HomeHero() {
           justify-content: center;
           align-items: center;
           margin-bottom: 1.5rem;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+          will-change: transform, opacity;
+        }
+
+        .hero-content.visible .logo-container {
+          opacity: 1;
+          transform: translateY(0);
         }
 
         .hero-logo {
@@ -262,6 +276,7 @@ export default function HomeHero() {
           height: auto;
           filter: drop-shadow(0 4px 30px rgba(0, 0, 0, 0.5));
           animation: logoPulse 4s ease-in-out infinite;
+          will-change: filter;
         }
 
         @keyframes logoPulse {
@@ -279,22 +294,22 @@ export default function HomeHero() {
           letter-spacing: 8px;
           text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
           color: rgba(255, 255, 255, 0.9);
-          animation: fadeInUp 2.5s ease-out;
           margin: 0;
+          opacity: 0;
+          transform: translateY(15px);
+          transition: all 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+          will-change: transform, opacity;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          backface-visibility: hidden;
         }
 
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+        .hero-content.visible .hero-subtitle {
+          opacity: 1;
+          transform: translateY(0);
         }
 
-        /* Dots */
+        /* Dots - Con transición suave */
         .dots-container {
           position: absolute;
           bottom: 2.5rem;
@@ -303,6 +318,13 @@ export default function HomeHero() {
           display: flex;
           gap: 0.75rem;
           z-index: 10;
+          opacity: 0;
+          transition: opacity 1s ease 0.8s;
+          will-change: opacity;
+        }
+
+        .dots-container.visible {
+          opacity: 1;
         }
 
         .dot {
@@ -314,6 +336,7 @@ export default function HomeHero() {
           cursor: pointer;
           transition: all 0.4s ease;
           padding: 0;
+          will-change: transform, background;
         }
 
         .dot:hover {
@@ -328,7 +351,7 @@ export default function HomeHero() {
           box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
         }
 
-        /* Botones */
+        /* Botones - Con transición suave */
         .nav-button {
           position: absolute;
           top: 50%;
@@ -346,6 +369,12 @@ export default function HomeHero() {
           display: flex;
           align-items: center;
           justify-content: center;
+          opacity: 0;
+          pointer-events: none;
+          will-change: opacity, transform;
+        }
+
+        .nav-button.visible {
           opacity: 0.6;
           pointer-events: auto;
         }

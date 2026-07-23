@@ -235,6 +235,10 @@
 .contactItem span {
   color: rgba(255, 255, 255, 0.6);
 }
+.day {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+}
 
 .mapLink {
   color: rgba(255, 255, 255, 0.6);

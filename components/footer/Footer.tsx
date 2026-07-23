@@ -130,15 +130,15 @@ export default function Footer() {
           <h3>Öffnungszeiten</h3>
           <ul className={styles.openingHours}>
             <li>
-              <span>Montag - Donnerstag</span>
+              <span className={styles.day}>Montag - Donnerstag</span>
               <span>11:00 - 23:00</span>
             </li>
             <li>
-              <span>Freitag - Samstag</span>
+              <span className={styles.day}>Freitag - Samstag</span>
               <span>11:00 - 01:00</span>
             </li>
             <li>
-              <span>Sonntag</span>
+              <span className={styles.day}>Sonntag</span>
               <span>11:00 - 22:00</span>
             </li>
           </ul>
