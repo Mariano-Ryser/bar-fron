@@ -1,0 +1,138 @@
+{
+  "sales": {
+    "title": "Rechnungen",
+    "subtitle": "Verwalten Sie Ihre Rechnungen und Verkäufe",
+    "loading": {
+      "auth": "Authentifizierung wird geladen...",
+      "invoices": "Rechnungen werden geladen...",
+      "short": "Lade..."
+    },
+    "error": {
+      "general": "Fehler",
+      "title": "Fehler beim Laden der Rechnungen",
+      "loadFailed": "Fehler beim Laden der Rechnungen"
+    },
+    "actions": {
+      "new": "Neue Rechnung",
+      "retry": "Erneut versuchen",
+      "resetFilters": "Alle Filter zurücksetzen",
+      "createFirst": "Erste Rechnung erstellen",
+      "loadMore": "Mehr Rechnungen laden ({remaining} verfügbar)",
+      "stock": "Lagerbewegungen anzeigen",
+      "view": "Anzeigen",
+      "delete": "Löschen",
+      "confirmDelete": "Sind Sie sicher, dass Sie diese Rechnung löschen möchten?"
+    },
+    "buttons": {
+      "stock": "Lager",
+      "edit": "Bearbeiten"
+    },
+    "search": {
+      "placeholder": "Kunde oder Rechnungsnummer suchen...",
+      "results": "{visible} von {total} Rechnungen",
+      "moreAvailable": " ({remaining} mehr verfügbar)",
+      "clear": "Suche löschen"
+    },
+    "filter": {
+      "allStatus": "Alle Status",
+      "status": "Status",
+      "date": "Datum",
+      "sortBy": "Sortierung",
+      "clear": "Filter löschen",
+      "apply": "Filter anwenden",
+      "dateFrom": "Datum von",
+      "dateTo": "Datum bis",
+      "dateRange": "Datumsbereich"
+    },
+    "sort": {
+      "newest": "Neueste zuerst",
+      "oldest": "Älteste zuerst",
+      "priceHigh": "Preis: Hoch zu Niedrig",
+      "priceLow": "Preis: Niedrig zu Hoch",
+      "clientAZ": "Kunde: A-Z",
+      "clientZA": "Kunde: Z-A",
+      "price": "Preis",
+      "client": "Kunde",
+      "date": "Datum"
+    },
+    "status": {
+      "paid": "Bezahlt",
+      "cancelled": "Storniert",
+      "pending": "Ausstehend",
+      "all": "Alle Status"
+    },
+    "table": {
+      "date": "Datum",
+      "client": "Kunde",
+      "invoiceNumber": "Lieferschein",
+      "total": "Gesamt",
+      "status": "Status",
+      "actions": "Aktionen"
+    },
+    "excel": {
+      "date": "Datum",
+      "time": "Uhrzeit",
+      "client": "Kunde",
+      "invoiceNumber": "Rechnungsnummer",
+      "subtotal": "Zwischensumme",
+      "tax": "MwSt.",
+      "total": "Gesamt",
+      "status": "Status",
+      "actions": "Aktionen"
+    },
+    "view": {
+      "table": "Tabellenansicht",
+      "excel": "Excel-Ansicht",
+      "cards": "Kartenansicht"
+    },
+    "client": {
+      "unknown": "Unbekannt"
+    },
+    "empty": {
+      "notFound": {
+        "title": "Keine Rechnungen gefunden",
+        "text": "Keine Ergebnisse für Ihre Suchkriterien"
+      },
+      "noInvoices": {
+        "title": "Keine Rechnungen vorhanden",
+        "text": "Erstellen Sie Ihre erste Rechnung"
+      }
+    },
+    "pagination": {
+      "showing": "Zeige {count} von {total} Rechnungen",
+      "pageInfo": "Seite {current} von {total}",
+      "page": "Seite {current} von {total}"
+    },
+    "details": {
+      "invoice": "Rechnung",
+      "items": "Artikel",
+      "total": "Gesamt",
+      "subtotal": "Zwischensumme",
+      "tax": "Steuer",
+      "customer": "Kunde",
+      "payment": "Zahlung",
+      "notes": "Notizen"
+    },
+    "modalMovements": {
+      "title": "Lagerbewegungen",
+      "loading": "Lade Bewegungen...",
+      "error": "Fehler",
+      "noMovements": "Keine Lagerbewegungen für diese Rechnung",
+      "invoiceNumber": "Lieferschein",
+      "customer": "Kunde",
+      "total": "Gesamt",
+      "types": {
+        "WAREHOUSE_OUT": "Abgang (Verkauf)",
+        "RETURN": "Rückgabe",
+        "MANUAL_ADJUSTMENT": "Manuelle Anpassung"
+      },
+      "table": {
+        "date": "Datum",
+        "product": "Produkt",
+        "type": "Typ",
+        "quantity": "Menge",
+        "stock": "Bestand"
+      }
+    }
+  }
+}

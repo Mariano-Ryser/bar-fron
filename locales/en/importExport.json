@@ -1,0 +1,109 @@
+{
+  "title": "Excel Import & Export",
+  "subtitleProducts": "Manage products efficiently – Import & Export",
+  "subtitleSales": "Export sales data – Export Only",
+  "productLabel": "Products",
+  "salesLabel": "Sales",
+  "importExport": "Import/Export",
+  "exportOnly": "Export Only",
+  "stats": {
+    "itemsProducts": "Products",
+    "itemsSales": "Sales",
+    "status": "Status",
+    "loading": "Loading...",
+    "ready": "Ready",
+    "functions": "Functions",
+    "importExport": "Import & Export",
+    "exportOnly": "Export Only"
+  },
+  "template": {
+    "download": "Download template",
+    "subtitleSales": "Export template for sales data",
+    "subtitleProducts": "Import template for consistent product data",
+    "formatProducts": "Format for products:",
+    "formatSales": "Format for sales:",
+    "fields": {
+      "product": {
+        "articleNumber": "Article number",
+        "articleNumberHint": "unique (optional)",
+        "name": "Article name",
+        "nameHint": "Product name",
+        "required": "Required",
+        "location": "Storage location",
+        "locationHint": "e.g., A-01",
+        "stock": "Stock",
+        "stockHint": "Number ≥ 0",
+        "price": "Price",
+        "priceHint": "without currency symbol",
+        "imageUrl": "Image URL",
+        "imageUrlHint": "Link to product image"
+      },
+      "sale": {
+        "deliveryNote": "Delivery note no.",
+        "deliveryNoteHint": "unique number",
+        "customer": "Customer",
+        "customerHint": "Customer name",
+        "productName": "Article name",
+        "productNameHint": "sold product",
+        "quantity": "Quantity",
+        "quantityHint": "quantity sold",
+        "unitPrice": "Unit price",
+        "unitPriceHint": "price per unit",
+        "status": "Status",
+        "statusHint": "pending/paid/cancelled",
+        "total": "Total",
+        "totalHint": "total amount"
+      }
+    }
+  },
+  "importExportCard": {
+    "titleProducts": "Import & Export",
+    "titleSales": "Export",
+    "subtitleProducts": "Exchange and manage data",
+    "subtitleSales": "Export sales data"
+  },
+  "actions": {
+    "supported": "Supports: .xlsx, .xls, .csv",
+    "maxRecords": "Up to 10,000 records",
+    "sameFormat": "Same format for import/export",
+    "exportFormat": "Export format compatible with Excel",
+    "salesDetails": "Includes all sales details"
+  },
+  "import": {
+    "notAvailable": "Import for sales is not available. Export only.",
+    "noValidProducts": "No valid products found to import.",
+    "noValidSales": "No valid sales found to import.",
+    "spaceCheckError": "❌ Not enough space. Please delete some products or upgrade your plan.",
+    "spaceCheckErrorWithLimit": "❌ Product limit reached. You cannot import more products. Please delete some products or upgrade your plan."
+  },
+  "modal": {
+    "validation": "Validation result",
+    "importComplete": "Import completed",
+    "error": "Error",
+    "subtitleProducts": "Products",
+    "subtitleSales": "Sales",
+    "close": "Close",
+    "cancel": "Cancel",
+    "done": "Done",
+    "importValidOnly": "Import only valid"
+  },
+  "validation": {
+    "valid": "Valid",
+    "invalid": "Invalid",
+    "errorDetails": "Error details",
+    "errors": "Errors",
+    "row": "Row",
+    "errorsList": "Error details:"
+  },
+  "importResult": {
+    "success": "Import successful",
+    "warning": "Import with warnings",
+    "error": "Import error",
+    "messageSuccess": "Products imported successfully",
+    "messagePartial": "Some products were imported, others not",
+    "statsTotal": "Total:",
+    "statsSuccess": "Successful:",
+    "statsFailed": "Failed:",
+    "moreErrors": "... and more errors"
+  }
+}

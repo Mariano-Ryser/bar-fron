@@ -1,0 +1,9 @@
+{
+   "header": {
+    "dashboard": "Panel de administración",
+    "login": "Iniciar sesión",
+    "logout": "cerrar sesión",
+    "register": "Register"
+  }
+}
+

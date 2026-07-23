@@ -1,0 +1,300 @@
+/* HEADER - Fondo negro, letras blancas */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 10rem;
+  background: rgba(0, 0, 0, 0.308);
+  backdrop-filter: blur(3px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 1000;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.header.scrolled {
+  height: 7.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  background: #000000;
+}
+
+.header.hidden {
+  transform: translateY(-100%);
+}
+
+.container {
+  max-width: 1280px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* LOGO */
+.logo {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+  z-index: 1003;
+}
+
+.logo:hover {
+  transform: scale(1.02);
+}
+
+.logoImage {
+  height: 7.5rem;
+  width: auto;
+  object-fit: contain;
+}
+
+/* DESKTOP NAV - Letras blancas */
+.desktopNav {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.desktopNav a {
+  padding: 0.625rem 1.25rem;
+  text-decoration: none;
+  font-size: 1.25rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  color: #ffffff;
+  border-radius: 0.5rem;
+}
+
+.desktopNav a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+/* MOBILE TOGGLE - Solo visible en móvil */
+.mobileToggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1003;
+  padding: 0.5rem;
+  color: #ffffff;
+}
+
+.mobileToggle:hover {
+  transform: scale(1.1);
+}
+
+.mobileToggle svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  fill: none;
+  display: block;
+}
+
+/* FULL SCREEN MOBILE MENU */
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #000000;
+  z-index: 1001;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.mobileMenu.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* BOTÓN DE CERRAR DENTRO DEL MODAL - CRUZ BLANCA */
+.closeButton {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0.75rem;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  z-index: 1002;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+}
+
+.closeButton:hover {
+  transform: rotate(90deg) scale(1.1);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.closeButton svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  fill: none;
+  display: block;
+  width: 32px;
+  height: 32px;
+}
+
+.mobileNav {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobileNavList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.mobileNavItem {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 2.5rem;
+  font-weight: 300;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  width: 100%;
+  letter-spacing: 2px;
+}
+
+.mobileNavItem:hover {
+  transform: scale(1.05);
+  color: #cccccc;
+}
+
+/* BREAKPOINTS */
+@media (min-width: 1024px) {
+  .desktopNav {
+    display: flex;
+  }
+
+  .mobileToggle {
+    display: none;
+  }
+
+  .mobileMenu {
+    display: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .logoImage {
+    height: 3.5rem;
+  }
+
+  .header {
+    height: 6.5rem;
+  }
+
+  .header.scrolled {
+    height: 4.5rem;
+  }
+
+  .closeButton {
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 50px;
+    height: 50px;
+    padding: 0.5rem;
+  }
+
+  .closeButton svg {
+    width: 28px !important;
+    height: 28px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    height: 6.5rem;
+  }
+
+  .header.scrolled {
+    height: 4rem;
+  }
+
+  .logoImage {
+    height: 2.8rem;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
+  .mobileNavItem {
+    font-size: 2rem;
+    gap: 1rem;
+  }
+
+  .mobileToggle svg {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  .closeButton {
+    top: 1rem;
+    right: 1rem;
+    width: 44px;
+    height: 44px;
+    padding: 0.4rem;
+  }
+
+  .closeButton svg {
+    width: 24px !important;
+    height: 24px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .mobileNavItem {
+    font-size: 1.5rem;
+  }
+
+  .logoImage {
+    height: 2.2rem;
+  }
+
+  .closeButton {
+    top: 0.8rem;
+    right: 0.8rem;
+    width: 38px;
+    height: 38px;
+    padding: 0.3rem;
+  }
+
+  .closeButton svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}

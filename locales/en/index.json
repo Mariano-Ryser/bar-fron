@@ -1,0 +1,61 @@
+{
+  "index": {
+    "welcome": "Welcome back,",
+    "loading": "Loading dashboard...",
+    "refresh": "Refresh",
+    "premiumBadge": "PREMIUM",
+    "premiumTitle": "Analytics Dashboard",
+    "premiumSubtitle": "Advanced statistics and insights for Premium users",
+    "quickActions": "Quick Actions",
+    "quickActionsDesc": "Frequently used functions",
+    "stats": {
+      "products": "Products",
+      "productsDesc": "In inventory",
+      "customers": "Customers",
+      "customersDesc": "Active profiles",
+      "sales": "Sales",
+      "salesDesc": "Paid sales",
+      "pending": "pending",
+      "cancelled": "cancelled",
+      "revenue": "Revenue",
+      "revenueDesc": "Ø {amount} / sale",
+      "revenueNote": "Paid sales only"
+    },
+    "actions": {
+      "scanner": "Scanner",
+      "scannerDesc": "Barcode Scan",
+      "product": "Product",
+      "productDesc": "Add new",
+      "customers": "Customers",
+      "customersDesc": "Manage",
+      "invoice": "Invoice",
+      "invoiceDesc": "Sale",
+      "importExport": "Import/Export",
+      "importExportDesc": "Excel",
+      "soldItems": "Sold Items",
+      "soldItemsDesc": "Overview",
+      "barcode": "Barcode Creator",
+      "barcodeDesc": "Codebar",
+      "goodsIn": "Goods Receipt",
+      "goodsInDesc": "Add items",
+       "salesChart": "Sales Chart",
+      "salesChartDescription": "View your sales and statistics"
+    },
+    "profile": {
+      "email": "Email:",
+      "date": "Date:",
+      "sales": "Sales:",
+      "userId": "User ID:",
+      "paid": "paid"
+    },
+    "tips": {
+      "title": "💡 Tips & Hints",
+      "tip1": "Use the scanner for quick sales",
+      "tip2": "Export your data regularly",
+      "tip3": "Check sales statistics monthly",
+      "upgrade": "Upgrade to Premium",
+      "upgradeDesc": "for advanced analytics",
+      "upgradeButton": "Upgrade now"
+    }
+  }
+}

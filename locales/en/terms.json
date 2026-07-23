@@ -1,0 +1,102 @@
+{
+  "terms": {
+    "title": "Terms and Conditions",
+    "effectiveDate": "Last updated: {{date}}",
+    "backButton": "← Back",
+    "sections": {
+      "scope": {
+        "title": "1. Scope",
+        "paragraphs": [
+          "These Terms and Conditions (T&C) apply to all agreements between stocker GmbH (hereinafter the \"Provider\") and the users (hereinafter the \"Customers\") of the Stocker platform.",
+          "The platform provides data-driven analysis and decision support for businesses. By registering or using the services, customers accept these Terms and Conditions as binding."
+        ]
+      },
+      "description": {
+        "title": "2. Description of Services",
+        "intro": "stocker provides a cloud-based platform with the following features:",
+        "items": [
+          "Integration of data from multiple sources",
+          "Advanced data analysis and visualization",
+          "Forecasting models and AI-powered analytics",
+          "Reports and dashboard functions",
+          "API access for external integrations"
+        ],
+        "outro": "The specific scope of services depends on the selected service package."
+      },
+      "registration": {
+        "title": "3. Registration and User Account",
+        "paragraphs": [
+          "Registration is required to use the platform. The customer agrees to provide accurate and complete information.",
+          "The customer is responsible for the security of their access credentials and must report any unauthorized use immediately. The provider is entitled to temporarily suspend accounts if misuse is suspected."
+        ]
+      },
+      "termination": {
+        "title": "4. Contract Duration and Termination",
+        "paragraphs": [
+          "The contract duration depends on the selected billing model (monthly or yearly).",
+          "Termination periods:"
+        ],
+        "items": [
+          "Monthly contracts: 30 days before the end of the month",
+          "Annual contracts: 90 days before the end of the contract"
+        ],
+        "outro": "The right to terminate without notice for good cause remains unaffected for both parties."
+      },
+      "cancellation": {
+        "title": "5. Right to Cancel at Any Time",
+        "paragraphs": [
+          "The customer has the right to cancel the contract at any time without observing a notice period.",
+          "Upon cancellation, the customer's payment obligation is suspended from the time of cancellation. Payments already made for the current billing period will be refunded proportionally.",
+          "This rule applies to all contract types and billing models. The customer is not required to provide a reason for cancellation and no additional fees will be charged.",
+          "Cancellation may be submitted in writing by email to rysermariano@gmail.com or through the customer portal. After cancellation, the customer will continue to have access to their data for a period of 30 days in order to export it."
+        ]
+      },
+      "payment": {
+        "title": "6. Prices and Payment",
+        "paragraphs": [
+          "All prices are stated in euros plus the applicable statutory value-added tax. Invoices are issued electronically and must be paid within 14 days.",
+          "In the event of late payment, the provider reserves the right to restrict or temporarily suspend access to the platform."
+        ]
+      },
+      "privacy": {
+        "title": "7. Data Protection and Security",
+        "paragraphs": [
+          "The provider commits to complying with the General Data Protection Regulation (GDPR) and all applicable data protection laws.",
+          "Customer data is stored in secure data centers within Germany. Further details are governed by the separate privacy policy."
+        ]
+      },
+      "warranty": {
+        "title": "8. Warranty and Liability",
+        "paragraphs": [
+          "The provider ensures the contractual operation of the platform and aims for an average monthly availability of 99.5%.",
+          "The provider’s liability is limited to intent and gross negligence. In cases of slight negligence, the provider is only liable for the breach of essential contractual obligations."
+        ]
+      },
+      "intellectual": {
+        "title": "9. Intellectual Property",
+        "paragraphs": [
+          "All rights to the platform, including software, algorithms and documentation, remain with the provider.",
+          "The customer receives a simple, non-transferable right of use for the duration of the contract."
+        ]
+      },
+      "final": {
+        "title": "10. Final Provisions",
+        "paragraphs": [
+          "German law applies, excluding the UN Convention on Contracts for the International Sale of Goods. The place of jurisdiction is the provider’s registered office.",
+          "Changes to these Terms and Conditions will be communicated to customers at least 30 days before they take effect. An objection entitles the customer to ordinary termination."
+        ]
+      }
+    },
+    "contact": {
+      "title": "Contact",
+      "company": "Stocker Systems AG",
+      "address": [
+        "Hohlstrasse 405",
+        "8048 Zurich",
+        "Switzerland"
+      ],
+      "email": "rysermariano@gmail.com",
+      "phone": "+41 788 74 79 74"
+    }
+  }
+}

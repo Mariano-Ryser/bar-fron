@@ -1,0 +1,199 @@
+{
+  "privacy": {
+    "title": "Política de Privacidad",
+    "effectiveDate": "Última actualización: {{date}}",
+    "backButton": "← Volver",
+    "intro": "Esta política de privacidad le informa sobre la naturaleza, el alcance y la finalidad del tratamiento de los datos personales dentro de nuestros servicios en línea y los sitios web, funciones y contenidos asociados.",
+
+    "sections": {
+      "responsible": {
+        "title": "1. Responsable",
+        "text": "Responsable del tratamiento de datos:",
+     "company": "Stockercloud AG",
+        "address1": "Hohlstrasse 405",
+        "address2": "Altstetten",
+        "address3": "Suiza",
+        "email": "Email: rysermariano@gmail.com",
+        "phone": "Telefon: +41 788 74 79 74"
+      },
+
+      "principles": {
+        "title": "2. Principios del tratamiento de datos",
+        "text": "Tratamos los datos personales según los siguientes principios:",
+        "items": {
+          "lawfulness": "Legalidad: Tratamiento conforme a la legislación",
+          "goodFaith": "Buena fe: Procesamiento transparente",
+          "purpose": "Limitación de finalidad: Datos solo para fines definidos",
+          "minimization": "Minimización de datos: Solo se recopilan los datos necesarios",
+          "storage": "Limitación de almacenamiento: Conservación limitada en el tiempo",
+          "integrity": "Integridad y confidencialidad: Protección de los datos"
+        }
+      },
+
+      "dataTypes": {
+        "title": "3. Tipos de datos tratados",
+
+        "inventory": {
+          "title": "3.1 Datos de registro",
+          "items": {
+            "name": "Nombre y apellido",
+            "email": "Dirección de correo electrónico",
+            "company": "Nombre de la empresa",
+            "position": "Cargo en la empresa",
+            "contact": "Datos de contacto"
+          }
+        },
+
+        "usage": {
+          "title": "3.2 Datos de uso",
+          "items": {
+            "ip": "Direcciones IP",
+            "access": "Horarios de acceso",
+            "functions": "Funciones utilizadas",
+            "device": "Información del dispositivo",
+            "browser": "Tipo y versión del navegador"
+          }
+        },
+
+        "content": {
+          "title": "3.3 Datos de contenido",
+          "items": {
+            "uploads": "Datos y documentos subidos",
+            "analytics": "Análisis e informes",
+            "settings": "Configuraciones y preferencias"
+          }
+        }
+      },
+
+      "purposes": {
+        "title": "4. Finalidades del tratamiento",
+        "items": {
+          "platform": "Proporcionar las funcionalidades de la plataforma",
+          "authentication": "Autenticación y control de acceso",
+          "support": "Atención y soporte al cliente",
+          "billing": "Facturación y gestión de pagos",
+          "improvement": "Mejora de nuestros servicios",
+          "legal": "Cumplimiento de obligaciones legales",
+          "security": "Prevención de fraude y seguridad"
+        }
+      },
+
+      "legalBasis": {
+        "title": "5. Bases legales del tratamiento",
+        "text": "El tratamiento de sus datos se basa en:",
+        "items": {
+          "consent": "Art. 6 (1) (a) RGPD: Consentimiento",
+          "contract": "Art. 6 (1) (b) RGPD: Ejecución de contrato",
+          "legal": "Art. 6 (1) (c) RGPD: Obligación legal",
+          "interest": "Art. 6 (1) (f) RGPD: Interés legítimo"
+        }
+      },
+
+      "thirdParties": {
+        "title": "6. Cesión de datos a terceros",
+        "text": "Sus datos solo se compartirán:",
+        "items": {
+          "hosting": "Con proveedores de hosting y mantenimiento",
+          "payment": "Con proveedores de pago para transacciones",
+          "authorities": "Con autoridades cuando exista obligación legal",
+          "business": "En caso de venta o reestructuración de la empresa"
+        },
+        "note": "Todos los proveedores están sujetos a estrictas obligaciones contractuales de protección de datos."
+      },
+
+      "international": {
+        "title": "7. Transferencias internacionales",
+        "text": "Sus datos se procesan generalmente dentro de la UE/EEE. Si se procesan fuera de esta área, será únicamente:",
+        "items": {
+          "adequacy": "Con decisión de adecuación de la Comisión Europea",
+          "guarantees": "Con garantías adecuadas (por ejemplo cláusulas contractuales estándar)",
+          "consent": "Con su consentimiento explícito"
+        }
+      },
+
+      "security": {
+        "title": "8. Seguridad de los datos",
+        "text": "Aplicamos amplias medidas técnicas y organizativas:",
+        "items": {
+          "encryption": "Transmisión cifrada de datos (TLS/SSL)",
+          "updates": "Actualizaciones de seguridad periódicas",
+          "access": "Controles de acceso y autenticación",
+          "audits": "Auditorías de seguridad regulares",
+          "backups": "Copias de seguridad y planes de recuperación"
+        },
+        "note": "Nuestros servidores están ubicados en centros de datos certificados ISO 27001 en Alemania."
+      },
+
+      "storage": {
+        "title": "9. Conservación de datos",
+        "text": "Los datos personales solo se almacenan el tiempo necesario:",
+        "items": {
+          "account": "Datos de cuenta: Hasta cancelación + 3 años",
+          "usage": "Datos de uso: 24 meses",
+          "invoices": "Datos de facturación: 10 años (obligación legal)",
+          "analytics": "Datos analíticos: 90 días después de finalizar el contrato"
+        }
+      },
+
+      "rights": {
+        "title": "10. Sus derechos",
+        "text": "Según el RGPD usted tiene los siguientes derechos:",
+        "items": {
+          "information": "Derecho de acceso: conocer los datos almacenados",
+          "correction": "Derecho de rectificación: corregir datos incorrectos",
+          "deletion": "Derecho de supresión: solicitar eliminación de datos",
+          "restriction": "Derecho a la limitación del tratamiento",
+          "objection": "Derecho de oposición al tratamiento",
+          "portability": "Derecho a la portabilidad de los datos",
+          "complaint": "Derecho a presentar una reclamación ante la autoridad"
+        }
+      },
+
+      "cookies": {
+        "title": "11. Cookies y seguimiento",
+        "text": "Utilizamos los siguientes tipos de cookies:",
+        "table": {
+          "headers": {
+            "type": "Tipo de cookie",
+            "purpose": "Finalidad",
+            "duration": "Duración"
+          },
+          "rows": {
+            "necessary": {
+              "type": "Cookies necesarias",
+              "purpose": "Funcionalidad básica de la plataforma",
+              "duration": "Sesión"
+            },
+            "preference": {
+              "type": "Cookies de preferencias",
+              "purpose": "Guardar configuraciones del usuario",
+              "duration": "1 año"
+            },
+            "statistics": {
+              "type": "Cookies estadísticas",
+              "purpose": "Análisis de uso (anonimizado)",
+              "duration": "24 meses"
+            }
+          }
+        }
+      },
+
+      "contact": {
+        "title": "12. Contacto",
+        "text": "Si tiene preguntas sobre protección de datos:",
+        "officer": {
+          "title": "Responsable de protección de datos",
+          "name": "Mariano Ryser",
+          "email": "Email: rysermariano@gmail.com",
+          "phone": "Teléfono: +41 (0)78 874 79 74"
+        },
+        "authority": {
+          "title": "Autoridad de supervisión",
+          "name": "Comisionado de Protección de Datos de Berlín",
+          "address1": "Friedrichstraße 219",
+          "address2": "10969 Berlín"
+        }
+      }
+    }
+  }
+}

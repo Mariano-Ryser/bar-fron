@@ -1,0 +1,61 @@
+{
+  "index": {
+    "welcome": "Willkommen zurück,",
+    "loading": "Dashboard wird geladen...",
+    "refresh": "Aktualisieren",
+    "premiumBadge": "PREMIUM",
+    "premiumTitle": "Analytics Dashboard",
+    "premiumSubtitle": "Erweiterte Statistiken und Einblicke für Premium-Benutzer",
+    "quickActions": "Schnellaktionen",
+    "quickActionsDesc": "Häufig genutzte Funktionen",
+    "stats": {
+      "products": "Produkte",
+      "productsDesc": "Im Inventar",
+      "customers": "Kunden",
+      "customersDesc": "Aktive Profile",
+      "sales": "Verkäufe",
+      "salesDesc": "Bezahlte Verkäufe",
+      "pending": "ausstehend",
+      "cancelled": "storniert",
+      "revenue": "Umsatz",
+      "revenueDesc": "Ø {amount} / Verkauf",
+      "revenueNote": "Nur bezahlte Verkäufe"
+    },
+    "actions": {
+      "scanner": "Scanner",
+      "scannerDesc": "Barcode Scan",
+      "product": "Produkt",
+      "productDesc": "Neu erfassen",
+      "customers": "Kunden",
+      "customersDesc": "Verwalten",
+      "invoice": "Rechnung",
+      "invoiceDesc": "Verkauf",
+      "importExport": "Import/Export",
+      "importExportDesc": "Excel",
+      "soldItems": "Verkaufte Artikel",
+      "soldItemsDesc": "Übersicht",
+      "barcode": "Barcode Creator",
+      "barcodeDesc": "Codebar",
+      "goodsIn": "Wareneingang",
+      "goodsInDesc": "Artikel hinzufügen",
+       "salesChart": "Verkaufsdiagramm",
+      "salesChartDescription": "Visualisiere deine Verkäufe und Statistiken"
+    },
+    "profile": {
+      "email": "Email:",
+      "date": "Datum:",
+      "sales": "Verkäufe:",
+      "userId": "Benutzer-ID:",
+      "paid": "bezahlt"
+    },
+    "tips": {
+      "title": "💡 Tipps & Hinweise",
+      "tip1": "Verwende den Scanner für schnelle Verkäufe",
+      "tip2": "Exportiere regelmäßig deine Daten",
+      "tip3": "Überprüfe die Verkaufsstatistiken monatlich",
+      "upgrade": "Upgrade auf Premium",
+      "upgradeDesc": "für erweiterte Analytics",
+      "upgradeButton": "Jetzt upgraden"
+    }
+  }
+}

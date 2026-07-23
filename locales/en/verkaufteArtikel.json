@@ -1,0 +1,92 @@
+{
+  "verkaufteArtikel": {
+    "title": "Sold Items",
+    "subtitle": "Overview of all sold items",
+    "loading": "Loading sold items...",
+    "loadingData": "Loading sales data...",
+    "loadingShort": "Loading...",
+    "error": {
+      "general": "Error",
+      "title": "Error loading items",
+      "loadFailed": "Failed to load items"
+    },
+    "actions": {
+      "retry": "Retry",
+      "refresh": "Refresh",
+      "clearFilters": "Clear filters",
+      "loadMore": "Load more ({remaining})"
+    },
+    "stats": {
+      "revenue": "Revenue",
+      "units": "Units",
+      "articles": "Items",
+      "items": "items",
+      "of": "of"
+    },
+    "filters": {
+      "product": "Search item...",
+      "client": "Customer",
+      "lieferschein": "Delivery note",
+      "dateFrom": "From",
+      "dateTo": "To",
+      "dateSeparator": "—",
+      "showCancelled": "Show cancelled",
+      "showPending": "Show pending"
+    },
+    "table": {
+      "article": "Item",
+      "quantity": "Quantity",
+      "price": "Price",
+      "total": "Total",
+      "client": "Customer",
+      "date": "Date",
+      "lieferschein": "Delivery note: {number}"
+    },
+    "excel": {
+      "date": "Date",
+      "time": "Time",
+      "article": "Item",
+      "quantity": "Quantity",
+      "unitPrice": "Unit Price",
+      "total": "Total",
+      "client": "Customer",
+      "email": "Email",
+      "lieferschein": "Delivery Note",
+      "status": "Status"
+    },
+    "card": {
+      "client": "Customer:",
+      "lieferschein": "Delivery note:",
+      "date": "Date:",
+      "price": "Price:",
+      "total": "Total:"
+    },
+    "view": {
+      "table": "Table View",
+      "excel": "Excel View",
+      "cards": "Card View"
+    },
+    "client": {
+      "unknown": "Unknown customer"
+    },
+    "empty": {
+      "notFound": {
+        "title": "No items found",
+        "text": "No results for your search criteria"
+      },
+      "noSales": {
+        "title": "No sold items",
+        "text": "No items have been sold yet"
+      }
+    },
+    "status": {
+      "paid": "Paid",
+      "cancelled": "Cancelled",
+      "pending": "Pending"
+    },
+    "pagination": {
+      "showing": "Showing {count} of {total} items",
+      "pageInfo": "Page {current} of {total}"
+    }
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "sales": {
+    "title": "Facturas",
+    "subtitle": "Gestiona tus facturas y ventas",
+    "loading": {
+      "auth": "Cargando autenticación...",
+      "invoices": "Cargando facturas...",
+      "short": "Cargando..."
+    },
+    "error": {
+      "general": "Error",
+      "title": "Error al cargar las facturas",
+      "loadFailed": "Error al cargar las facturas"
+    },
+    "actions": {
+      "new": "Nueva Factura",
+      "retry": "Reintentar",
+      "resetFilters": "Limpiar todos los filtros",
+      "createFirst": "Crear primera factura",
+      "loadMore": "Cargar más facturas ({remaining} disponibles)",
+      "stock": "Ver movimientos de stock",
+      "view": "Ver",
+      "delete": "Eliminar",
+      "confirmDelete": "¿Estás seguro de que deseas eliminar esta factura?"
+    },
+    "buttons": {
+      "stock": "Stock",
+      "edit": "Editar"
+    },
+    "search": {
+      "placeholder": "Buscar cliente o número de factura...",
+      "results": "{visible} de {total} facturas",
+      "moreAvailable": " ({remaining} más disponibles)",
+      "clear": "Limpiar búsqueda"
+    },
+    "filter": {
+      "allStatus": "Todos los estados",
+      "status": "Estado",
+      "date": "Fecha",
+      "sortBy": "Ordenar por",
+      "clear": "Limpiar filtros",
+      "apply": "Aplicar filtros",
+      "dateFrom": "Fecha desde",
+      "dateTo": "Fecha hasta",
+      "dateRange": "Rango de fechas"
+    },
+    "sort": {
+      "newest": "Más recientes primero",
+      "oldest": "Más antiguas primero",
+      "priceHigh": "Precio: Mayor a Menor",
+      "priceLow": "Precio: Menor a Mayor",
+      "clientAZ": "Cliente: A-Z",
+      "clientZA": "Cliente: Z-A",
+      "price": "Precio",
+      "client": "Cliente",
+      "date": "Fecha"
+    },
+    "status": {
+      "paid": "Pagada",
+      "cancelled": "Cancelada",
+      "pending": "Pendiente",
+      "all": "Todos los estados"
+    },
+    "table": {
+      "date": "Fecha",
+      "client": "Cliente",
+      "invoiceNumber": "Albarán",
+      "total": "Total",
+      "status": "Estado",
+      "actions": "Acciones"
+    },
+    "excel": {
+      "date": "Fecha",
+      "time": "Hora",
+      "client": "Cliente",
+      "invoiceNumber": "N° Factura",
+      "subtotal": "Subtotal",
+      "tax": "IVA",
+      "total": "Total",
+      "status": "Estado",
+      "actions": "Acciones"
+    },
+    "view": {
+      "table": "Vista Tabla",
+      "excel": "Vista Excel",
+      "cards": "Vista Tarjetas"
+    },
+    "client": {
+      "unknown": "Desconocido"
+    },
+    "empty": {
+      "notFound": {
+        "title": "No se encontraron facturas",
+        "text": "No hay resultados para tus criterios de búsqueda"
+      },
+      "noInvoices": {
+        "title": "No hay facturas",
+        "text": "Crea tu primera factura"
+      }
+    },
+    "pagination": {
+      "showing": "Mostrando {count} de {total} facturas",
+      "pageInfo": "Página {current} de {total}",
+      "page": "Página {current} de {total}"
+    },
+    "details": {
+      "invoice": "Factura",
+      "items": "Artículos",
+      "total": "Total",
+      "subtotal": "Subtotal",
+      "tax": "Impuesto",
+      "customer": "Cliente",
+      "payment": "Pago",
+      "notes": "Notas"
+    },
+    "modalMovements": {
+      "title": "Movimientos de Stock",
+      "loading": "Cargando movimientos...",
+      "error": "Error",
+      "noMovements": "No hay movimientos de stock para esta factura",
+      "invoiceNumber": "Albarán",
+      "customer": "Cliente",
+      "total": "Total",
+      "types": {
+        "WAREHOUSE_OUT": "Salida (Venta)",
+        "RETURN": "Devolución",
+        "MANUAL_ADJUSTMENT": "Ajuste manual"
+      },
+      "table": {
+        "date": "Fecha",
+        "product": "Producto",
+        "type": "Tipo",
+        "quantity": "Cantidad",
+        "stock": "Stock"
+      }
+    }
+  }
+}

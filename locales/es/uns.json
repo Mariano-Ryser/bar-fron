@@ -1,0 +1,50 @@
+{
+  "uns": {
+    "title": "Sobre Nosotros | Soluciones SaaS Innovadoras para tu Empresa",
+    "description": "Descubre nuestra empresa: expertos en desarrollo, mantenimiento y consultoría SaaS. Profesionalismo e innovación para tu transformación digital.",
+    "keywords": "SaaS, Desarrollo de Software, Soluciones Cloud, Digitalización, Consultoría, Servicios IT",
+    "ogTitle": "Sobre Nosotros | Soluciones SaaS Profesionales",
+    "ogDescription": "Conoce más sobre nuestro equipo experimentado y nuestra experiencia en soluciones SaaS modernas.",
+    "heroTitle": "Sobre Nosotros",
+    "heroSubtitle": "Innovación, profesionalismo y excelencia en soluciones SaaS modernas",
+    "heroButton": "Contáctanos",
+    "section1Title": "Quiénes Somos",
+    "section1Text1": "Como empresa líder en SaaS, combinamos experiencia tecnológica con un profundo conocimiento del sector. Nuestro equipo de desarrolladores, consultores y estrategas trabaja con pasión en la transformación digital de nuestros clientes.",
+    "section1Text2": "Creemos que un gran software no solo debe ser funcional, sino también intuitivo, escalable y preparado para el futuro. Con este enfoque, ayudamos a las empresas a optimizar sus procesos y a crear ventajas competitivas sostenibles.",
+    "section2Title": "Qué Hacemos",
+    "services": {
+      "development": {
+        "title": "Desarrollo",
+        "text": "Soluciones SaaS a medida utilizando tecnologías de última generación. Desarrollamos aplicaciones robustas, escalables y centradas en el usuario, adaptadas a las necesidades de tu negocio."
+      },
+      "maintenance": {
+        "title": "Mantenimiento y Soporte",
+        "text": "Soporte continuo, actualizaciones de seguridad y optimización del rendimiento. Garantizamos máxima disponibilidad y éxito a largo plazo de tus soluciones de software."
+      },
+      "consulting": {
+        "title": "Consultoría Estratégica",
+        "text": "Estrategias de digitalización integrales para un éxito sostenible. Analizamos tus procesos y desarrollamos soluciones personalizadas para tu transformación digital."
+      }
+    },
+    "section3Title": "Nuestra Profesionalidad",
+    "section3Text": "La profesionalidad es la base de nuestro trabajo. Aplicamos metodologías probadas, comunicación transparente y los más altos estándares de calidad en cada etapa del proyecto.",
+    "professionalList1": "Desarrollo ágil con metodologías Scrum y Kanban",
+    "professionalList2": "Procesos transparentes con actualizaciones y revisiones periódicas",
+    "professionalList3": "Protección de datos y seguridad según estándares GDPR e ISO 27001",
+    "professionalList4": "Arquitecturas cloud-native para máxima escalabilidad",
+    "professionalList5": "Soporte empresarial 24/7 con SLAs garantizados",
+    "professionalList6": "Mejora continua e innovación constante",
+    "section4Title": "Nuestro equipo",
+    "section4Subtitle": "Detrás de cada solución innovadora hay expertos comprometidos que combinan pasión por la tecnología con un profundo conocimiento.",
+    "team": {
+     "member1": {
+        "name": "Mariano Ryser",
+        "role": "Fundador & Desarrollador Principal",
+        "bio": "Fundador y desarrollador principal de la plataforma. Responsable del diseño, desarrollo y mantenimiento completo de la aplicación, desde la arquitectura backend hasta la implementación del frontend. Especializado en sistemas SaaS escalables, soluciones en la nube y desarrollo de software orientado a negocios."
+      }
+    },
+    "ctaTitle": "Comienza tu Transformación Digital",
+    "ctaText": "Contáctanos para una consulta sin compromiso. Juntos desarrollaremos la solución SaaS perfecta para tu empresa.",
+    "ctaButton": "Agendar una Reunión"
+  }
+}

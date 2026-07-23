@@ -1,0 +1,84 @@
+{
+  "stockMovements": {
+    "title": "Lagerbewegungen",
+    "subtitle": "Ein- und Ausgänge im Detail",
+    "loading": "Lade Bewegungen…",
+    "loadingAuth": "Lade…",
+    "error": "Fehler beim Laden",
+    "noMovements": "Keine Bewegungen",
+    "refresh": "Aktualisieren",
+    "viewNotes": "Notiz anzeigen",
+    "filters": {
+      "allTypes": "Alle Typen",
+      "startDate": "Startdatum",
+      "endDate": "Enddatum",
+      "search": "Artikel suchen…",
+      "clear": "Löschen"
+    },
+    "table": {
+      "date": "Datum",
+      "article": "Artikel",
+      "type": "Typ",
+      "quantity": "Menge",
+      "stock": "Bestand",
+      "user": "Benutzer",
+      "reference": "Referenz"
+    },
+    "excel": {
+      "date": "Datum",
+      "article": "Artikel",
+      "articleNumber": "Artikel-Nr.",
+      "type": "Typ",
+      "quantity": "Menge",
+      "previousStock": "Vorheriger Bestand",
+      "newStock": "Neuer Bestand",
+      "user": "Benutzer",
+      "reference": "Referenz",
+      "notes": "Notizen"
+    },
+    "movementTypes": {
+      "WAREHOUSE_IN": {
+        "label": "Zugang",
+        "icon": "↓"
+      },
+      "WAREHOUSE_OUT": {
+        "label": "Abgang",
+        "icon": "↑"
+      },
+      "MANUAL_ADJUSTMENT": {
+        "label": "Manuelle Anpassung",
+        "icon": "✎"
+      },
+      "RETURN": {
+        "label": "Rückgabe",
+        "icon": "↩"
+      },
+      "DAMAGED": {
+        "label": "Beschädigt",
+        "icon": "⚠"
+      },
+      "INITIAL_STOCK": {
+        "label": "Anfangsbestand",
+        "icon": "●"
+      }
+    },
+    "pagination": {
+      "page": "Seite {current} von {total}",
+      "showing": "Zeige {count} von {total} Bewegungen",
+      "pageInfo": "Seite {current} von {total}"
+    },
+    "view": {
+      "table": "Tabellenansicht",
+      "excel": "Excel-Ansicht"
+    },
+    "notesModal": {
+      "title": "Bewegungsnotiz",
+      "article": "Artikel",
+      "date": "Datum",
+      "type": "Typ",
+      "note": "Notiz",
+      "noNote": "Keine Notiz verfügbar",
+      "close": "Schließen"
+    }
+  }
+}

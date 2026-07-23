@@ -1,0 +1,53 @@
+{
+  "pricing": {
+    "title": "Einfache Tarife, die mit deinem Unternehmen wachsen",
+    "subtitle": "Kostenlos starten in 2 Minuten. Keine Installation. Keine Verpflichtung.",
+    "monthly": "Monatlich",
+    "yearly": "Jährlich",
+    "month": "Monat",
+    "year": "Jahr",
+    "popular": "AM BELIEBTESTEN",
+    "subscribe": "Jetzt starten",
+    "trial": "14 Tage kostenlos testen • Keine Kreditkarte erforderlich",
+    "trialBtn": "Kostenlos testen",
+    "save": "Spare 2 Monate",
+    
+    "starter": {
+      "name": "Kostenlos-Modus",
+      "desc": "Zum Testen der App und ihrer Funktionen",
+      "f1": "Bis zu 1200 Produkte",
+      "f2": "Barcode-Scan",
+      "f3": "1 Benutzer",
+      "f4": "Basis-Support"
+    },
+    "basic": {
+      "name": "Basic",
+      "desc": "Ideal für kleine Läden und Einsteiger",
+      "f1": "Bis zu 1.000 Produkte",
+      "f2": "Barcode-Scan",
+      "f3": "5 Benutzer",
+      "f4": "Verkaufshistorie",
+      "f5": "Bestandsalarme"
+    },
+    "pro": {
+      "name": "Professional",
+      "desc": "Perfekt für wachsende Unternehmen 🚀",
+      "f1": "Bis zu 5.000 Produkte",
+      "f2": "Barcode-Scan",
+      "f3": "15 Benutzer",
+      "f4": "Erweiterte Berichte",
+      "f5": "Prioritäts-Support",
+      "f6": "E‑Commerce-Integration"
+    },
+    "enterprise": {
+      "name": "Enterprise",
+      "desc": "Maßgeschneiderte Lösungen für große Betriebe",
+      "f1": "Bis zu 10.000 Produkte",
+      "f2": "Unbegrenzte Benutzer",
+      "f3": "Individuelle API",
+      "f4": "24/7 aktiver Support",
+      "f5": "Dediziertes Onboarding",
+      "f6": "Implementierungsberatung"
+    }
+  }
+}

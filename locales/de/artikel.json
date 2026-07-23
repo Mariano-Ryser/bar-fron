@@ -1,0 +1,168 @@
+{
+  "artikel": {
+    "title": "Artikelliste",
+    "subtitle": "Verwalten Sie Ihre Produktliste",
+    "newArticle": "Neuer Artikel",
+    "view": {
+      "table": "Tabellenansicht",
+      "grid": "Rasteransicht",
+      "excel": "Excel-Ansicht"
+    },
+    "search": {
+      "placeholder": "Name oder Artikelnummer",
+      "button": "Suchen",
+      "activeSearch": "Aktive Suche: \"{term}\"",
+      "clear": "Suche löschen",
+      "results": "{count} Artikel angezeigt",
+      "resultsOf": "von {total} insgesamt",
+      "for": "für \"{term}\""
+    },
+    "filter": {
+      "stock": "Bestandsfilter:",
+      "all": "Alle Artikel",
+      "inStock": "Auf Lager (≥50)",
+      "lowStock": "Wenig Bestand (1-49)",
+      "outOfStock": "Nicht auf Lager (0)",
+      "sort": "Sortieren:",
+      "sortNone": "Standard",
+      "sortAsc": "Bestand: Aufsteigend ⬆️ (niedrig → hoch)",
+      "sortDesc": "Bestand: Absteigend ⬇️ (hoch → niedrig)",
+      "activeFilter": "Filter: {filter}",
+      "activeSort": "Sortierung: {sort}",
+      "filterInStock": "Auf Lager",
+      "filterLowStock": "Wenig Bestand",
+      "filterOutOfStock": "Nicht auf Lager",
+      "sortAscLabel": "Niedrig zu Hoch",
+      "sortDescLabel": "Hoch zu Niedrig",
+      "resetAll": "Alle Filter zurücksetzen",
+      "clear": "Löschen"
+    },
+    "table": {
+      "name": "Artikelname",
+      "lagerplatz": "Lagerplatz",
+      "number": "Nummer",
+      "price": "Preis",
+      "stock": "Bestand"
+    },
+    "excel": {
+      "totalValue": "Gesamtwert",
+      "status": "Status"
+    },
+    "card": {
+      "location": "📍 {location}",
+      "number": "N°: {number}",
+      "units": "Einheiten",
+      "unit": "Einheit"
+    },
+    "stock": {
+      "outOfStock": "Ausverkauft",
+      "lowStock": "Niedriger Bestand",
+      "inStock": "Auf Lager",
+      "status": {
+        "outOfStock": "Nicht auf Lager",
+        "lowStock": "Wenig Bestand",
+        "inStock": "Auf Lager"
+      }
+    },
+    "creator": {
+      "title": "Neuen Artikel erstellen",
+      "form": {
+        "artikelName": "Artikelname *",
+        "artikelNamePlaceholder": "Artikelname eingeben",
+        "lagerPlatz": "Lagerplatz",
+        "lagerPlatzPlaceholder": "z.B. A-12",
+        "artikelNumber": "Artikelnummer",
+        "artikelNumberPlaceholder": "z.B. 345-AB",
+        "bestand": "Bestand",
+        "price": "Preis",
+        "pricePlaceholder": "0.00",  
+        "lowStockThreshold": "Mindestbestand für Warnung",
+        "lowStockThresholdPlaceholder": "0",
+        "lowStockThresholdHelper": "Bei diesem Bestand wird eine Warnung angezeigt.",
+        "description": "Beschreibung",
+        "descriptionPlaceholder": "Produktbeschreibung...",
+        "image": "Bild",
+        "imageSelect": "📷 Bild auswählen",
+        "imageChange": "📷 Neues Bild auswählen",
+        "imageDelete": "🗑️ Bild löschen",
+        "imagePreview": "Bildvorschau",
+        "required": "Pflichtfeld"
+      },
+      "buttons": {
+        "cancel": "Abbrechen",
+        "create": "Artikel erstellen",
+        "creating": "Erstellen..."
+      },
+      "messages": {
+        "success": "Artikel erfolgreich erstellt",
+        "error": "Fehler beim Erstellen des Artikels",
+        "validation": {
+          "nameRequired": "Der Artikelname ist erforderlich",
+          "priceInvalid": "Ungültiger Preis",
+          "stockInvalid": "Ungültiger Bestand"
+        }
+      }
+    },
+    "editor": {
+      "title": "Artikel bearbeiten",
+      "buttons": {
+        "cancel": "Abbrechen",
+        "save": "Änderungen speichern",
+        "saving": "Speichern...",
+        "delete": "Artikel löschen",
+        "deleteConfirm": "Löschen bestätigen",
+        "deleteImage": "Bild löschen"
+      },
+      "messages": {
+        "success": "Artikel erfolgreich aktualisiert",
+        "error": "Fehler beim Aktualisieren des Artikels",
+        "deleteConfirm": "Sind Sie sicher, dass Sie diesen Artikel löschen möchten?",
+        "deleteWarning": "Diese Aktion kann nicht rückgängig gemacht werden.",
+        "deleteImageConfirm": "Möchten Sie das Bild wirklich löschen?",
+        "deleteSuccess": "Artikel erfolgreich gelöscht",
+        "deleteImageSuccess": "Bild erfolgreich gelöscht"
+      },
+      "barcode": "Barcode"
+    },
+    "loading": {
+      "auth": "Authentifizierung wird geladen...",
+      "products": "Laden..."
+    },
+    "empty": {
+      "restricted": {
+        "title": "Zugriff eingeschränkt",
+        "text": "Sie müssen sich anmelden, um Produkte zu sehen"
+      },
+      "notFound": {
+        "title": "Keine Artikel gefunden",
+        "text": "Keine Ergebnisse für \"{term}\"",
+        "textWithFilters": " mit den ausgewählten Filtern"
+      },
+      "noProducts": {
+        "title": "Keine Artikel vorhanden",
+        "text": "Erstellen Sie Ihren ersten Artikel"
+      },
+      "resetButton": "Alle Filter zurücksetzen"
+    },
+    "pagination": {
+      "page": "Seite {current} von {total}",
+      "total": "({total} Artikel insgesamt)"
+    },
+    "errors": {
+      "loadFailed": "Fehler beim Laden der Artikel"
+    },
+    "lowStockAlert": {
+      "title": "Produkte mit niedrigem Bestand",
+      "button": "Bestandswarnungen",
+      "globalThreshold": "Globaler Schwellenwert",
+      "thresholdDescription": "Produkte mit Bestand unter diesem Wert werden in der Warnung angezeigt",
+      "productsCount": "{count} Produkte müssen nachbestellt werden",
+      "reorder": "Nachbestellen",
+      "customThreshold": "Individueller Schwellenwert",
+      "useGlobal": "Globalen Wert verwenden ({threshold})",
+      "critical": "Kritisch",
+      "warning": "Warnung",
+      "normal": "Normal"
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "uns": {
+    "title": "About Us | Innovative SaaS Solutions for Your Business",
+    "description": "Discover our company: experts in SaaS development, maintenance, and consulting. Professionalism and innovation for your digital transformation.",
+    "keywords": "SaaS, Software Development, Cloud Solutions, Digitalization, Consulting, IT Services",
+    "ogTitle": "About Us | Professional SaaS Solutions",
+    "ogDescription": "Learn more about our experienced team and expertise in modern SaaS solutions.",
+    "heroTitle": "About Us",
+    "heroSubtitle": "Innovation, professionalism, and excellence in modern SaaS solutions",
+    "heroButton": "Contact Us",
+    "section1Title": "Who We Are",
+    "section1Text1": "As a leading SaaS company, we combine technological expertise with deep industry knowledge. Our team of experienced developers, consultants, and strategists works passionately on the digital transformation of our clients.",
+    "section1Text2": "We believe that great software must not only be functional, but also intuitive, scalable, and future-proof. With this approach, we help companies optimize their business processes and build sustainable competitive advantages.",
+    "section2Title": "What We Do",
+    "services": {
+      "development": {
+        "title": "Development",
+        "text": "Custom SaaS solutions using state-of-the-art technologies. We build robust, scalable, and user-centric applications tailored precisely to your business needs."
+      },
+      "maintenance": {
+        "title": "Maintenance & Support",
+        "text": "Continuous support, security updates, and performance optimization. We ensure maximum availability and long-term success of your software solutions."
+      },
+      "consulting": {
+        "title": "Strategic Consulting",
+        "text": "Holistic digitalization strategies for sustainable success. We analyze your processes and co-create tailored solutions for your digital transformation."
+      }
+    },
+    "section3Title": "Our Professionalism",
+    "section3Text": "Professionalism is the foundation of our work. We rely on proven methodologies, transparent communication, and the highest quality standards at every stage of the project.",
+    "professionalList1": "Agile development using Scrum & Kanban methodologies",
+    "professionalList2": "Transparent processes with regular updates & reviews",
+    "professionalList3": "Data protection & security according to GDPR & ISO 27001 standards",
+    "professionalList4": "Cloud-native architectures for maximum scalability",
+    "professionalList5": "24/7 enterprise support with guaranteed SLAs",
+    "professionalList6": "Continuous improvement and innovation",
+    "section4Title": "Our experts",
+    "section4Subtitle": "Behind every innovative solution is a dedicated team of experts combining passion for technology with deep expertise.",
+    "team": {
+      "member1": {
+        "name": "Mariano Ryser",
+        "role": "Founder & Lead Software Developer",
+        "bio": "Founder and lead developer of the platform. Responsible for the complete design, development, and maintenance of the application, from backend architecture to frontend implementation. Specialized in scalable SaaS systems, cloud-based solutions, and business-oriented software development."
+      }
+    },
+    "ctaTitle": "Start Your Digital Transformation",
+    "ctaText": "Contact us for a non-binding consultation. Together, we will develop the perfect SaaS solution for your business.",
+    "ctaButton": "Schedule a Call Now"
+  }
+}

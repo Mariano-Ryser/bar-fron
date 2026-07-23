@@ -1,0 +1,294 @@
+{
+  "common": {
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "save": "Guardar",
+    "close": "Cerrar",
+    "confirm": "Confirmar",
+    "loading": "Cargando...",
+    "noChanges": "Sin cambios",
+    "yes": "Sí",
+    "no": "No"
+  },
+  "settings": {
+    "title": "Configuración",
+    "subtitle": "Gestionar usuarios y perfil",
+    "tabs": {
+      "users": "Usuarios",
+      "profile": "Mi Perfil",
+      "company": "Empresa"
+    },
+    "alerts": {
+      "success": "Éxito",
+      "error": "Error"
+    },
+    "countries": {
+      "DE": "Alemania",
+      "CH": "Suiza",
+      "ES": "España",
+      "AR": "Argentina"
+    },
+    "currencies": {
+      "EUR": "€ Euro",
+      "CHF": "CHF Franco Suizo",
+      "USD": "$ Dólar Estadounidense",
+      "ARS": "$ Peso Argentino"
+    },
+    "timezones": {
+      "Europe/London": "Londres (GMT)",
+      "Europe/Zurich": "Zúrich (CET)",
+      "Europe/Berlin": "Berlín (CET)",
+      "Europe/Madrid": "Madrid (CET)",
+      "Europe/Helsinki": "Helsinki (EET)",
+      "America/New_York": "Nueva York (EST)",
+      "America/Chicago": "Chicago (CST)",
+      "America/Los_Angeles": "Los Ángeles (PST)",
+      "America/Argentina/Buenos_Aires": "Buenos Aires (ART)",
+      "America/Santiago": "Santiago (CLT)",
+      "Australia/Sydney": "Sídney (AEDT)"
+    },
+    "company": {
+      "tabs": {
+        "general": "Información General",
+        "tax": "Información Fiscal",
+        "bank": "Datos Bancarios"
+      },
+      "logo": {
+        "title": "Logo de la Empresa",
+        "noLogo": "No hay logo subido",
+        "select": "Seleccionar logo",
+        "upload": "Subir logo",
+        "uploading": "Subiendo...",
+        "remove": "Eliminar logo",
+        "help": "Tamaño recomendado: 300×300px. Máx 5MB. Formatos soportados: JPG, PNG, GIF, WebP.",
+        "errors": {
+          "invalidType": "Solo se permiten archivos de imagen (jpeg, jpg, png, gif, webp)",
+          "tooLarge": "La imagen no puede superar los 5MB",
+          "selectFile": "Por favor seleccione un logo",
+          "userNotLoaded": "Usuario no cargado. Por favor inicie sesión nuevamente.",
+          "uploadFailed": "Error al subir",
+          "deleteFailed": "Error al eliminar"
+        },
+        "confirmDelete": "¿Está seguro de que desea eliminar el logo?"
+      },
+      "data": {
+        "title": "Información de la Empresa",
+        "nameLabel": "Nombre de la empresa *",
+        "namePlaceholder": "Ej., Mi Empresa S.L.",
+        "legalName": "Razón Social",
+        "legalNamePlaceholder": "Nombre legal completo de la empresa",
+        "emailLabel": "Correo electrónico",
+        "emailPlaceholder": "info@miempresa.es",
+        "phoneLabel": "Teléfono",
+        "phonePlaceholder": "+34 123 456 789",
+        "website": "Sitio web",
+        "websitePlaceholder": "https://www.miempresa.es",
+        "currencyLabel": "Moneda principal",
+        "timezoneLabel": "Zona horaria",
+        "countryLabel": "País de facturación",
+        "countryHelp": "Los campos se adaptan a los requisitos legales de {country}",
+        
+        "taxRateLabel": "Tasa de IVA (%)",
+        "taxRateHelp": "Porcentaje de impuesto para este país (ej. 21 para España, 19 para Alemania, 8.1 para Suiza)",
+        
+        "unsaved": "Cambios sin guardar",
+        "noChanges": "No hay cambios para guardar",
+        "address": {
+          "title": "Dirección",
+          "street": "Calle",
+          "streetPlaceholder": "Nombre de la calle",
+          "number": "Número",
+          "numberPlaceholder": "123",
+          "complement": "Complemento",
+          "complementPlaceholder": "Edificio, piso, etc.",
+          "floor": "Piso",
+          "floorPlaceholder": "3º",
+          "apartment": "Departamento",
+          "apartmentPlaceholder": "A",
+          "interior": "Interior",
+          "interiorPlaceholder": "Int. 5",
+          "colonia": "Colonia",
+          "coloniaPlaceholder": "Nombre de la colonia",
+          "neighborhood": "Barrio",
+          "neighborhoodPlaceholder": "Nombre del barrio",
+          "urbanization": "Urbanización",
+          "urbanizationPlaceholder": "Nombre de la urbanización",
+          "zone": "Zona",
+          "zonePlaceholder": "Zona industrial",
+          "zipCode": "Código Postal",
+          "zipCodePlaceholder": "28001",
+          "city": "Ciudad",
+          "cityPlaceholder": "Madrid",
+          "state": "Provincia/Estado",
+          "statePlaceholder": "Madrid",
+          "province": "Provincia",
+          "provincePlaceholder": "Buenos Aires",
+          "region": "Región",
+          "regionPlaceholder": "Región Metropolitana",
+          "department": "Departamento",
+          "departmentPlaceholder": "Antioquia",
+          "district": "Distrito",
+          "districtPlaceholder": "Miraflores",
+          "county": "Condado",
+          "countyPlaceholder": "Middlesex",
+          "country": "País",
+          "countryPlaceholder": "España",
+          "preview": "Vista previa de la dirección:"
+        },
+        "bank": {
+          "title": "Datos Bancarios",
+          "bankName": "Nombre del banco",
+          "bankNamePlaceholder": "Ej., Banco Santander",
+          "iban": "IBAN",
+          "ibanPlaceholder": "ES00 0000 0000 0000 0000 0000",
+          "bic": "BIC / SWIFT",
+          "bicPlaceholder": "Ej., BSCHESMM",
+          "accountHolder": "Titular de la cuenta",
+          "accountHolderPlaceholder": "Nombre de la empresa o persona",
+          "accountNumberPlaceholder": "1234567890",
+          "bankCodePlaceholder": "1234",
+          "cbu": "CBU",
+          "cbuPlaceholder": "1234567890123456789012",
+          "alias": "Alias CBU",
+          "aliasPlaceholder": "miempresa.alias",
+          "currency": "Moneda de la cuenta",
+          "selectCurrency": "Seleccionar moneda",
+          "preview": "Vista previa de datos bancarios",
+          "errors": {
+            "ibanInvalidLength": "El IBAN debe tener entre 15 y 34 caracteres",
+            "ibanInvalidFormat": "Formato de IBAN inválido"
+          }
+        },
+        "tax": {
+          "title": "Información Fiscal",
+          "help": "Esta información es necesaria para la facturación en este país",
+          "taxId": "ID Fiscal",
+          "taxIdPlaceholder": "Ingrese ID fiscal",
+          "cuit": "CUIT",
+          "cuitPlaceholder": "20-12345678-9",
+          "ingresosBrutos": "Ingresos Brutos",
+          "ingresosBrutosPlaceholder": "123-456789-1",
+          "condicionIva": "Condición de IVA",
+          "condicionIvaPlaceholder": "Seleccionar condición",
+          "ivaConditions": {
+            "responsableInscripto": "Responsable Inscripto",
+            "monotributo": "Monotributista",
+            "exento": "Exento",
+            "consumidorFinal": "Consumidor Final"
+          },
+          "steuernummer": "Steuernummer",
+          "steuernummerPlaceholder": "123/456/78901",
+          "ustId": "USt-IdNr.",
+          "ustIdPlaceholder": "DE123456789",
+          "vatNumber": "Número de VAT",
+          "vatNumberPlaceholder": "GB123456789",
+          "companyRegister": "Registro Mercantil",
+          "companyRegisterPlaceholder": "HRB 12345",
+          "nif": "NIF",
+          "nifPlaceholder": "B12345678"
+        },
+        "submit": "Guardar información",
+        "saving": "Guardando...",
+        "errors": {
+          "nameRequired": "El nombre de la empresa es obligatorio",
+          "emailInvalid": "Correo electrónico inválido",
+          "updateFailed": "Error al actualizar la información"
+        },
+        "success": "✓ {message}"
+      },
+      "messages": {
+        "logoUploaded": "Logo subido correctamente",
+        "logoRemoved": "Logo eliminado correctamente",
+        "dataUpdated": "Información actualizada correctamente",
+        "noChanges": "No hay cambios para guardar"
+      }
+    },
+    "users": {
+      "title": "Gestión de Usuarios",
+      "limits": {
+        "title": "Límite de usuarios",
+        "max": "Máximo",
+        "created": "Creados",
+        "available": "Disponibles",
+        "reached": "Límite alcanzado",
+        "help": "Puede crear usuarios adicionales para su empresa. Cada usuario tiene acceso a los mismos productos y clientes.",
+        "ceoHelp": "Como CEO puede crear usuarios, activar/desactivar y ajustar límites."
+      },
+      "create": {
+        "title": "Nuevo Usuario",
+        "nameLabel": "Nombre completo *",
+        "namePlaceholder": "Ej., María García",
+        "emailLabel": "Correo electrónico *",
+        "emailPlaceholder": "ejemplo@empresa.es",
+        "passwordLabel": "Contraseña *",
+        "passwordPlaceholder": "Mínimo 6 caracteres",
+        "submit": "Crear usuario",
+        "submitting": "Creando...",
+        "errors": {
+          "nameRequired": "El nombre es obligatorio",
+          "emailRequired": "El correo es obligatorio",
+          "emailInvalid": "Correo electrónico inválido",
+          "passwordRequired": "La contraseña es obligatoria",
+          "passwordMin": "Mínimo 6 caracteres",
+          "userExists": "Ya existe un usuario con este correo",
+          "emailTaken": "Este correo ya está en uso",
+          "limitReached": "Límite de usuarios alcanzado. No se pueden crear más usuarios.",
+          "createFailed": "Error al crear el usuario",
+          "unexpected": "Ocurrió un error inesperado. Por favor intente nuevamente."
+        }
+      },
+      "list": {
+        "title": "Usuarios de la empresa",
+        "empty": {
+          "title": "No hay usuarios",
+          "text": "Cree el primer usuario para comenzar"
+        },
+        "table": {
+          "user": "Usuario",
+          "role": "Rol",
+          "status": "Estado",
+          "actions": "Acciones"
+        },
+        "roles": {
+          "ceo": "Director",
+          "admin": "Administrador",
+          "user": "Usuario"
+        },
+        "status": {
+          "active": "Activo",
+          "inactive": "Inactivo",
+          "you": "Usted"
+        },
+        "actions": {
+          "activate": "Activar",
+          "deactivate": "Desactivar",
+          "activateTitle": "Activar usuario",
+          "deactivateTitle": "Desactivar usuario",
+          "confirm": "¿Está seguro de que desea {action} este usuario?"
+        },
+        "noEmail": "Sin correo"
+      }
+    },
+    "profile": {
+      "title": "Mi Perfil",
+      "form": {
+        "nameLabel": "Nombre",
+        "languageLabel": "Idioma",
+        "submit": "Guardar cambios",
+        "saving": "Guardando...",
+        "errors": {
+          "userNotLoaded": "Usuario no cargado",
+          "updateFailed": "Error al actualizar el perfil"
+        }
+      },
+      "account": {
+        "title": "Información de la cuenta",
+        "memberSince": "Miembro desde:",
+        "companyId": "ID de empresa:",
+        "role": "Rol:",
+        "unknown": "Desconocido",
+        "noId": "Sin ID"
+      }
+    }
+  }
+}

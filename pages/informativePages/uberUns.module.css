@@ -1,0 +1,327 @@
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #f0f0f0; /* Background color while image loads */
+  margin-top:6rem;
+}
+
+.heroImageContainer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.heroImage {
+
+  object-position: center 20%; 
+  object-fit: cover;
+  
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.322),
+    rgba(0, 0, 0, 0.479)
+  );
+  z-index: 2;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 3;
+  max-width: 800px;
+  padding: 0 20px;
+  text-align: center; 
+}
+
+.heroContent h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: rgb(224, 224, 224);
+}
+
+.heroContent p {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  opacity: 0.95;
+  margin-bottom: 24px;
+  color: rgb(224, 224, 224);
+}
+
+.heroButton {
+  display: inline-block;
+  padding: 12px 32px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #000;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.heroButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* ===== SECTIONS ===== */
+.section {
+  max-width: 1100px;
+  margin: 0rem auto;
+  padding: 2rem 0px;
+}
+
+.sectionAlt {
+  background: #f8f9fb;
+  padding: 60px 20px;
+}
+
+.section h2,
+.sectionAlt h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.2rem);
+  font-weight: 700;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.section p,
+.sectionAlt p {
+  max-width: 800px;
+  margin: 0 auto 16px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+.subtitle {
+  text-align: center;
+  opacity: 0.85;
+  margin-bottom: 40px;
+}
+
+/* ===== NUEVOS ESTILOS PARA IMÁGENES ===== */
+.sectionImage {
+  margin: 20px auto 30px;
+  max-width: 700px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.responsiveImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.responsiveImage:hover {
+  transform: scale(1.02);
+}
+
+.profileImageContainer {
+  width: 130px;
+  height: 130px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.profileImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* ===== SERVICES ===== */
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  max-width: 1100px;
+  margin: 40px auto 0;
+}
+
+.serviceCard {
+  background: #fff;
+  border-radius: 14px;
+  padding: 28px 24px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.serviceCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.serviceCard h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.serviceCard p {
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.5;
+}
+
+/* ===== PROFESSIONAL LIST ===== */
+.professionalList {
+  max-width: 700px;
+  margin: 30px auto 0;
+  list-style: none;
+  padding: 0;
+}
+
+.professionalList li {
+  position: relative;
+  padding-left: 26px;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  color: #222;
+}
+
+.professionalList li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #1a73e8;
+  font-weight: bold;
+}
+
+/* ===== TEAM ===== */
+.teamCard {
+  max-width: 480px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 32px 28px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.teamCard h3 {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+}
+
+.teamCard span {
+  display: block;
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 16px;
+}
+
+.teamCard p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* ===== CTA ===== */
+.cta {
+  background: linear-gradient(135deg, #104386, #00a2fff1);
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.cta h2 {
+  color: #fff;
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  margin-bottom: 12px;
+}
+
+.cta p {
+  color: #fff;
+  font-size: 1rem;
+  max-width: 600px;
+  margin: 0 auto 24px;
+}
+
+.ctaButton {
+  display: inline-block;
+  background: #fff;
+  color: #000;
+  padding: 14px 36px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.ctaButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .hero {
+    height: 50vh;
+    min-height: 350px;
+  }
+
+  .section,
+  .sectionAlt {
+    padding: 40px 16px;
+  }
+
+  .serviceCard {
+    padding: 24px 20px;
+  }
+  
+  .profileImageContainer {
+    width: 110px;
+    height: 110px;
+  }
+  
+  .sectionImage {
+    max-width: 100%;
+    margin: 15px auto 25px;
+  }
+  
+  .heroContent h1 {
+    font-size: 2.2rem;
+  }
+  
+  .heroContent p {
+    font-size: 1rem;
+  }
+}
+
+/* Ajuste adicional para pantallas muy pequeñas */
+@media (max-width: 480px) {
+  /* ===== HERO ===== */
+.hero {
+ margin-top:4rem;
+ margin-bottom: -25px;
+}
+  .heroContent h1 {
+    font-size: 1.8rem;
+  }
+  
+  .heroContent p {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+  }
+  
+  .ctaButton {
+    padding: 12px 28px;
+  }
+}
