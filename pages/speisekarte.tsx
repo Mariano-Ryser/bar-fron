@@ -402,7 +402,7 @@ export default function Speisekarte() {
 
         /* Hero - Sin mucho margin */
         .hero-section {
-          padding: 1rem 2rem 3rem;
+          padding: 0rem 2rem 3rem;
           text-align: center;
         }
 

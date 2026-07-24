@@ -5,26 +5,29 @@ export default function HomeHero() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
   const [isContentVisible, setIsContentVisible] = useState(false);
+  const [isVideoEnded, setIsVideoEnded] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const videoRefs = useRef<{ [key: number]: HTMLVideoElement | null }>({});
+  const isTransitioningRef = useRef(false);
 
-  const images = [
-    { src: '/img/bar1w.webp', alt: 'Bar Ambiente 1' },
-    { src: '/img/bar22.jpg', alt: 'Bar Ambiente 2' },
-    { src: '/img/bar3.jpg', alt: 'Bar Ambiente 3' },
-    { src: '/img/bar44.jpg', alt: 'Bar Ambiente 4' },
-    { src: '/img/bar23.jpg', alt: 'Bar Ambiente 5' },
-    { src: '/img/bar5.jpg', alt: 'Bar Ambiente 6' }
+  // Define los elementos del carousel (imágenes y videos)
+  const slides = [
+    { type: 'image', src: '/img/bar1w.webp', alt: 'Bar Ambiente 1' },
+    { type: 'image', src: '/img/bar22.jpg', alt: 'Bar Ambiente 2' },
+    { type: 'image', src: '/img/bar33.jpg', alt: 'Bar Ambiente 3' },
+    { type: 'image', src: '/img/bar23.jpg', alt: 'Bar Ambiente 4' },
+    { type: 'image', src: '/img/bar5.jpg', alt: 'Bar Ambiente 5' },
+    { type: 'image', src: '/img/bar44.jpg', alt: 'Bar Ambiente 6' },
+    { type: 'video', src: '/img/videoPlato.mp4', alt: 'Video Plato' },
   ];
 
   useEffect(() => {
     startAutoPlay();
     
-    // Primero, mostrar el contenido después de un breve delay
     const contentTimer = setTimeout(() => {
       setIsContentVisible(true);
     }, 300);
 
-    // Luego, remover el estado de primera carga
     const loadTimer = setTimeout(() => {
       setIsFirstLoad(false);
     }, 2500);
@@ -33,29 +36,90 @@ export default function HomeHero() {
       if (timerRef.current) clearInterval(timerRef.current);
       clearTimeout(contentTimer);
       clearTimeout(loadTimer);
+      // Detener todos los videos al desmontar
+      Object.values(videoRefs.current).forEach(video => {
+        if (video) {
+          video.pause();
+          video.currentTime = 0;
+        }
+      });
     };
   }, []);
+
+  // Controlar reproducción de videos cuando cambia el slide
+  useEffect(() => {
+    // Resetear estado del video
+    setIsVideoEnded(false);
+    
+    // Detener todos los videos
+    Object.entries(videoRefs.current).forEach(([index, video]) => {
+      if (video) {
+        video.pause();
+        video.currentTime = 0;
+      }
+    });
+
+    // Reproducir el video actual si existe
+    const currentVideo = videoRefs.current[currentIndex];
+    if (currentVideo && slides[currentIndex].type === 'video') {
+      currentVideo.play().catch(err => {
+        console.log('Autoplay bloqueado:', err);
+      });
+    }
+  }, [currentIndex]);
+
+  // Manejador cuando el video termina
+  const handleVideoEnded = () => {
+    setIsVideoEnded(true);
+    // Esperar un momento y luego pasar al siguiente slide
+    setTimeout(() => {
+      if (!isTransitioningRef.current) {
+        goToNext();
+      }
+    }, 500); // Pequeña pausa para que se vea el final del video
+  };
 
   const startAutoPlay = () => {
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % images.length);
+      // Solo cambiar si no estamos en un video o si el video ya terminó
+      const currentSlide = slides[currentIndex];
+      if (currentSlide.type !== 'video' || isVideoEnded) {
+        if (!isTransitioningRef.current) {
+          goToNext();
+        }
+      }
     }, 5000);
   };
 
   const goToPrevious = () => {
-    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+    if (isTransitioningRef.current) return;
+    isTransitioningRef.current = true;
+    setCurrentIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
     resetTimer();
+    setTimeout(() => {
+      isTransitioningRef.current = false;
+    }, 1500);
   };
 
   const goToNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % images.length);
+    if (isTransitioningRef.current) return;
+    isTransitioningRef.current = true;
+    setCurrentIndex((prev) => (prev + 1) % slides.length);
     resetTimer();
+    setTimeout(() => {
+      isTransitioningRef.current = false;
+    }, 1500);
   };
 
   const goToSlide = (index: number) => {
+    if (isTransitioningRef.current || index === currentIndex) return;
+    isTransitioningRef.current = true;
     setCurrentIndex(index);
     resetTimer();
+    setTimeout(() => {
+      isTransitioningRef.current = false;
+    }, 1500);
   };
 
   const resetTimer = () => {
@@ -65,34 +129,74 @@ export default function HomeHero() {
     }
   };
 
+  // Renderizar cada slide (imagen o video)
+  const renderSlide = (slide: typeof slides[0], index: number) => {
+    const isActive = index === currentIndex;
+
+    if (slide.type === 'video') {
+      return (
+        <video
+          ref={(el) => { videoRefs.current[index] = el; }}
+          src={slide.src}
+          className="carousel-video"
+          muted
+          playsInline
+          preload="metadata"
+          loop={false}
+          onEnded={handleVideoEnded}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            opacity: isActive ? 1 : 0,
+            transition: 'opacity 0.5s ease',
+          }}
+        />
+      );
+    } else {
+      return (
+        <Image
+          src={slide.src}
+          alt={slide.alt}
+          fill
+          priority={index === 0}
+          quality={100}
+          sizes="100vw"
+          className="carousel-image"
+          style={{
+            objectFit: 'cover',
+          }}
+        />
+      );
+    }
+  };
+
   return (
     <section className="hero-carousel">
       <div className="carousel-container">
-        {images.map((image, index) => {
+        {slides.map((slide, index) => {
           const isFirstImage = index === 0 && isFirstLoad;
+          const isActive = index === currentIndex;
           
           return (
             <div
               key={index}
-              className={`carousel-slide ${index === currentIndex ? 'active' : ''} ${isFirstImage ? 'first-load' : ''}`}
+              className={`carousel-slide ${isActive ? 'active' : ''} ${isFirstImage ? 'first-load' : ''}`}
               style={{
-                opacity: index === currentIndex ? 1 : 0,
-                zIndex: index === currentIndex ? 2 : 1,
+                opacity: isActive ? 1 : 0,
+                zIndex: isActive ? 2 : 1,
+                transition: 'opacity 1.5s ease-in-out',
               }}
             >
-              <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                priority={index === 0}
-                quality={100}
-                sizes="100vw"
-                className="carousel-image"
-                style={{
-                  objectFit: 'cover',
-                }}
-              />
+              {renderSlide(slide, index)}
               <div className="image-overlay"></div>
+              
+              {/* Indicador de carga para videos */}
+              {slide.type === 'video' && isActive && (
+                <div className="video-indicator">
+                  <div className="video-progress"></div>
+                </div>
+              )}
             </div>
           );
         })}
@@ -111,12 +215,12 @@ export default function HomeHero() {
 
         {/* Dots */}
         <div className={`dots-container ${isContentVisible ? 'visible' : ''}`}>
-          {images.map((_, index) => (
+          {slides.map((_, index) => (
             <button
               key={index}
               className={`dot ${index === currentIndex ? 'active' : ''}`}
               onClick={() => goToSlide(index)}
-              aria-label={`Gehe zu Bild ${index + 1}`}
+              aria-label={`Gehe zu Slide ${index + 1}`}
             />
           ))}
         </div>
@@ -126,6 +230,7 @@ export default function HomeHero() {
           className={`nav-button prev ${isContentVisible ? 'visible' : ''}`}
           onClick={goToPrevious}
           aria-label="Vorheriges Bild"
+          disabled={isTransitioningRef.current}
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M15 18l-6-6 6-6"/>
@@ -136,6 +241,7 @@ export default function HomeHero() {
           className={`nav-button next ${isContentVisible ? 'visible' : ''}`}
           onClick={goToNext}
           aria-label="Nächstes Bild"
+          disabled={isTransitioningRef.current}
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M9 18l6-6-6-6"/>
@@ -169,7 +275,6 @@ export default function HomeHero() {
           bottom: 0;
           width: 100%;
           height: 100%;
-          transition: opacity 1.5s ease-in-out;
           will-change: opacity, transform;
         }
 
@@ -206,6 +311,13 @@ export default function HomeHero() {
           will-change: transform;
         }
 
+        .carousel-video {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          background: #000;
+        }
+
         .carousel-slide.active .carousel-image {
           animation: slowZoom 10s ease-in-out infinite;
         }
@@ -230,6 +342,33 @@ export default function HomeHero() {
           bottom: 0;
           background: rgba(0, 0, 0, 0.4);
           z-index: 3;
+        }
+
+        /* Video indicator */
+        .video-indicator {
+          position: absolute;
+          bottom: 80px;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 4;
+          width: 100px;
+          height: 3px;
+          background: rgba(255, 255, 255, 0.2);
+          border-radius: 2px;
+          overflow: hidden;
+        }
+
+        .video-progress {
+          height: 100%;
+          width: 0%;
+          background: white;
+          border-radius: 2px;
+          animation: videoProgress 5s linear forwards;
+        }
+
+        @keyframes videoProgress {
+          0% { width: 0%; }
+          100% { width: 100%; }
         }
 
         /* Hero Content - Mejorado */
@@ -379,11 +518,16 @@ export default function HomeHero() {
           pointer-events: auto;
         }
 
-        .nav-button:hover {
+        .nav-button:hover:not(:disabled) {
           background: rgba(255, 255, 255, 0.15);
           opacity: 1;
           transform: translateY(-50%) scale(1.1);
           border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-button:disabled {
+          opacity: 0.3;
+          cursor: not-allowed;
         }
 
         .nav-button.prev {
@@ -454,6 +598,11 @@ export default function HomeHero() {
           .logo-container {
             margin-bottom: 1rem;
           }
+
+          .video-indicator {
+            bottom: 60px;
+            width: 80px;
+          }
         }
 
         @media (max-width: 480px) {
@@ -496,6 +645,11 @@ export default function HomeHero() {
 
           .logo-container {
             margin-bottom: 0.75rem;
+          }
+
+          .video-indicator {
+            bottom: 50px;
+            width: 60px;
           }
         }
       `}</style>

@@ -442,7 +442,7 @@ export default function Kontakt() {
           width: 50px;
           height: 50px;
           border-radius: 50%;
-          background: rgba(255, 255, 255, 0.05);
+          background: rgba(153, 153, 153, 0.86);
           border: 1px solid rgba(255, 255, 255, 0.1);
           margin-bottom: 1rem;
           color: rgba(255, 255, 255, 0.6);

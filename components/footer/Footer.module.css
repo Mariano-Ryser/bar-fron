@@ -3,7 +3,6 @@
   color: #ffffff;
   padding: 4rem 2rem 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
- 
 }
 
 .container {
@@ -204,7 +203,7 @@
   color: rgba(255, 255, 255, 0.8);
 }
 
-/* CONTACT */
+/* CONTACT - Ajustes de centrado */
 .contact {
   gap: 1rem;
 }
@@ -220,21 +219,20 @@
 .contactItem svg {
   flex-shrink: 0;
   color: rgba(255, 255, 255, 0.4);
+  min-width: 18px;
 }
 
 .contactItem a {
   color: rgba(255, 255, 255, 0.6);
   text-decoration: none;
   transition: color 0.2s ease;
+  word-break: break-word;
 }
 
 .contactItem a:hover {
   color: #ffffff;
 }
 
-.contactItem span {
-  color: rgba(255, 255, 255, 0.6);
-}
 .day {
   font-weight: 600;
   color: rgba(255, 255, 255, 0.8);
@@ -312,14 +310,40 @@
   .column {
     align-items: center;
     text-align: center;
+    width: 100%;
   }
 
   .column ul {
     align-items: center;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  /* Ajuste específico para contacto en móvil */
+  .contact {
+    align-items: center;
+    width: 100%;
   }
 
   .contactItem {
     justify-content: center;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .contactItem a {
+    text-align: left;
+    flex: 1;
+  }
+
+  .openingHours {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .openingHours li {
+    justify-content: space-between;
+    width: 100%;
   }
 
   .bottom {
@@ -365,5 +389,21 @@
   .socialLink svg {
     width: 18px;
     height: 18px;
+  }
+
+  /* Ajustes extra para contacto en pantallas muy pequeñas */
+  .contactItem {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .contactItem svg {
+    min-width: 16px;
+  }
+
+  .contactItem a {
+    font-size: 0.85rem;
+    text-align: center;
   }
 }

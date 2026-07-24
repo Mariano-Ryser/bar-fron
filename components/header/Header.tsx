@@ -66,13 +66,12 @@ export default function Header() {
   const navItems = [
     // { href: "/bar", text: "Bar" },
     // { href: "/restaurant", text: "Restaurant" },
+    { href: "/firmenevents", text: "Firmenevents" },
     { href: "/speisekarte", text: "Speisekarte" },
     { href: "/getrenk", text: "Getränke" },
     { href: "/galerie", text: "Galerie" },
     { href: "/team", text: "Team" },
     // { href: "/events", text: "Events" },
-    // { href: "/team", text: "Team" },
-    // { href: "/galerie", text: "Galerie" },
     { href: "/kontakt", text: "Kontakt" },
   ];
 
