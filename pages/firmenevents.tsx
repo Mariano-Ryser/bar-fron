@@ -1,6 +1,22 @@
 import Image from 'next/image';
+import { useRef, useEffect } from 'react';
 
 export default function Firmenevents() {
+  const imageRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (imageRef.current) {
+        const scrolled = window.scrollY;
+        const rate = scrolled * 0.2; // Velocidad del parallax
+        imageRef.current.style.transform = `translateY(${rate}px)`;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="firmenevents-page">
       {/* Hero Section */}
@@ -12,24 +28,31 @@ export default function Firmenevents() {
         </div>
       </div>
 
-      {/* Intro Text + Image */}
-      <div className="section-with-image">
-        <div className="section-text">
-          <p className="intro-text">
-            Das <strong>Salotto</strong> bietet dir ein All-in-One-Eventlocation-Paket für erfolgreiche Firmenevents. 
-            Ob Team-Event, Kundenanlass oder Firmenfeier – unsere stilvolle Location schafft den perfekten Rahmen 
-            für unvergessliche Veranstaltungen. Vom entspannten Apéro bis zur ausgelassenen Party feiern Unternehmen 
-            bei uns unkompliziert und in besonderer Atmosphäre.
-          </p>
+      {/* Header Image con Parallax - 75% width */}
+      <div className="header-image-wrapper">
+        <div className="header-image-container">
+          <div className="header-image-inner" ref={imageRef}>
+            <Image
+              src="/img/event-1.png"
+              alt="Salotto Restaurant"
+              fill
+              style={{ objectFit: 'cover' }}
+              priority
+              className="header-image"
+            />
+          </div>
+          <div className="header-image-overlay"></div>
         </div>
-        <div className="section-image">
-          <Image
-            src="/img/event-1.jpg"
-            alt="Salotto Event Location"
-            fill
-            style={{ objectFit: 'cover' }}
-          />
-        </div>
+      </div>
+
+      {/* Intro Text */}
+      <div className="intro-section">
+        <p className="intro-text">
+          Das <strong>Salotto</strong> bietet dir ein All-in-One-Eventlocation-Paket für erfolgreiche Firmenevents. 
+          Ob Team-Event, Kundenanlass oder Firmenfeier – unsere stilvolle Location schafft den perfekten Rahmen 
+          für unvergessliche Veranstaltungen. Vom entspannten Apéro bis zur ausgelassenen Party feiern Unternehmen 
+          bei uns unkompliziert und in besonderer Atmosphäre.
+        </p>
       </div>
 
       {/* Event Types Grid */}
@@ -105,7 +128,7 @@ export default function Firmenevents() {
         </div>
         <div className="section-image">
           <Image
-            src="/img/event-3.jpg"
+            src="/img/event-3.png"
             alt="Event Konditionen"
             fill
             style={{ objectFit: 'cover' }}
@@ -133,7 +156,7 @@ export default function Firmenevents() {
 
         /* Hero */
         .hero-section {
-          padding: 0rem 2rem 3rem;
+          padding: 0rem 2rem 2rem;
           text-align: center;
         }
 
@@ -156,6 +179,72 @@ export default function Firmenevents() {
           height: 2px;
           background: rgba(255, 255, 255, 0.3);
           margin: 1rem auto 0;
+        }
+
+        /* Header Image - 65% width con Parallax */
+        .header-image-wrapper {
+          display: flex;
+          justify-content: center;
+          padding: 1rem 0 2rem;
+        }
+
+        .header-image-container {
+          position: relative;
+          width: 65%;
+          height: 50vh;
+          min-height: 350px;
+          max-height: 650px;
+          overflow: hidden;
+          background: #1a1a1a;
+        }
+
+        .header-image-inner {
+          position: relative;
+          width: 100%;
+          height: 120%; /* Más altura para el efecto parallax */
+          top: -10%;
+          will-change: transform;
+          transition: none;
+        }
+
+        .header-image {
+          transition: none;
+        }
+
+        .header-image-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.3) 0%,
+            transparent 50%,
+            transparent 100%
+          );
+          pointer-events: none;
+          z-index: 2;
+        }
+
+        /* Intro Section */
+        .intro-section {
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 3rem 2rem;
+          text-align: center;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .intro-text {
+          font-size: 1.05rem;
+          line-height: 1.8;
+          color: rgba(255, 255, 255, 0.7);
+          margin: 0;
+        }
+
+        .intro-text strong {
+          color: rgba(255, 255, 255, 0.9);
         }
 
         /* Section with Image */
@@ -205,24 +294,12 @@ export default function Firmenevents() {
           color: rgba(255, 255, 255, 0.9);
         }
 
-        .intro-text {
-          font-size: 1.05rem;
-          line-height: 1.8;
-          color: rgba(255, 255, 255, 0.7);
-          margin-bottom: 0;
-        }
-
-        .intro-text strong {
-          color: rgba(255, 255, 255, 0.9);
-        }
-
         .section-image {
           position: relative;
           width: 100%;
           aspect-ratio: 4/3;
           overflow: hidden;
           background: #1a1a1a;
-          /* sin border radius */
         }
 
         .section-image img {
@@ -387,6 +464,13 @@ export default function Firmenevents() {
 
         /* Responsive */
         @media (max-width: 1024px) {
+          .header-image-container {
+            width: 85%;
+            height: 45vh;
+            min-height: 300px;
+            max-height: 500px;
+          }
+
           .section-with-image {
             gap: 2rem;
             padding: 2rem 2rem;
@@ -403,7 +487,7 @@ export default function Firmenevents() {
           }
 
           .hero-section {
-            padding: 0.5rem 1rem 2rem;
+            padding: 0.5rem 1rem 1.5rem;
           }
 
           .hero-content h1 {
@@ -412,6 +496,30 @@ export default function Firmenevents() {
 
           .hero-content p {
             font-size: 1rem;
+          }
+
+          .header-image-wrapper {
+            padding: 0.5rem 0 1.5rem;
+          }
+
+          .header-image-container {
+            width: 92%;
+            height: 35vh;
+            min-height: 250px;
+            max-height: 400px;
+          }
+
+          .header-image-inner {
+            height: 130%;
+            top: -15%;
+          }
+
+          .intro-section {
+            padding: 2rem 1rem;
+          }
+
+          .intro-text {
+            font-size: 0.95rem;
           }
 
           .section-with-image {
@@ -433,10 +541,6 @@ export default function Firmenevents() {
           }
 
           .section-text p {
-            font-size: 0.95rem;
-          }
-
-          .intro-text {
             font-size: 0.95rem;
           }
 
@@ -497,15 +601,27 @@ export default function Firmenevents() {
             font-size: 0.9rem;
           }
 
+          .header-image-container {
+            width: 95%;
+            height: 30vh;
+            min-height: 200px;
+            max-height: 300px;
+          }
+
+          .header-image-inner {
+            height: 140%;
+            top: -20%;
+          }
+
+          .intro-text {
+            font-size: 0.9rem;
+          }
+
           .section-text h2 {
             font-size: 1.2rem;
           }
 
           .section-text p {
-            font-size: 0.9rem;
-          }
-
-          .intro-text {
             font-size: 0.9rem;
           }
 

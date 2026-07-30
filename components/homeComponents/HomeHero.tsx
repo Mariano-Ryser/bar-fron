@@ -12,10 +12,10 @@ export default function HomeHero() {
 
   // Define los elementos del carousel (imágenes y videos)
   const slides = [
-    { type: 'image', src: '/img/bar1w.webp', alt: 'Bar Ambiente 1' },
     { type: 'image', src: '/img/bar22.jpg', alt: 'Bar Ambiente 2' },
-    { type: 'image', src: '/img/bar33.jpg', alt: 'Bar Ambiente 3' },
     { type: 'image', src: '/img/bar23.jpg', alt: 'Bar Ambiente 4' },
+    { type: 'image', src: '/img/bar33.jpg', alt: 'Bar Ambiente 3' },
+    { type: 'image', src: '/img/bar1w.webp', alt: 'Bar Ambiente 1' },
     { type: 'image', src: '/img/bar5.jpg', alt: 'Bar Ambiente 5' },
     { type: 'image', src: '/img/bar44.jpg', alt: 'Bar Ambiente 6' },
     { type: 'video', src: '/img/videoPlato.mp4', alt: 'Video Plato' },
