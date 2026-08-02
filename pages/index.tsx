@@ -10,6 +10,7 @@ import TestimonialsSection from '../components/homeComponents/TestimonialsSectio
 import PricingSection from '../components/homeComponents/PricingSection';
 import FAQSection from '../components/homeComponents/FAQSection';
 import { useLanguage } from '../contexts/LanguageContext';
+import Watermark from '../components/Watermark';
 
 
 export default function Home() {
@@ -27,7 +28,12 @@ export default function Home() {
       {/* <PricingSection />  */}
       {/* <TechCarrousel /> */}
      {/* <FAQSection />  */}
-   
+    <Watermark 
+  size={250} 
+  blurAmount={5}
+  duration={6000}
+  delay={1000}
+/>
       <style jsx>{`
         .privacy-background {
           position: fixed;
@@ -35,25 +41,25 @@ export default function Home() {
           left: 0;
           right: 0;
           bottom: 0;
-          z-index: -2;
+          z-index: -99;
           overflow: hidden;
         }
          .logo-watermark {
            position: absolute;
           top: 56%;
-          left: 80%;
+          left: 90%;
           transform: translate(-50%, -50%);
           opacity: 10%;
           width: 400px;
           height: 400px;
-          z-index: -2;
+          z-index: -99;
           mask-image: linear-gradient(black 60% , transparent);
         }
         .watermark-logo {
           width: 100%;
           height: 100%;
           object-fit: contain;
-          filter: grayscale(0%);
+          filter: grayscale(100%);
         }
         .about-page {
           padding: 2rem;

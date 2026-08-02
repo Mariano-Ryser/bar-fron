@@ -500,7 +500,7 @@ export default function Getraenkekarte() {
           </button>
 
           <button className="modal-nav prev" onClick={(e) => { e.stopPropagation(); goToPrevious(); }}>
-            <ChevronLeft size={40} color="#ffffff" stroke="#ffffff" strokeWidth={2} />
+            <ChevronLeft size={40} color="#39d611f1" stroke="#ffffff" strokeWidth={2} />
           </button>
 
           <button className="modal-nav next" onClick={(e) => { e.stopPropagation(); goToNext(); }}>
@@ -638,6 +638,7 @@ export default function Getraenkekarte() {
         .categories-wrapper,
         .drinks-grid,
         .modal-overlay {
+          
           position: relative;
           z-index: 1;
         }

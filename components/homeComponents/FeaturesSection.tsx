@@ -44,7 +44,7 @@ export default function FeaturesSection() {
       id: 1,
       title: "Firmenevents",
       text: "Das Salotto bietet dir ein All-in-One-Eventlocation-Paket für erfolgreiche Firmenevents. Ob Team-Event, Kundenanlass oder Firmenfeier.",
-      image: "/img/event1.jpg",
+      image: "/img/Salotto-BN_5.jpg",
       icon: <Users size={24} />,
       badge: "Events"
     },
@@ -52,7 +52,7 @@ export default function FeaturesSection() {
       id: 2,
       title: "Apéro & Apéro Riche",
       text: "Für Apéros und Apéro Riche bieten wir Platz für bis zu 60 Personen. Gerne erstellen wir Ihnen ein individuelles Angebot für Ihren Anlass.",
-      image: "/img/apero.jpg",
+      image: "/img/Salotto-BN_33.jpg",
       icon: <GlassWater size={24} />,
       badge: "Apéro"
     },
@@ -60,7 +60,7 @@ export default function FeaturesSection() {
       id: 3,
       title: "Restaurant & Lunch Time",
       text: "Unser Restaurant bietet Ihnen eine exquisite Auswahl an Gerichten für jeden Geschmack. Ob geschäftliches Mittagessen oder romantisches Dinner.",
-      image: "/img/restaurant.jpg",
+      image: "/img/Salotto-BN_41.jpg",
       icon: <Utensils size={24} />,
       badge: "Restaurant"
     },
@@ -68,7 +68,7 @@ export default function FeaturesSection() {
       id: 4,
       title: "Private Events",
       text: "Ob Geburtstag, Hochzeit, Taufe oder Jubiläum – bei uns finden Sie den perfekten Rahmen für Ihre private Feier. Wir kümmern uns um alles.",
-      image: "/img/private-event.jpg",
+      image: "/img/Salotto-BN_30.jpg",
       icon: <Calendar size={24} />,
       badge: "Privat"
     }
@@ -226,11 +226,13 @@ export default function FeaturesSection() {
         }
 
         .feature-card-img {
-          transition: transform 0.6s ease;
+          transition: all 0.6s ease;
+          filter: grayscale(100%);
         }
 
         .feature-card-image:hover .feature-card-img {
           transform: scale(1.1);
+          filter: grayscale(0%) blur(4px);
         }
 
         .feature-card-overlay {
@@ -239,8 +241,8 @@ export default function FeaturesSection() {
           left: 0;
           right: 0;
           bottom: 0;
-          background: rgba(0, 0, 0, 0.85);
-          backdrop-filter: blur(4px);
+          background: rgba(0, 0, 0, 0.7);
+          backdrop-filter: blur(0px);
           opacity: 0;
           transition: all 0.5s ease;
           display: flex;
@@ -251,6 +253,8 @@ export default function FeaturesSection() {
 
         .feature-card-image:hover .feature-card-overlay {
           opacity: 1;
+          backdrop-filter: blur(8px);
+          background: rgba(0, 0, 0, 0.85);
         }
 
         .feature-card-content {
@@ -295,7 +299,7 @@ export default function FeaturesSection() {
         .feature-card-text {
           font-size: 0.95rem;
           line-height: 1.7;
-          color: rgba(255, 255, 255, 0.8);
+          color: rgba(255, 255, 255, 0.9);
           margin-bottom: 1.25rem;
           font-weight: 400;
         }
