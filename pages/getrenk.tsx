@@ -1,218 +1,17 @@
+// pages/getraenkekarte.tsx
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Wine, Beer, GlassWater, Coffee, X, ChevronLeft, ChevronRight, Clock, Utensils } from 'lucide-react';
-
-interface Bubble {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-  speed: number;
-  opacity: number;
-  color: string;
-  type: 'rising' | 'floating';
-  floatOffset: number;
-  floatSpeed: number;
-  rotation: number;
-  rotationSpeed: number;
-  hueShift: number;
-}
-
+import BubbleBackground from '../components/BubbleBackground';
+import MusicPlayer from '../components/MusicPlayer'; 
 export default function Getraenkekarte() {
   const [activeCategory, setActiveCategory] = useState('all');
   const [visibleItems, setVisibleItems] = useState<number[]>([]);
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
   const [preloadedImages, setPreloadedImages] = useState<Set<number>>(new Set());
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
-  
-  // Bubble background state
-  const [bubbles, setBubbles] = useState<Bubble[]>([]);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const animationRef = useRef<number | null>(null);
-  const isMobileRef = useRef<boolean>(false);
 
-  // Colores base con saturación media-alta para que se vean bien
-  const baseColors = [
-    { r: 183, g: 255, b: 100 },  // Verde lima
-    { r: 255, g: 200, b: 50 },   // Amarillo dorado
-    { r: 200, g: 100, b: 255 },  // Violeta
-    { r: 100, g: 255, b: 200 },  // Verde menta
-    { r: 255, g: 150, b: 100 },  // Naranja coral
-    { r: 100, g: 200, b: 255 },  // Azul cielo
-    { r: 255, g: 100, b: 150 },  // Rosa
-    { r: 200, g: 200, b: 255 },  // Lavanda
-  ];
-
-  // Bubble background effects
-  useEffect(() => {
-    const createBubbles = () => {
-      if (!containerRef.current) return;
-      
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      const isMobile = width < 768;
-      isMobileRef.current = isMobile;
-      
-      const count = isMobile ? 6 : 10 + Math.floor(Math.random() * 6);
-      
-      const newBubbles: Bubble[] = [];
-      for (let i = 0; i < count; i++) {
-        const isRising = isMobile ? Math.random() > 0.5 : Math.random() > 0.4;
-        const size = isMobile 
-          ? 30 + Math.random() * 30
-          : 40 + Math.random() * 90;
-        
-        const color = baseColors[Math.floor(Math.random() * baseColors.length)];
-        
-        newBubbles.push({
-          id: i,
-          x: Math.random() * width,
-          y: Math.random() * height,
-          size: size,
-          speed: isRising ? 0.95 + Math.random() * 0.3 : 0.02 + Math.random() * 0.04,
-          opacity: isMobile 
-            ? 0.25 + Math.random() * 9.4
-            : 0.35 + Math.random() * 1.45,
-          color: `rgba(${color.r}, ${color.g}, ${color.b}, 0.6)`,
-          type: isRising ? 'rising' : 'floating',
-          floatOffset: Math.random() * Math.PI * 2,
-          floatSpeed: 0.002 + Math.random() * 0.004,
-          rotation: Math.random() * 360,
-          rotationSpeed: (Math.random() - 0.5) * 0.02,
-          hueShift: 0,
-        });
-      }
-      setBubbles(newBubbles);
-    };
-
-    createBubbles();
-
-    const handleResize = () => {
-      const isMobile = window.innerWidth < 768;
-      if (isMobile !== isMobileRef.current) {
-        isMobileRef.current = isMobile;
-        createBubbles();
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    if (bubbles.length === 0) return;
-
-    let lastTime = 0;
-    const animate = (timestamp: number) => {
-      if (!lastTime) lastTime = timestamp;
-      const delta = timestamp - lastTime;
-      lastTime = timestamp;
-
-      setBubbles(prevBubbles => {
-        return prevBubbles.map(bubble => {
-          let newY = bubble.y;
-          let newSize = bubble.size;
-          let newOpacity = bubble.opacity;
-          
-          // Efecto de brillo suave - solo varía la intensidad ligeramente
-          const brightness = 0.85 + 0.15 * Math.sin(bubble.hueShift * Math.PI * 3);
-          
-          // Extraer colores base
-          const colorMatch = bubble.color.match(/rgba\((\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\)/);
-          let baseR = 183, baseG = 255, baseB = 100;
-          if (colorMatch) {
-            baseR = parseInt(colorMatch[1]);
-            baseG = parseInt(colorMatch[2]);
-            baseB = parseInt(colorMatch[3]);
-          }
-          
-          // Mantener los colores vivos sin que se vuelvan grises
-          const r = Math.min(255, Math.round(baseR * brightness));
-          const g = Math.min(255, Math.round(baseG * brightness));
-          const b = Math.min(255, Math.round(baseB * brightness));
-          const newColor = `rgba(${r}, ${g}, ${b}, 0.6)`;
-          
-          if (bubble.type === 'rising') {
-            newY = bubble.y - bubble.speed * delta * 0.02;
-            newSize = bubble.size * (1 - (1 - newY / (window.innerHeight + bubble.size)) * 0.3);
-            newOpacity = bubble.opacity * (0.5 + 0.5 * (newY / (window.innerHeight + bubble.size)));
-            
-            if (newY < -bubble.size) {
-              newY = window.innerHeight + bubble.size;
-              const isMobile = window.innerWidth < 768;
-              newSize = isMobile 
-                ? 30 + Math.random() * 80 
-                : 40 + Math.random() * 140;
-              newOpacity = isMobile 
-                ? 0.25 + Math.random() * 9.4
-                : 0.35 + Math.random() * 1.45;
-              const newColorObj = baseColors[Math.floor(Math.random() * baseColors.length)];
-              return {
-                ...bubble,
-                y: newY,
-                x: Math.random() * window.innerWidth,
-                size: newSize,
-                opacity: newOpacity,
-                rotation: Math.random() * 360,
-                color: `rgba(${newColorObj.r}, ${newColorObj.g}, ${newColorObj.b}, 0.6)`,
-                hueShift: 0,
-              };
-            }
-          } else {
-            newY = bubble.y + Math.sin(bubble.floatOffset) * 0.05;
-            const floatX = Math.cos(bubble.floatOffset * 0.7) * 0.03;
-            let newX = bubble.x + floatX * delta * 0.1;
-            
-            if (newX < 0) newX = 0;
-            if (newX > window.innerWidth) newX = window.innerWidth;
-            
-            if (newY < 0) newY = 0;
-            if (newY > window.innerHeight) newY = window.innerHeight;
-            
-            const newFloatOffset = bubble.floatOffset + bubble.floatSpeed * delta * 0.1;
-            
-            return {
-              ...bubble,
-              x: newX,
-              y: newY,
-              floatOffset: newFloatOffset,
-              rotation: bubble.rotation + bubble.rotationSpeed * delta * 0.1,
-              hueShift: bubble.hueShift + delta * 0.0003,
-              color: newColor,
-            };
-          }
-          
-          return {
-            ...bubble,
-            y: newY,
-            size: newSize,
-            opacity: newOpacity,
-            rotation: bubble.rotation + bubble.rotationSpeed * delta * 0.1,
-            hueShift: bubble.hueShift + delta * 0.0003,
-            color: newColor,
-          };
-        });
-      });
-
-      animationRef.current = requestAnimationFrame(animate);
-    };
-
-    animationRef.current = requestAnimationFrame(animate);
-
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, [bubbles.length]);
-
-  // Resto del código igual...
+  // Intersection Observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -242,6 +41,7 @@ export default function Getraenkekarte() {
     };
   }, []);
 
+  // Preload images
   useEffect(() => {
     drinkItems.forEach((item, index) => {
       const img = new window.Image();
@@ -266,7 +66,6 @@ export default function Getraenkekarte() {
       id: 1,
       name: 'Aperol Spritz',
       description: 'Aperol, Prosecco, Soda, Orange - Der italienische Klassiker',
-      price: '9.50',
       category: 'aperitif',
       image: '/img/aperol-spritz.png',
       alcohol: true,
@@ -278,7 +77,6 @@ export default function Getraenkekarte() {
       id: 2,
       name: 'Hugo',
       description: 'Prosecco, Holunderblütensirup, Minze, Soda - Fruchtig & leicht',
-      price: '9.00',
       category: 'aperitif',
       image: '/img/hugo.png',
       alcohol: true,
@@ -290,7 +88,6 @@ export default function Getraenkekarte() {
       id: 3,
       name: 'Mojito',
       description: 'Weißer Rum, Limette, Minze, Zucker, Soda - Erfrischend & belebend',
-      price: '12.00',
       category: 'cocktails',
       image: '/img/mojito.png',
       alcohol: true,
@@ -302,7 +99,6 @@ export default function Getraenkekarte() {
       id: 4,
       name: 'Cuba Libre',
       description: 'Rum, Cola, Limette - Ein zeitloser Klassiker',
-      price: '10.00',
       category: 'cocktails',
       image: '/img/cuba-libre.png',
       alcohol: true,
@@ -314,7 +110,6 @@ export default function Getraenkekarte() {
       id: 5,
       name: 'IPA',
       description: 'India Pale Ale mit intensiver Hopfennote und fruchtigen Aromen',
-      price: '6.00',
       category: 'biere',
       image: '/img/ipa.png',
       alcohol: true,
@@ -326,7 +121,6 @@ export default function Getraenkekarte() {
       id: 6,
       name: 'Lager Bier',
       description: 'Klares, erfrischendes Bier mit ausgewogenem Geschmack',
-      price: '4.50',
       category: 'biere',
       image: '/img/lager.png',
       alcohol: true,
@@ -338,7 +132,6 @@ export default function Getraenkekarte() {
       id: 7,
       name: 'Cola',
       description: 'Cola - Erfrischend und belebend',
-      price: '4.50',
       category: 'softdrinks',
       image: '/img/cola.png',
       alcohol: false,
@@ -390,34 +183,19 @@ export default function Getraenkekarte() {
   return (
     <div className="getraenkekarte-page">
       {/* Bubble Background */}
-      <div ref={containerRef} className="bubble-background">
-        {bubbles.map((bubble) => (
-          <div
-            key={bubble.id}
-            className={`bubble ${bubble.type === 'floating' ? 'floating' : 'rising'}`}
-            style={{
-              left: `${bubble.x}px`,
-              top: `${bubble.y}px`,
-              width: `${bubble.size}px`,
-              height: `${bubble.size}px`,
-              opacity: bubble.opacity,
-              transform: `rotate(${bubble.rotation}deg)`,
-              background: `radial-gradient(
-                circle at 30% 30%,
-                rgba(255, 255, 255, 0.9) 0%,
-                ${bubble.color} 60%,
-                rgba(0, 0, 0, 0.1) 100%
-              )`,
-              boxShadow: `
-                inset -10px -10px 30px rgba(255, 255, 255, 0.3),
-                inset 5px 5px 20px rgba(255, 255, 255, 0.5),
-                0 0 40px ${bubble.color}
-              `,
-            }}
-          />
-        ))}
-      </div>
 
+<BubbleBackground 
+  bubbleCount={5}      // ← Solo 5 burbujas
+  minSize={20}
+  maxSize={300}
+  opacity={0.5}        // ← 100% visible
+  speedMultiplier={2.9}
+/>
+ <MusicPlayer 
+        autoPlay={true}        // ← Comienza automáticamente
+        volume={0.3}           // ← Volumen al 30%
+        songPath="/music/DarkTechnominimal.mp3"
+      />
       {/* Hero Section */}
       <div className="hero-section">
         <div className="hero-content">
@@ -480,10 +258,7 @@ export default function Getraenkekarte() {
               <div className="drink-content">
                 <div className="drink-header">
                   <h3>{item.name}</h3>
-                  <div className="drink-info">
-                    <span className="drink-price">€ {item.price}</span>
-                    <span className="drink-volume">{item.volume}</span>
-                  </div>
+                  <span className="drink-volume">{item.volume}</span>
                 </div>
                 <p className="drink-description">{item.description}</p>
               </div>
@@ -500,7 +275,7 @@ export default function Getraenkekarte() {
           </button>
 
           <button className="modal-nav prev" onClick={(e) => { e.stopPropagation(); goToPrevious(); }}>
-            <ChevronLeft size={40} color="#39d611f1" stroke="#ffffff" strokeWidth={2} />
+            <ChevronLeft size={40} color="#ffffff" stroke="#ffffff" strokeWidth={2} />
           </button>
 
           <button className="modal-nav next" onClick={(e) => { e.stopPropagation(); goToNext(); }}>
@@ -528,10 +303,7 @@ export default function Getraenkekarte() {
             <div className="modal-info">
               <div className="modal-header">
                 <h2 className="modal-title">{filteredItems[selectedItem].name}</h2>
-                <div className="modal-price-info">
-                  <span className="modal-price">€ {filteredItems[selectedItem].price}</span>
-                  <span className="modal-volume">{filteredItems[selectedItem].volume}</span>
-                </div>
+                <span className="modal-volume">{filteredItems[selectedItem].volume}</span>
               </div>
               <p className="modal-description">{filteredItems[selectedItem].description}</p>
               <div className="modal-details">
@@ -570,75 +342,10 @@ export default function Getraenkekarte() {
           overflow: hidden;
         }
 
-        .bubble-background {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100vw;
-          height: 100vh;
-          overflow: hidden;
-          pointer-events: none;
-          z-index: 0;
-        }
-
-        .bubble {
-          position: absolute;
-          border-radius: 50%;
-          pointer-events: none;
-          will-change: transform;
-          backdrop-filter: blur(1px);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          transition: none;
-        }
-
-        .bubble::before {
-          content: '';
-          position: absolute;
-          top: 15%;
-          left: 20%;
-          width: 30%;
-          height: 20%;
-          border-radius: 50%;
-          background: radial-gradient(
-            ellipse at center,
-            rgba(255, 255, 255, 0.6) 0%,
-            transparent 70%
-          );
-          transform: rotate(-30deg);
-        }
-
-        .bubble::after {
-          content: '';
-          position: absolute;
-          bottom: 20%;
-          right: 20%;
-          width: 15%;
-          height: 12%;
-          border-radius: 50%;
-          background: radial-gradient(
-            ellipse at center,
-            rgba(255, 255, 255, 0.3) 0%,
-            transparent 70%
-          );
-          transform: rotate(20deg);
-        }
-
-        .bubble.floating {
-          animation: gentleFloat 12s ease-in-out infinite;
-        }
-
-        @keyframes gentleFloat {
-          0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
-          25% { transform: translate(5px, -8px) scale(1.02) rotate(2deg); }
-          50% { transform: translate(-3px, -4px) scale(0.98) rotate(-1deg); }
-          75% { transform: translate(8px, 2px) scale(1.01) rotate(3deg); }
-        }
-
         .hero-section,
         .categories-wrapper,
         .drinks-grid,
         .modal-overlay {
-          
           position: relative;
           z-index: 1;
         }
@@ -721,7 +428,7 @@ export default function Getraenkekarte() {
           padding: 0 2rem 3rem;
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 1.5rem;
+          gap: 2rem;
         }
 
         .drink-item {
@@ -733,6 +440,8 @@ export default function Getraenkekarte() {
           transform: translateY(40px);
           transition: all 0.6s ease;
           cursor: pointer;
+          width: 75%;
+          margin: 0 auto;
         }
 
         .drink-item.visible {
@@ -749,7 +458,7 @@ export default function Getraenkekarte() {
         .drink-image {
           position: relative;
           width: 100%;
-          padding-bottom: 75%;
+          padding-bottom: 100%;
           overflow: hidden;
         }
 
@@ -798,47 +507,34 @@ export default function Getraenkekarte() {
 
         .drink-content {
           padding: 1.25rem;
+          text-align: center;
         }
 
         .drink-header {
           display: flex;
           justify-content: space-between;
-          align-items: flex-start;
+          align-items: center;
           margin-bottom: 0.5rem;
+          flex-direction: column;
         }
 
         .drink-header h3 {
           color: #ffffff;
-          font-size: 1.1rem;
+          font-size: 1.2rem;
           font-weight: 500;
-          margin: 0;
-          flex: 1;
-        }
-
-        .drink-info {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          white-space: nowrap;
-          margin-left: 0.75rem;
-        }
-
-        .drink-price {
-          font-size: 1rem;
-          font-weight: 600;
-          color: rgba(255, 255, 255, 0.9);
+          margin: 0 0 0.25rem 0;
         }
 
         .drink-volume {
-          font-size: 0.75rem;
+          font-size: 0.8rem;
           color: rgba(255, 255, 255, 0.4);
           background: rgba(255, 255, 255, 0.05);
-          padding: 0.1rem 0.4rem;
+          padding: 0.2rem 0.6rem;
           border-radius: 4px;
         }
 
         .drink-description {
-          font-size: 0.85rem;
+          font-size: 0.9rem;
           color: rgba(255, 255, 255, 0.6);
           line-height: 1.5;
           margin: 0;
@@ -976,8 +672,9 @@ export default function Getraenkekarte() {
         .modal-header {
           display: flex;
           justify-content: space-between;
-          align-items: flex-start;
+          align-items: center;
           gap: 1rem;
+          flex-wrap: wrap;
         }
 
         .modal-title {
@@ -988,25 +685,11 @@ export default function Getraenkekarte() {
           margin: 0;
         }
 
-        .modal-price-info {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-end;
-          gap: 0.25rem;
-          white-space: nowrap;
-        }
-
-        .modal-price {
-          font-size: 1.6rem;
-          font-weight: 600;
-          color: rgba(255, 255, 255, 0.9);
-        }
-
         .modal-volume {
-          font-size: 0.8rem;
+          font-size: 0.9rem;
           color: rgba(255, 255, 255, 0.4);
           background: rgba(255, 255, 255, 0.05);
-          padding: 0.1rem 0.5rem;
+          padding: 0.3rem 0.8rem;
           border-radius: 4px;
         }
 
@@ -1072,25 +755,14 @@ export default function Getraenkekarte() {
           color: rgba(255, 255, 255, 0.25);
         }
 
-        @media (max-width: 768px) {
-          .bubble::before {
-            width: 25%;
-            height: 18%;
-            top: 12%;
-            left: 18%;
-          }
-          .bubble::after {
-            width: 12%;
-            height: 10%;
-            bottom: 18%;
-            right: 18%;
-          }
-        }
-
         @media (max-width: 1024px) {
           .drinks-grid {
             grid-template-columns: repeat(2, 1fr);
-            gap: 1.2rem;
+            gap: 1.5rem;
+          }
+
+          .drink-item {
+            width: 80%;
           }
 
           .modal-content {
@@ -1105,10 +777,6 @@ export default function Getraenkekarte() {
 
           .modal-title {
             font-size: 1.5rem;
-          }
-
-          .modal-price {
-            font-size: 1.4rem;
           }
         }
 
@@ -1137,7 +805,11 @@ export default function Getraenkekarte() {
           .drinks-grid {
             grid-template-columns: 1fr 1fr;
             padding: 0 1rem 2rem;
-            gap: 0.8rem;
+            gap: 1rem;
+          }
+
+          .drink-item {
+            width: 85%;
           }
 
           .modal-content {
@@ -1155,10 +827,6 @@ export default function Getraenkekarte() {
 
           .modal-title {
             font-size: 1.3rem;
-          }
-
-          .modal-price {
-            font-size: 1.2rem;
           }
 
           .modal-nav {
@@ -1182,6 +850,11 @@ export default function Getraenkekarte() {
         @media (max-width: 480px) {
           .drinks-grid {
             grid-template-columns: 1fr;
+            gap: 1.5rem;
+          }
+
+          .drink-item {
+            width: 75%;
           }
 
           .modal-image-container {
@@ -1190,10 +863,6 @@ export default function Getraenkekarte() {
 
           .modal-title {
             font-size: 1.1rem;
-          }
-
-          .modal-price {
-            font-size: 1rem;
           }
         }
       `}</style>
