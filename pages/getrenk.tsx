@@ -184,19 +184,21 @@ export default function Getraenkekarte() {
     <div className="getraenkekarte-page">
       {/* Bubble Background */}
 
-<BubbleBackground 
+{/* <BubbleBackground 
   bubbleCount={5}      // ← Solo 5 burbujas
   minSize={20}
   maxSize={300}
   opacity={0.5}        // ← 100% visible
   speedMultiplier={2.9}
-/>
- <MusicPlayer 
+/> */}
+ {/* <MusicPlayer 
         autoPlay={true}        // ← Comienza automáticamente
         volume={0.3}           // ← Volumen al 30%
         songPath="/music/DarkTechnominimal.mp3"
-      />
+      /> */}
+
       {/* Hero Section */}
+
       <div className="hero-section">
         <div className="hero-content">
           <h1>Getränkekarte</h1>
