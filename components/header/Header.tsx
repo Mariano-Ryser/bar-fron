@@ -67,13 +67,13 @@ export default function Header() {
   const navItems = [
     // { href: "/bar", text: "Bar" },
     // { href: "/restaurant", text: "Restaurant" },
-    { href: "/firmenevents", text: "Events" },
-    { href: "/speisekarte", text: "Speisekarte" },
-    { href: "/getrenk", text: "Getränke" },
+    // { href: "/firmenevents", text: "Events" },
+    // { href: "/speisekarte", text: "Speisekarte" },
+    // { href: "/getrenk", text: "Getränke" },
     { href: "/galerie", text: "Galerie" },
     // { href: "/team", text: "Team" },
     // { href: "/events", text: "Events" },
-    { href: "/kontakt", text: "Kontakt" },
+    // { href: "/kontakt", text: "Kontakt" },
   ];
 
   const handleNavClick = (href: string) => {
