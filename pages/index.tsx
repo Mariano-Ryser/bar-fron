@@ -28,12 +28,12 @@ export default function Home() {
       {/* <PricingSection />  */}
       {/* <TechCarrousel /> */}
      {/* <FAQSection />  */}
-    <Watermark 
+    {/* <Watermark 
   size={250} 
   blurAmount={5}
   duration={6000}
   delay={1000}
-/>
+/> */}
       <style jsx>{`
         .privacy-background {
           position: fixed;

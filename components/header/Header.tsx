@@ -84,12 +84,12 @@ export default function Header() {
   return (
     <>
       <header className={`${styles.header} ${scrolled ? styles.scrolled : ""} ${hidden ? styles.hidden : ""}`}>
-      <Watermark 
+      {/* <Watermark 
   size={150} 
   blurAmount={5}
   duration={10000}
   delay={0}
-/>
+/> */}
         <div className={styles.container}>
           {/* Logo */}
           <div className={styles.logo} onClick={handleLogoClick}>
