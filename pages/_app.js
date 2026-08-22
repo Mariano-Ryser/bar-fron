@@ -24,13 +24,13 @@ function MyApp({ Component, pageProps, router }) {
         <link rel="canonical" href={baseUrl} />
         <link rel="manifest" href="/manifest.json" />
         <link rel="icon" href="/img/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/img/logo80.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/img/logo80.png" />
+        <link rel="icon" type="image/webp" sizes="32x32" href="/img/logo81.webp" />
+        <link rel="icon" type="image/webp" sizes="16x16" href="/img/logo81.webp" />
         
         {/* Open Graph Tags - Actualizado para Salotto */}
         <meta property="og:title" content="Salotto – Bar | Restaurant | Eventlocation" />
         <meta property="og:description" content="Ihre Eventlocation in Zürich. Genuss, Events und Gastfreundschaft in einzigartiger Atmosphäre." />
-        <meta property="og:image" content={`${baseUrl}/img/logo80.png`} />
+        <meta property="og:image" content={`${baseUrl}/img/logo81.webp`} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content="Salotto - Bar & Restaurant" />
@@ -43,7 +43,7 @@ function MyApp({ Component, pageProps, router }) {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Salotto – Bar | Restaurant | Eventlocation" />
         <meta name="twitter:description" content="Ihre Eventlocation in Zürich. Genuss, Events und Gastfreundschaft in einzigartiger Atmosphäre." />
-        <meta name="twitter:image" content={`${baseUrl}/img/logo80.png`} />
+        <meta name="twitter:image" content={`${baseUrl}/img/logo81.webp`} />
         
         {/* ✅ CORREGIDO: hreflang → hrefLang */}
         <link rel="alternate" href="https://www.salotto.ch/de" hrefLang="de" />
