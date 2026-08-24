@@ -1,7 +1,39 @@
+/* ===== LIGHT MODE (default) ===== */
+.light {
+  --bg-primary: #faf8f5;
+  --bg-card: #ffffff;
+  --bg-header: rgba(255, 255, 255, 0.92);
+  --text-primary: #1a1a2e;
+  --text-secondary: #4a4a6a;
+  --text-muted: #7a7a9a;
+  --border-color: #e8e4dd;
+  --shadow: rgba(26, 26, 46, 0.08);
+  --badge-bg: #d4a373;
+  --badge-color: #fff;
+}
+
+/* ===== DARK MODE ===== */
+.dark {
+  --bg-primary: #1a1a2e;
+  --bg-card: #252545;
+  --bg-header: rgba(26, 26, 46, 0.95);
+  --text-primary: #f0ece4;
+  --text-secondary: #c8c4bc;
+  --text-muted: #989490;
+  --border-color: #3d3d5c;
+  --shadow: rgba(0, 0, 0, 0.3);
+  --badge-bg: #c9a84c;
+  --badge-color: #1a1a2e;
+}
+
+/* ===== BASE ===== */
 .container {
-  margin-top: 2rem;
+  
   min-height: 100vh;
   position: relative;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .background {
@@ -13,16 +45,17 @@
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
+  background: var(--bg-primary);
+  transition: background 0.3s ease;
 }
 
 .logoWatermark {
-  display: none;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  opacity: 0.15;
-  width: min(80vw, 500px);
+  opacity: 0.06;
+  width: min(70vw, 400px);
   height: auto;
   aspect-ratio: 17/13.5;
 }
@@ -39,83 +72,134 @@
   z-index: 1;
   max-width: 1000px;
   margin: 0 auto;
-  padding: 0 0rem;
+  padding: 0 1rem;
 }
 
+/* ===== HEADER ===== */
 .header {
-  padding: 1.5rem 0;
   display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #e2e8f0;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  margin-bottom: 1.5rem;
+  background: var(--bg-header);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .backButton {
-  position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-  z-index: 10;
-  background: white;
-  border: 1px solid #e2e8f0;
-  padding: 0.6rem 1.2rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 1.2rem;
   border-radius: 999px;
-  color: #475569;
+  color: var(--text-secondary);
   font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  backdrop-filter: blur(8px);
-  background: rgba(255, 255, 255, 0.9);
 }
 
 .backButton:hover {
-  background: white;
-  border-color: #2563eb;
-  color: #2563eb;
+  border-color: #d4a373;
+  color: #d4a373;
   transform: translateY(-2px);
-  box-shadow: 0 8px 15px rgba(37, 99, 235, 0.15);
 }
 
+.badge {
+  background: var(--badge-bg);
+  color: var(--badge-color);
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.themeToggle {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 0.4rem 0.65rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.2s ease;
+}
+
+.themeToggle:hover {
+  transform: scale(1.05);
+}
+
+/* ===== MAIN ===== */
 .main {
-  background: white;
+  background: var(--bg-card);
   border-radius: 16px;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 30px -5px var(--shadow);
   margin: 1.5rem 0;
   padding: 2rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border-color);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* ===== HEADER SECTION ===== */
 .headerSection {
   text-align: center;
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
-  border-bottom: 2px solid #f1f5f9;
+  border-bottom: 2px solid var(--border-color);
+  transition: border-color 0.3s ease;
+}
+
+.locationBadge {
+  display: inline-block;
+  background: #c9a84c;
+  color: #1a1a2e;
+  padding: 0.2rem 1rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.75rem;
 }
 
 .headerSection h1 {
-  font-size: clamp(1.5rem, 5vw, 2.2rem);
+  font-size: clamp(1.5rem, 5vw, 2.4rem);
   font-weight: 700;
-  color: #1e293b;
-  margin: 0 0 0.75rem;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem;
   line-height: 1.2;
+  transition: color 0.3s ease;
 }
 
 .effectiveDate {
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 0.85rem;
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.5rem;
   font-style: italic;
 }
 
 .intro {
-  color: #475569;
+  color: var(--text-secondary);
   font-size: 0.95rem;
-  line-height: 1.5;
+  line-height: 1.6;
   margin: 0.75rem 0 0;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
+/* ===== SECTIONS ===== */
 .sections {
   display: flex;
   flex-direction: column;
@@ -123,51 +207,65 @@
 }
 
 .section {
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .section h2 {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #1e293b;
+  color: var(--text-primary);
   margin: 0 0 0.75rem;
   padding-bottom: 0.35rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--border-color);
+  transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 .section h3 {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 600;
-  color: #334155;
+  color: var(--text-secondary);
   margin: 1.25rem 0 0.75rem;
+  transition: color 0.3s ease;
 }
 
 .section p {
-  color: #475569;
+  color: var(--text-secondary);
   margin: 0 0 0.75rem;
   font-size: 0.9rem;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .section ul {
-  color: #475569;
-  padding-left: 1.25rem;
+  color: var(--text-secondary);
+  padding-left: 0;
   margin: 0.5rem 0;
 }
 
 .section li {
   margin-bottom: 0.4rem;
   font-size: 0.9rem;
-  line-height: 1.4;
+  line-height: 1.5;
+  list-style: none;
+}
+
+.note {
+  background: var(--bg-primary);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border-left: 3px solid #c9a84c;
+  font-size: 0.85rem !important;
+  margin-top: 0.5rem !important;
+  transition: background 0.3s ease;
 }
 
 .responsibleInfo,
 .contactInfo {
-  background: #f8fafc;
+  background: var(--bg-primary);
   padding: 1.25rem;
   border-radius: 10px;
   margin-top: 0.75rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border-color);
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .responsibleInfo p,
@@ -176,45 +274,67 @@
   font-size: 0.9rem;
 }
 
-/* ===== ESTILOS MEJORADOS PARA LA TABLA DE COOKIES ===== */
+/* ===== COOKIES TABLE ===== */
 .cookiesTable {
   width: 100%;
   border-collapse: collapse;
   margin: 1rem 0;
-  background: white;
+  background: var(--bg-card);
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 3px var(--shadow);
   font-size: 0.85rem;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .cookiesTable thead {
-  background: #f8fafc;
+  background: var(--bg-primary);
 }
 
 .cookiesTable th {
   padding: 0.75rem;
   text-align: left;
   font-weight: 600;
-  color: #1e293b;
-  border-bottom: 2px solid #e2e8f0;
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--border-color);
   font-size: 0.85rem;
+  transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 .cookiesTable td {
   padding: 0.75rem;
-  border-bottom: 1px solid #e2e8f0;
-  color: #475569;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-secondary);
   font-size: 0.85rem;
   line-height: 1.4;
+  transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 .cookiesTable tr:last-child td {
   border-bottom: none;
 }
 
-/* ===== SOLUCIÓN PARA MÓVIL: CARDS EN VEZ DE TABLA ===== */
+.cookiesTable tr:hover td {
+  background: var(--bg-primary);
+}
+
+/* ===== RESPONSIVE ===== */
 @media (max-width: 640px) {
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.75rem 1rem;
+  }
+
+  .headerRight {
+    justify-content: center;
+  }
+
+  .badge {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.5rem;
+  }
+
   .cookiesTable,
   .cookiesTable thead,
   .cookiesTable tbody,
@@ -223,67 +343,79 @@
   .cookiesTable td {
     display: block;
   }
-  
+
   .cookiesTable thead {
-    display: none; /* Ocultamos los encabezados en móvil */
+    display: none;
   }
-  
+
   .cookiesTable tr {
     margin-bottom: 1rem;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
-    background: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    background: var(--bg-card);
   }
-  
+
   .cookiesTable td {
     display: flex;
     align-items: flex-start;
     padding: 0.75rem;
-    border-bottom: 1px solid #e2e8f0;
-    position: relative;
+    border-bottom: 1px solid var(--border-color);
     gap: 0.5rem;
   }
-  
+
   .cookiesTable td:last-child {
     border-bottom: none;
   }
-  
-  /* Añadimos etiquetas antes de cada celda */
+
   .cookiesTable td::before {
     content: attr(data-label);
     font-weight: 600;
-    color: #1e293b;
-    min-width: 100px;
-    font-size: 0.8rem;
+    color: var(--text-primary);
+    min-width: 90px;
+    font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.3px;
   }
-  
-  /* Estilo especial para la primera celda (tipo de cookie) */
+
   .cookiesTable tr td:first-child {
-    background: #f8fafc;
+    background: var(--bg-primary);
     font-weight: 500;
   }
-  
-  .cookiesTable tr td:first-child::before {
-    color: #2563eb;
+
+  .main {
+    padding: 1.25rem;
+    margin: 1rem 0;
+    border-radius: 12px;
+  }
+
+  .headerSection h1 {
+    font-size: 1.35rem;
+  }
+
+  .section h2 {
+    font-size: 1.15rem;
+  }
+
+  .section h3 {
+    font-size: 1rem;
+  }
+
+  .section p,
+  .section li {
+    font-size: 0.85rem;
+  }
+
+  .responsibleInfo,
+  .contactInfo {
+    padding: 1rem;
+  }
+
+  .backButton {
+    width: 100%;
+    text-align: center;
   }
 }
 
-/* ===== RESPONSIVE PARA TABLETS ===== */
-@media (min-width: 641px) and (max-width: 1023px) {
-  .cookiesTable {
-    font-size: 0.9rem;
-  }
-  
-  .cookiesTable th,
-  .cookiesTable td {
-    padding: 0.75rem;
-  }
-}
-
-/* ===== RESPONSIVE PARA DESKTOP ===== */
 @media (min-width: 1024px) {
   .content {
     padding: 0 2rem;
@@ -294,7 +426,7 @@
   }
 
   .headerSection h1 {
-    font-size: 2.2rem;
+    font-size: 2.4rem;
   }
 
   .intro {
@@ -302,128 +434,51 @@
   }
 
   .section h2 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 
   .section p,
   .section li {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   .cookiesTable {
     font-size: 0.95rem;
   }
-  
+
   .cookiesTable th,
   .cookiesTable td {
     padding: 1rem;
   }
 }
 
-/* ===== RESPONSIVE PARA MÓVILES PEQUEÑOS ===== */
 @media (max-width: 380px) {
   .content {
-    padding: 0 0.75rem;
+    padding: 0 0.5rem;
   }
 
   .main {
-    padding: 1.25rem;
-    margin: 1rem 0;
-    border-radius: 12px;
-  }
-
-  .headerSection {
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-  }
-
-  .headerSection h1 {
-    font-size: 1.35rem;
-  }
-
-  .effectiveDate {
-    font-size: 0.8rem;
-  }
-
-  .intro {
-    font-size: 0.85rem;
-  }
-
-  .section {
-    gap: 1.5rem;
-  }
-
-  .section h2 {
-    font-size: 1.15rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .section h3 {
-    font-size: 1rem;
-    margin: 1rem 0 0.5rem;
-  }
-
-  .section p,
-  .section li {
-    font-size: 0.85rem;
-    line-height: 1.4;
-  }
-
-  .section ul {
-    padding-left: 1rem;
-  }
-
-  .section li {
-    margin-bottom: 0.35rem;
-  }
-
-  .responsibleInfo,
-  .contactInfo {
     padding: 1rem;
   }
 
-  .responsibleInfo p,
-  .contactInfo p {
-    font-size: 0.85rem;
-    margin: 0.3rem 0;
-  }
-  
-  /* Ajustes para la tabla en móviles muy pequeños */
   .cookiesTable td {
     flex-direction: column;
     gap: 0.25rem;
   }
-  
+
   .cookiesTable td::before {
     min-width: auto;
-    margin-bottom: 0.25rem;
   }
 }
 
-/* ===== ORIENTACIÓN HORIZONTAL EN MÓVILES ===== */
-@media (max-height: 500px) and (orientation: landscape) {
-  .main {
-    margin: 0.75rem 0;
-    padding: 1.5rem;
-  }
-
-  .headerSection {
-    margin-bottom: 1.5rem;
-  }
-
-  .backButton {
-    bottom: 0.5rem;
-    right: 0.5rem;
-  }
-}
-
-/* ===== MEJORAS DE ACCESIBILIDAD ===== */
 @media (prefers-reduced-motion: reduce) {
-  .backButton {
+  .backButton,
+  .themeToggle {
     transition: none;
   }
-  
-  .backButton:hover {
+
+  .backButton:hover,
+  .themeToggle:hover {
     transform: none;
   }
 }

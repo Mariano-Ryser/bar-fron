@@ -204,13 +204,13 @@ export default function HomeHero() {
         {/* Contenido del hero - Con Logo */}
         <div className={`hero-content ${isContentVisible ? 'visible' : ''}`}>
           <div className="logo-container">
-            {/* <img
+             <img
               src="/img/logo-salotto.png" 
               alt="Salotto Logo"
               className="hero-logo"
-            /> */}
+            /> 
           </div>
-          {/* <h2 className="hero-subtitle">BAR | RESTAURANT | EVENTLOCATION</h2> */}
+           <h2 className="hero-subtitle">BAR | RESTAURANT | EVENTLOCATION</h2> 
         </div>
 
         {/* Dots */}

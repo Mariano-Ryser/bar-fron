@@ -1,14 +1,16 @@
+import { useRouter } from 'next/router'; // ← IMPORTACIÓN CORRECTA
 import Image from 'next/image';
 import { useRef, useEffect } from 'react';
 
 export default function Firmenevents() {
+  const router = useRouter(); // ← Ahora funciona
   const imageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       if (imageRef.current) {
         const scrolled = window.scrollY;
-        const rate = scrolled * 0.2; // Velocidad del parallax
+        const rate = scrolled * 0.2;
         imageRef.current.style.transform = `translateY(${rate}px)`;
       }
     };
@@ -16,6 +18,10 @@ export default function Firmenevents() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleAnfrageClick = () => {
+    router.push('/kontakt');
+  };
 
   return (
     <div className="firmenevents-page">
@@ -73,7 +79,7 @@ export default function Firmenevents() {
             'Corporate Staff Event',
             'Employee Event',
           ].map((event, index) => (
-            <div key={index} className="event-tag">
+            <div key={index} className="event-tag"> 
               {event}
             </div>
           ))}
@@ -88,7 +94,12 @@ export default function Firmenevents() {
             Unser engagiertes Team begleitet dich von der Planung bis zur reibungslosen Durchführung – 
             exakt nach deinen Vorstellungen.
           </p>
-          <button className="anfrage-btn">Jetzt Anfrage senden</button>
+          <button 
+            onClick={handleAnfrageClick} 
+            className="anfrage-btn"
+          >
+            Jetzt Anfrage senden
+          </button>
         </div>
         <div className="section-image">
           <Image
@@ -100,51 +111,7 @@ export default function Firmenevents() {
         </div>
       </div>
 
-      {/* Zeiten & Optionen */}
-      <div className="times-section">
-        <h2>Unsere Zeiten & Optionen im Überblick</h2>
-        <div className="times-grid">
-          <div className="time-card">
-            <h3>Wochentags (Tagesmiete)</h3>
-            <p>Die Location steht dir bis <strong>22:00 Uhr</strong> zur Verfügung.</p>
-          </div>
-          <div className="time-card">
-            <h3>Wochenende</h3>
-            <p>Feiere mit deinen Gästen <strong>open end</strong>!</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Konditionen + Image */}
-      <div className="section-with-image">
-        <div className="section-text">
-          <h2>Keine Raummiete, voller Fokus auf dein Event!</h2>
-          <p>
-            Bei uns mietest du die Location exklusiv, aber ohne klassische Mietkosten – du zahlst nur, 
-            was du und deine Gäste auch wirklich konsumieren. Wir arbeiten stattdessen mit einer fairen 
-            <strong> Mindestkonsumation</strong>. Wird dieser Mindestumsatz am Ende des Events nicht erreicht, 
-            verrechnen wir lediglich die Differenz.
-          </p>
-        </div>
-        <div className="section-image">
-          <Image
-            src="/img/event-3.png"
-            alt="Event Konditionen"
-            fill
-            style={{ objectFit: 'cover' }}
-          />
-        </div>
-      </div>
-
-      {/* Apéro Angebot */}
-      <div className="apero-section">
-        <h2>Wirf einen Blick auf unser aktuelles Apéro-Angebot!</h2>
-        <p>
-          Hast du für deinen Apéro oder Apéro Riche ganz eigene Ideen oder spezielle Wünsche? 
-          Kontaktiere uns einfach.
-        </p>
-        <button className="apero-btn">Zum Apéro-Angebot</button>
-      </div>
+  
 
       <style jsx>{`
         .firmenevents-page {
@@ -201,7 +168,7 @@ export default function Firmenevents() {
         .header-image-inner {
           position: relative;
           width: 100%;
-          height: 120%; /* Más altura para el efecto parallax */
+          height: 120%;
           top: -10%;
           will-change: transform;
           transition: none;

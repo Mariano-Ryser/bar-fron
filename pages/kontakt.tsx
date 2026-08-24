@@ -103,22 +103,22 @@ export default function Kontakt() {
     {
       icon: <Mail size={20} />,
       title: 'E-Mail',
-      value: 'info@salotto.ch',
-      link: 'mailto:info@salotto.ch',
+      value: 'info@salotto-zurich.ch',
+      link: 'mailto:info@salotto-zurich.ch',
       description: 'Wir antworten innerhalb 24 Stunden'
     },
     {
       icon: <Phone size={20} />,
       title: 'Telefon',
-      value: '+41 78 874 79 74',
-      link: 'tel:+41788747974',
-      description: 'Mo - Sa 10:00 - 22:00'
+      value: '+41 76 227 55 43',
+      link: 'tel:+41762275543',
+      description: 'Mo - Fr 10:00 - 15:00'
     },
     {
       icon: <MapPin size={20} />,
       title: 'Adresse',
       value: 'Hardturmstrasse 169, 8005 Zürich',
-      link: 'https://www.google.com/maps?q=Hardturmstrasse+169+8005+Zürich',
+      link: 'https://www.google.com/maps/place/Salotto+Bar+I+Lunch+I+Eventlocation/@47.3933226,8.5087277,671m/data=!3m1!1e3!4m15!1m8!3m7!1s0x47900a48ae02bb3d:0xa1205263669fd54e!2sHardturmstrasse+169,+8005+Z%C3%BCrich!3b1!8m2!3d47.3933226!4d8.5113026!16s%2Fg%2F11q2x8smfb!3m5!1s0x47900a48ad4fe49d:0x40c09eb32643d4f4!8m2!3d47.393454!4d8.511219!16s%2Fg%2F1jglsnd9t?entry=ttu&g_ep=EgoyMDI2MDgxOS4wIKXMDSoASAFQAw%3D%3D',
       description: 'Google Maps öffnen'
     },
   ];
@@ -161,26 +161,26 @@ export default function Kontakt() {
         </div>
 
         {/* WhatsApp Section */}
-        <div className="whatsapp-section">
+        {/* <div className="whatsapp-section">
           <div className="whatsapp-content">
             <div className="whatsapp-icon">
-              <MessageCircle size={28} />
+              <MessageCircle size={24} />
             </div>
             <div className="whatsapp-text">
-              <h3>Schreiben Sie uns auf WhatsApp</h3>
-              <p>Schnell, unkompliziert und direkt – wir sind für Sie da.</p>
+              <h3>WhatsApp</h3>
+              <p>Schnell und unkompliziert über WhatsApp kontaktieren</p>
             </div>
-            <a 
-              href="https://wa.me/41788747974" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="whatsapp-button"
-            >
-              <MessageCircle size={18} />
-              Jetzt schreiben
-            </a>
           </div>
-        </div>
+          <a 
+            href="https://wa.me/41788747974" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="whatsapp-button"
+          >
+            <MessageCircle size={18} />
+            WhatsApp schreiben
+          </a>
+        </div> */}
 
         {/* Form + Map Grid */}
         <div className="form-map-grid">
@@ -365,7 +365,7 @@ export default function Kontakt() {
         }
 
         .hero-content h1 {
-          color: #ffffff;
+          color: #ffd700;
           font-size: 3.5rem;
           font-weight: 300;
           letter-spacing: 4px;
@@ -381,7 +381,7 @@ export default function Kontakt() {
         .hero-line {
           width: 50px;
           height: 2px;
-          background: rgba(255, 255, 255, 0.3);
+          background: #ffd700;
           margin: 1rem auto 0;
         }
 
@@ -425,7 +425,7 @@ export default function Kontakt() {
 
         .info-card:hover {
           transform: translateY(-5px);
-          border-color: rgba(255, 255, 255, 0.1);
+          border-color: rgba(255, 215, 0, 0.2);
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
@@ -442,10 +442,10 @@ export default function Kontakt() {
           width: 50px;
           height: 50px;
           border-radius: 50%;
-          background: rgba(153, 153, 153, 0.86);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          background: rgba(255, 215, 0, 0.1);
+          border: 1px solid rgba(255, 215, 0, 0.2);
           margin-bottom: 1rem;
-          color: rgba(255, 255, 255, 0.6);
+          color: #ffd700;
         }
 
         .info-card h3 {
@@ -453,7 +453,7 @@ export default function Kontakt() {
           font-weight: 500;
           letter-spacing: 1px;
           margin-bottom: 0.5rem;
-          color: rgba(255, 255, 255, 0.8);
+          color: #ffd700;
         }
 
         .info-value {
@@ -543,10 +543,10 @@ export default function Kontakt() {
         }
 
         .form-container {
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.05);
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.08);
           border-radius: 12px;
-          padding: 2rem;
+          padding: 2.5rem;
         }
 
         .form-container h2 {
@@ -554,6 +554,7 @@ export default function Kontakt() {
           font-weight: 300;
           letter-spacing: 2px;
           margin-bottom: 0.25rem;
+          color: #ffd700;
         }
 
         .form-subtitle {
@@ -587,17 +588,17 @@ export default function Kontakt() {
         .form-group label {
           font-size: 0.8rem;
           font-weight: 500;
-          color: rgba(255, 255, 255, 0.6);
+          color: #ffd700;
           letter-spacing: 1px;
         }
 
         .form-group input,
         .form-group select,
         .form-group textarea {
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.08);
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 8px;
-          padding: 0.6rem 1rem;
+          padding: 0.8rem 1rem;
           color: #ffffff;
           font-size: 0.95rem;
           transition: all 0.3s ease;
@@ -609,8 +610,9 @@ export default function Kontakt() {
         .form-group select:focus,
         .form-group textarea:focus {
           outline: none;
-          border-color: rgba(255, 255, 255, 0.2);
-          background: rgba(255, 255, 255, 0.08);
+          border-color: #ffd700;
+          background: rgba(255, 215, 0, 0.05);
+          box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.05);
         }
 
         .form-group input::placeholder,
@@ -618,8 +620,16 @@ export default function Kontakt() {
           color: rgba(255, 255, 255, 0.3);
         }
 
+        .form-group select {
+          appearance: none;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='rgba(255,255,255,0.5)' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: right 1rem center;
+          cursor: pointer;
+        }
+
         .form-group select option {
-          background: #000000;
+          background: #1a1a1a;
           color: #ffffff;
         }
 
@@ -640,23 +650,23 @@ export default function Kontakt() {
           align-items: center;
           justify-content: center;
           gap: 0.6rem;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          color: #ffffff;
+          background: #ffd700;
+          border: 1px solid #ffd700;
+          color: #000000;
           padding: 0.8rem 2rem;
           border-radius: 50px;
           cursor: pointer;
           transition: all 0.3s ease;
           font-size: 1rem;
-          font-weight: 500;
+          font-weight: 600;
           margin-top: 0.5rem;
         }
 
         .submit-button:hover:not(:disabled) {
-          background: rgba(255, 255, 255, 0.1);
-          border-color: rgba(255, 255, 255, 0.2);
+          background: #e6c200;
+          border-color: #e6c200;
           transform: translateY(-2px);
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
         }
 
         .submit-button:disabled {
@@ -667,8 +677,8 @@ export default function Kontakt() {
         .spinner {
           width: 20px;
           height: 20px;
-          border: 2px solid rgba(255, 255, 255, 0.1);
-          border-top: 2px solid #ffffff;
+          border: 2px solid rgba(0, 0, 0, 0.1);
+          border-top: 2px solid #000000;
           border-radius: 50%;
           animation: spin 0.8s linear infinite;
           display: inline-block;
@@ -693,6 +703,7 @@ export default function Kontakt() {
           font-size: 1.5rem;
           font-weight: 300;
           margin-bottom: 0.5rem;
+          color: #ffd700;
         }
 
         .success-message p {
@@ -701,9 +712,9 @@ export default function Kontakt() {
         }
 
         .reset-button {
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          color: #ffffff;
+          background: rgba(255, 215, 0, 0.1);
+          border: 1px solid rgba(255, 215, 0, 0.2);
+          color: #ffd700;
           padding: 0.6rem 2rem;
           border-radius: 50px;
           cursor: pointer;
@@ -712,13 +723,13 @@ export default function Kontakt() {
         }
 
         .reset-button:hover {
-          background: rgba(255, 255, 255, 0.1);
+          background: rgba(255, 215, 0, 0.2);
         }
 
         /* Map */
         .map-container {
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.05);
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.08);
           border-radius: 12px;
           padding: 1.5rem;
           display: flex;
@@ -730,6 +741,7 @@ export default function Kontakt() {
           font-weight: 300;
           letter-spacing: 2px;
           margin-bottom: 1rem;
+          color: #ffd700;
         }
 
         .map-wrapper {
@@ -762,14 +774,14 @@ export default function Kontakt() {
         }
 
         .map-link {
-          color: rgba(255, 255, 255, 0.6);
+          color: #ffd700;
           text-decoration: none;
           font-size: 0.9rem;
           transition: color 0.3s ease;
         }
 
         .map-link:hover {
-          color: #ffffff;
+          color: #e6c200;
         }
 
         /* Responsive */
@@ -805,6 +817,10 @@ export default function Kontakt() {
             grid-template-columns: 1fr;
           }
 
+          .form-container {
+            padding: 1.5rem;
+          }
+
           .whatsapp-section {
             padding: 1rem 1.2rem;
             flex-direction: column;
@@ -818,10 +834,6 @@ export default function Kontakt() {
 
           .whatsapp-button {
             justify-content: center;
-          }
-
-          .form-container {
-            padding: 1.5rem;
           }
         }
 
