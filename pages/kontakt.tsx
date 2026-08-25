@@ -338,7 +338,7 @@ export default function Kontakt() {
                 Hardturmstrasse 169, 8005 Zürich
               </p>
               <a 
-                href="https://www.google.com/maps?q=Hardturmstrasse+169+8005+Zürich" 
+                href="https://www.google.com/maps/place/Salotto+Bar+I+Lunch+I+Eventlocation/@47.393454,8.5086441,1870m/data=!3m2!1e3!4b1!4m6!3m5!1s0x47900a48ad4fe49d:0x40c09eb32643d4f4!8m2!3d47.393454!4d8.511219!16s%2Fg%2F1jglsnd9t?entry=ttu&g_ep=EgoyMDI2MDgxOS4wIKXMDSoASAFQAw%3D%3D" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="map-link"

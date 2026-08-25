@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import Router from "next/router";
 import { Menu, X } from "lucide-react";
 import styles from "./Header.module.css";
-import Watermark from "../Watermark";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -18,9 +17,10 @@ export default function Header() {
       const currentScrollY = window.scrollY;
       setScrolled(currentScrollY > 8);
       
+      // Ocultar al bajar, mostrar al subir
       if (currentScrollY > lastScrollY && currentScrollY > SCROLL_THRESHOLD) {
         setHidden(true);
-        setMobileOpen(false);
+        setMobileOpen(false); // Cierra el menú al ocultar
       } else if (currentScrollY < lastScrollY) {
         setHidden(false);
       }
@@ -65,16 +65,12 @@ export default function Header() {
   };
 
   const navItems = [
-    // { href: "/bar", text: "Bar" },
-    // { href: "/restaurant", text: "Restaurant" },
-    { href: "/firmenevents", text: "Eventlocaltion" },
+    { href: "/firmenevents", text: "Eventlocation" },
     { href: "/geburtstag", text: "Geburtstag" },
-  { href: "/speisekarte", text: "Speisekarte" },
-   { href: "/getrenk", text: "Getränke" },
+    { href: "/apero", text: "Apéro" },
+    { href: "/mittagessen", text: "Mittagessen" },
     { href: "/galerie", text: "Galerie" },
-    // { href: "/team", text: "Team" },
-    // { href: "/events", text: "Events" },
-    { href: "/kontakt", text: "Kontakt" },
+    { href: "/jetztmieten", text: "Jetzt mieten" },
   ];
 
   const handleNavClick = (href: string) => {
@@ -85,12 +81,6 @@ export default function Header() {
   return (
     <>
       <header className={`${styles.header} ${scrolled ? styles.scrolled : ""} ${hidden ? styles.hidden : ""}`}>
-      {/* <Watermark 
-  size={150} 
-  blurAmount={5}
-  duration={10000}
-  delay={0}
-/> */}
         <div className={styles.container}>
           {/* Logo */}
           <div className={styles.logo} onClick={handleLogoClick}>
@@ -101,45 +91,27 @@ export default function Header() {
             />
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className={styles.desktopNav}>
-            {navItems.map((item) => (
-              <a 
-                key={item.text} 
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  Router.push(item.href);
-                }}
-              >
-                {item.text}
-              </a>
-            ))}
-          </nav>
-
-          {/* Mobile Menu Button */}
+          {/* Botón Hamburguesa - SIEMPRE VISIBLE (desktop y móvil) */}
           <button
             ref={toggleRef}
             className={styles.mobileToggle}
             onClick={toggleMenu}
             aria-label={mobileOpen ? "Menü schließen" : "Menü öffnen"}
-            style={{ color: '#ffffff' }}
           >
             {mobileOpen ? (
-              <X size={28} style={{ color: '#ffffff', stroke: '#ffffff' }} />
+              <X size={40} color="#ffffff" stroke="#ffffff" />
             ) : (
-              <Menu size={28} style={{ color: '#ffffff', stroke: '#ffffff' }} />
+              <Menu size={40} color="#ffffff" stroke="#ffffff" />
             )}
           </button>
         </div>
       </header>
 
-      {/* FULL SCREEN MOBILE MENU */}
+      {/* FULL SCREEN MENU (se abre con el burger) */}
       <div 
         ref={menuRef}
         className={`${styles.mobileMenu} ${mobileOpen ? styles.open : ""}`}
       >
-        {/* Botón de cerrar DENTRO del modal - CRUZ BLANCA */}
         <button 
           className={styles.closeButton}
           onClick={closeMenu}

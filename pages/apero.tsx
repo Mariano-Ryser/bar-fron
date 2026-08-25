@@ -1,594 +1,416 @@
 import Image from 'next/image';
-import { useRef, useEffect } from 'react';
+import { FileText, Users, Calendar, Coffee, Sparkles } from 'lucide-react';
 
-export default function Firmenevents() {
-  const imageRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (imageRef.current) {
-        const scrolled = window.scrollY;
-        const rate = scrolled * 0.2; // Velocidad del parallax
-        imageRef.current.style.transform = `translateY(${rate}px)`;
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+export default function Apero() {
+  const images = [
+    { id: 1, src: '/img/apero/apero1.webp', alt: 'Apéro Salotto' },
+    { id: 2, src: '/img/apero/apero2.webp', alt: 'Apéro Riche Salotto' },
+    { id: 3, src: '/img/apero/apero3.webp', alt: 'Apéro Location Salotto' },
+    { id: 4, src: '/img/apero/apero4.webp', alt: 'Apéro Ambiente Salotto' },
+  ];
 
   return (
-    <div className="firmenevents-page">
+    <div className="apero-page">
       {/* Hero Section */}
       <div className="hero-section">
         <div className="hero-content">
-          <h1>Firmenevents</h1>
-          <p>Du kümmerst dich ums Feiern – wir übernehmen den Rest</p>
+          <h1>Apéro &amp; Apéro Riche</h1>
+          <p>Für bis zu 60 Personen</p>
           <div className="hero-line"></div>
         </div>
       </div>
 
-      {/* Header Image con Parallax - 75% width */}
-      <div className="header-image-wrapper">
-        <div className="header-image-container">
-          <div className="header-image-inner" ref={imageRef}>
-            <Image
-              src="/img/event-1.png"
-              alt="Salotto Restaurant"
-              fill
-              style={{ objectFit: 'cover' }}
-              priority
-              className="header-image"
-            />
-          </div>
-          <div className="header-image-overlay"></div>
-        </div>
-      </div>
+      {/* Main Content */}
+      <div className="content-container">
+        <div className="content-grid">
+          {/* Left Column - Text */}
+          <div className="text-column">
+            <div className="text-content">
+              <h2>Genussvolle Apéro-Kultur in der Salotto Location</h2>
+              
+              <p className="description">
+                Für Apéros und Apéro Riche bieten wir Platz für bis zu 60 Personen. 
+                Gerne erstellen wir Ihnen ein individuelles Angebot für Ihren Anlass.
+              </p>
 
-      {/* Intro Text */}
-      <div className="intro-section">
-        <p className="intro-text">
-          Das <strong>Salotto</strong> bietet dir ein All-in-One-Eventlocation-Paket für erfolgreiche Firmenevents. 
-          Ob Team-Event, Kundenanlass oder Firmenfeier – unsere stilvolle Location schafft den perfekten Rahmen 
-          für unvergessliche Veranstaltungen. Vom entspannten Apéro bis zur ausgelassenen Party feiern Unternehmen 
-          bei uns unkompliziert und in besonderer Atmosphäre.
-        </p>
-      </div>
+              <p className="description">
+                Auf Wunsch servieren wir einen Apéro Riche nach Auswahl aus unserer Karte – 
+                ideal für Firmenanlässe, Geburtstagsfeiern, Weihnachtsfeiern oder private Events.
+              </p>
 
-      {/* Event Types Grid */}
-      <div className="event-types">
-        <h2>Ideal für folgende Firmenevents</h2>
-        <div className="event-grid">
-          {[
-            'Weihnachtsfeier',
-            'Sommerfest für Unternehmen',
-            'After-Work-Party',
-            'Teambuilding Event',
-            'Produktpräsentation / Product Launch',
-            'Networking Event',
-            'Kick-off Meeting (in lockerer Atmosphäre)',
-            'Kundenanlass / Kunden-Event',
-            'Mitarbeiterevent / Staff Event',
-            'Firmeninterner Anlass',
-            'Corporate Staff Event',
-            'Employee Event',
-          ].map((event, index) => (
-            <div key={index} className="event-tag"> 
-              {event}
+              {/* Features */}
+              <div className="features-grid">
+                <div className="feature-item">
+                  <Users size={24} color="#ffffff" stroke="#ffffff" />
+                  <span>Bis zu 60 Personen</span>
+                </div>
+                <div className="feature-item">
+                  <Calendar size={24} color="#ffffff" stroke="#ffffff" />
+                  <span>Individuelle Angebote</span>
+                </div>
+                <div className="feature-item">
+                  <Coffee size={24} color="#ffffff" stroke="#ffffff" />
+                  <span>Apéro Riche nach Wahl</span>
+                </div>
+                <div className="feature-item">
+                  <Sparkles size={24} color="#ffffff" stroke="#ffffff" />
+                  <span>Für jeden Anlass</span>
+                </div>
+              </div>
+
+              {/* PDF Downloads */}
+              <div className="pdf-downloads">
+                <h3>Unterlagen zum Download</h3>
+                <div className="pdf-buttons">
+                  <a href="/pdf/getraenkekarte.pdf" className="pdf-button" target="_blank" rel="noopener noreferrer">
+                    <FileText size={20} color="#ffffff" stroke="#ffffff" />
+                    <span>PDF Getränkekarte</span>
+                  </a>
+                  <a href="/pdf/apero-food-karte.pdf" className="pdf-button" target="_blank" rel="noopener noreferrer">
+                    <FileText size={20} color="#ffffff" stroke="#ffffff" />
+                    <span>PDF Apéro Food-Karte</span>
+                  </a>
+                </div>
+              </div>
             </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Anfrage Section + Image */}
-      <div className="section-with-image reverse">
-        <div className="section-text">
-          <h2>Unverbindliche Anfrage senden</h2>
-          <p>
-            Unser engagiertes Team begleitet dich von der Planung bis zur reibungslosen Durchführung – 
-            exakt nach deinen Vorstellungen.
-          </p>
-          <button className="anfrage-btn">Jetzt Anfrage senden</button>
-        </div>
-        <div className="section-image">
-          <Image
-            src="/img/event-2.jpg"
-            alt="Event Planung"
-            fill
-            style={{ objectFit: 'cover' }}
-          />
-        </div>
-      </div>
-
-      {/* Zeiten & Optionen */}
-      <div className="times-section">
-        <h2>Unsere Zeiten & Optionen im Überblick</h2>
-        <div className="times-grid">
-          <div className="time-card">
-            <h3>Wochentags (Tagesmiete)</h3>
-            <p>Die Location steht dir bis <strong>22:00 Uhr</strong> zur Verfügung.</p>
           </div>
-          <div className="time-card">
-            <h3>Wochenende</h3>
-            <p>Feiere mit deinen Gästen <strong>open end</strong>!</p>
+
+          {/* Right Column - Images */}
+          <div className="images-column">
+            <div className="images-grid">
+              {images.map((image, index) => (
+                <div 
+                  key={image.id} 
+                  className={`image-wrapper image-${index + 1}`}
+                >
+                  <div className="image-container">
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      className="image"
+                      style={{ objectFit: 'cover' }}
+                      quality={85}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      priority={index === 0}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-
-      {/* Konditionen + Image */}
-      <div className="section-with-image">
-        <div className="section-text">
-          <h2>Keine Raummiete, voller Fokus auf dein Event!</h2>
-          <p>
-            Bei uns mietest du die Location exklusiv, aber ohne klassische Mietkosten – du zahlst nur, 
-            was du und deine Gäste auch wirklich konsumieren. Wir arbeiten stattdessen mit einer fairen 
-            <strong> Mindestkonsumation</strong>. Wird dieser Mindestumsatz am Ende des Events nicht erreicht, 
-            verrechnen wir lediglich die Differenz.
-          </p>
-        </div>
-        <div className="section-image">
-          <Image
-            src="/img/event-3.png"
-            alt="Event Konditionen"
-            fill
-            style={{ objectFit: 'cover' }}
-          />
-        </div>
-      </div>
-
-      {/* Apéro Angebot */}
-      <div className="apero-section">
-        <h2>Wirf einen Blick auf unser aktuelles Apéro-Angebot!</h2>
-        <p>
-          Hast du für deinen Apéro oder Apéro Riche ganz eigene Ideen oder spezielle Wünsche? 
-          Kontaktiere uns einfach.
-        </p>
-        <button className="apero-btn">Zum Apéro-Angebot</button>
       </div>
 
       <style jsx>{`
-        .firmenevents-page {
+        .apero-page {
           background: #000000;
           min-height: 100vh;
-          padding-top: 8rem;
+          padding-top: 10rem;
           color: #ffffff;
         }
 
-        /* Hero */
+        /* Hero Section */
         .hero-section {
-          padding: 0rem 2rem 2rem;
+          padding: 2rem 2rem 4rem;
           text-align: center;
         }
 
         .hero-content h1 {
-          color: #ffffff;
-          font-size: 3.5rem;
+          font-size: 4rem;
           font-weight: 300;
           letter-spacing: 4px;
-          margin-bottom: 0.5rem;
+          margin-bottom: 1rem;
+          color: #ffffff;
         }
 
         .hero-content p {
-          font-size: 1.1rem;
+          font-size: 1.2rem;
           color: rgba(255, 255, 255, 0.7);
           font-weight: 300;
         }
 
         .hero-line {
-          width: 50px;
+          width: 60px;
           height: 2px;
           background: rgba(255, 255, 255, 0.3);
-          margin: 1rem auto 0;
+          margin: 1.5rem auto 0;
         }
 
-        /* Header Image - 65% width con Parallax */
-        .header-image-wrapper {
+        /* Content Container */
+        .content-container {
+          max-width: 1400px;
+          margin: 0 auto;
+          padding: 0 2rem 4rem;
+        }
+
+        .content-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 4rem;
+          align-items: start;
+        }
+
+        /* Text Column */
+        .text-column {
           display: flex;
-          justify-content: center;
-          padding: 1rem 0 2rem;
+          flex-direction: column;
         }
 
-        .header-image-container {
+        .text-content {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+
+        .text-content h2 {
+          font-size: 2.2rem;
+          font-weight: 300;
+          letter-spacing: 2px;
+          color: #ffffff;
+          line-height: 1.2;
+        }
+
+        .description {
+          font-size: 1.1rem;
+          line-height: 1.8;
+          color: rgba(255, 255, 255, 0.8);
+          font-weight: 300;
+        }
+
+        /* Features */
+        .features-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1rem;
+          margin: 0.5rem 0;
+        }
+
+        .feature-item {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 1rem;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 8px;
+          transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+          background: rgba(255, 255, 255, 0.08);
+          transform: translateY(-2px);
+        }
+
+        .feature-item svg {
+          color: #ffffff !important;
+          flex-shrink: 0;
+        }
+
+        .feature-item span {
+          font-size: 0.95rem;
+          color: #ffffff;
+          font-weight: 300;
+        }
+
+        /* PDF Downloads */
+        .pdf-downloads {
+          margin-top: 1rem;
+          padding-top: 1.5rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .pdf-downloads h3 {
+          font-size: 1rem;
+          font-weight: 300;
+          letter-spacing: 1px;
+          color: rgba(255, 255, 255, 0.6);
+          margin-bottom: 1rem;
+          text-transform: uppercase;
+        }
+
+        .pdf-buttons {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+        }
+
+        .pdf-button {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 0.85rem 1.5rem;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          border-radius: 8px;
+          color: #ffffff;
+          text-decoration: none;
+          transition: all 0.3s ease;
+          font-weight: 300;
+          font-size: 0.95rem;
+        }
+
+        .pdf-button:hover {
+          background: rgba(255, 255, 255, 0.1);
+          border-color: rgba(255, 255, 255, 0.25);
+          transform: translateX(5px);
+        }
+
+        .pdf-button svg {
+          color: #ffffff !important;
+          flex-shrink: 0;
+        }
+
+        .pdf-button span {
+          color: #ffffff;
+        }
+
+        /* Images Column */
+        .images-column {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .images-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto auto;
+          gap: 1rem;
+        }
+
+        .image-wrapper {
           position: relative;
-          width: 65%;
-          height: 50vh;
-          min-height: 350px;
-          max-height: 650px;
+          border-radius: 12px;
           overflow: hidden;
           background: #1a1a1a;
+          aspect-ratio: 4/3;
+          transition: all 0.3s ease;
         }
 
-        .header-image-inner {
-          position: relative;
-          width: 100%;
-          height: 120%; /* Más altura para el efecto parallax */
-          top: -10%;
-          will-change: transform;
-          transition: none;
-        }
-
-        .header-image {
-          transition: none;
-        }
-
-        .header-image-overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: linear-gradient(
-            0deg,
-            rgba(0, 0, 0, 0.3) 0%,
-            transparent 50%,
-            transparent 100%
-          );
-          pointer-events: none;
+        .image-wrapper:hover {
+          transform: scale(1.02);
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
           z-index: 2;
         }
 
-        /* Intro Section */
-        .intro-section {
-          max-width: 800px;
-          margin: 0 auto;
-          padding: 3rem 2rem;
-          text-align: center;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        .image-wrapper.image-1 {
+          grid-column: 1 / 2;
+          grid-row: 1 / 3;
+          aspect-ratio: 3/4;
         }
 
-        .intro-text {
-          font-size: 1.05rem;
-          line-height: 1.8;
-          color: rgba(255, 255, 255, 0.7);
-          margin: 0;
+        .image-wrapper.image-2 {
+          grid-column: 2 / 3;
+          grid-row: 1 / 2;
         }
 
-        .intro-text strong {
-          color: rgba(255, 255, 255, 0.9);
+        .image-wrapper.image-3 {
+          grid-column: 2 / 3;
+          grid-row: 2 / 3;
         }
 
-        /* Section with Image */
-        .section-with-image {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 3rem;
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 3rem 2rem;
-          align-items: center;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        .image-wrapper.image-4 {
+          grid-column: 1 / 2;
+          grid-row: 3 / 4;
+          aspect-ratio: 4/3;
         }
 
-        .section-with-image:last-of-type {
-          border-bottom: none;
-        }
-
-        .section-with-image.reverse {
-          direction: rtl;
-        }
-
-        .section-with-image.reverse .section-text {
-          direction: ltr;
-        }
-
-        .section-text {
-          direction: ltr;
-        }
-
-        .section-text h2 {
-          font-size: 1.8rem;
-          font-weight: 300;
-          letter-spacing: 2px;
-          margin-bottom: 1rem;
-          color: rgba(255, 255, 255, 0.9);
-        }
-
-        .section-text p {
-          font-size: 1rem;
-          line-height: 1.8;
-          color: rgba(255, 255, 255, 0.7);
-          margin-bottom: 1.5rem;
-        }
-
-        .section-text p strong {
-          color: rgba(255, 255, 255, 0.9);
-        }
-
-        .section-image {
+        .image-container {
           position: relative;
           width: 100%;
-          aspect-ratio: 4/3;
-          overflow: hidden;
-          background: #1a1a1a;
+          height: 100%;
         }
 
-        .section-image img {
-          transition: transform 0.5s ease;
+        .image {
+          transition: transform 0.6s ease;
         }
 
-        .section-image:hover img {
-          transform: scale(1.03);
+        .image-wrapper:hover .image {
+          transform: scale(1.08);
         }
 
-        .anfrage-btn {
-          background: transparent;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          color: #ffffff;
-          padding: 0.8rem 2.5rem;
-          border-radius: 50px;
-          font-size: 1rem;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          letter-spacing: 1px;
-        }
-
-        .anfrage-btn:hover {
-          background: rgba(255, 255, 255, 0.1);
-          border-color: rgba(255, 255, 255, 0.4);
-          transform: scale(1.02);
-        }
-
-        /* Event Types */
-        .event-types {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 3rem 2rem;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .event-types h2 {
-          font-size: 1.8rem;
-          font-weight: 300;
-          letter-spacing: 2px;
-          text-align: center;
-          margin-bottom: 2rem;
-          color: rgba(255, 255, 255, 0.9);
-        }
-
-        .event-grid {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 0.6rem;
-        }
-
-        .event-tag {
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          padding: 0.5rem 1.2rem;
-          border-radius: 50px;
-          font-size: 0.9rem;
-          color: rgba(255, 255, 255, 0.7);
-          transition: all 0.3s ease;
-        }
-
-        .event-tag:hover {
-          background: rgba(255, 255, 255, 0.1);
-          border-color: rgba(255, 255, 255, 0.2);
-          color: #ffffff;
-        }
-
-        /* Times */
-        .times-section {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 3rem 2rem;
-          text-align: center;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .times-section h2 {
-          font-size: 1.8rem;
-          font-weight: 300;
-          letter-spacing: 2px;
-          margin-bottom: 2rem;
-          color: rgba(255, 255, 255, 0.9);
-        }
-
-        .times-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 2rem;
-          max-width: 700px;
-          margin: 0 auto;
-        }
-
-        .time-card {
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.06);
-          padding: 2rem 1.5rem;
-          transition: all 0.3s ease;
-        }
-
-        .time-card:hover {
-          border-color: rgba(255, 255, 255, 0.12);
-          transform: translateY(-4px);
-        }
-
-        .time-card h3 {
-          font-size: 1.2rem;
-          font-weight: 400;
-          margin-bottom: 0.5rem;
-          color: rgba(255, 255, 255, 0.9);
-        }
-
-        .time-card p {
-          color: rgba(255, 255, 255, 0.6);
-          font-size: 0.95rem;
-          line-height: 1.6;
-        }
-
-        .time-card strong {
-          color: rgba(255, 255, 255, 0.8);
-        }
-
-        /* Apéro */
-        .apero-section {
-          max-width: 800px;
-          margin: 0 auto;
-          padding: 3rem 2rem 4rem;
-          text-align: center;
-        }
-
-        .apero-section h2 {
-          font-size: 1.6rem;
-          font-weight: 300;
-          letter-spacing: 2px;
-          margin-bottom: 0.5rem;
-          color: rgba(255, 255, 255, 0.9);
-        }
-
-        .apero-section p {
-          color: rgba(255, 255, 255, 0.6);
-          font-size: 1rem;
-          line-height: 1.7;
-          margin-bottom: 1.5rem;
-        }
-
-        .apero-btn {
-          background: transparent;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          color: #ffffff;
-          padding: 0.7rem 2.2rem;
-          border-radius: 50px;
-          font-size: 0.95rem;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          letter-spacing: 1px;
-        }
-
-        .apero-btn:hover {
-          background: rgba(255, 255, 255, 0.1);
-          border-color: rgba(255, 255, 255, 0.4);
-        }
-
-        /* Responsive */
+        /* Responsive Design */
         @media (max-width: 1024px) {
-          .header-image-container {
-            width: 85%;
-            height: 45vh;
-            min-height: 300px;
-            max-height: 500px;
+          .content-grid {
+            grid-template-columns: 1fr;
+            gap: 3rem;
           }
 
-          .section-with-image {
-            gap: 2rem;
-            padding: 2rem 2rem;
+          .images-grid {
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: auto;
           }
 
-          .section-text h2 {
-            font-size: 1.5rem;
+          .image-wrapper.image-1,
+          .image-wrapper.image-2,
+          .image-wrapper.image-3,
+          .image-wrapper.image-4 {
+            grid-column: span 1;
+            grid-row: span 1;
+            aspect-ratio: 4/3;
           }
         }
 
         @media (max-width: 768px) {
-          .firmenevents-page {
-            padding-top: 6rem;
-          }
-
-          .hero-section {
-            padding: 0.5rem 1rem 1.5rem;
+          .apero-page {
+            padding-top: 8rem;
           }
 
           .hero-content h1 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
           }
 
           .hero-content p {
             font-size: 1rem;
           }
 
-          .header-image-wrapper {
-            padding: 0.5rem 0 1.5rem;
+          .text-content h2 {
+            font-size: 1.8rem;
           }
 
-          .header-image-container {
-            width: 92%;
-            height: 35vh;
-            min-height: 250px;
-            max-height: 400px;
+          .description {
+            font-size: 1rem;
           }
 
-          .header-image-inner {
-            height: 130%;
-            top: -15%;
+          .features-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
           }
 
-          .intro-section {
-            padding: 2rem 1rem;
+          .feature-item {
+            padding: 0.75rem;
           }
 
-          .intro-text {
-            font-size: 0.95rem;
+          .feature-item span {
+            font-size: 0.85rem;
           }
 
-          .section-with-image {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-            padding: 2rem 1rem;
+          .images-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
           }
 
-          .section-with-image.reverse {
-            direction: ltr;
+          .image-wrapper.image-1 {
+            grid-column: span 2;
+            grid-row: span 1;
+            aspect-ratio: 16/9;
           }
 
-          .section-image {
-            aspect-ratio: 16/10;
+          .image-wrapper.image-2,
+          .image-wrapper.image-3,
+          .image-wrapper.image-4 {
+            grid-column: span 1;
+            grid-row: span 1;
+            aspect-ratio: 4/3;
           }
 
-          .section-text h2 {
-            font-size: 1.4rem;
+          .content-container {
+            padding: 0 1rem 2rem;
           }
 
-          .section-text p {
-            font-size: 0.95rem;
-          }
-
-          .event-types {
-            padding: 2rem 1rem;
-          }
-
-          .event-types h2 {
-            font-size: 1.4rem;
-          }
-
-          .event-tag {
-            font-size: 0.8rem;
-            padding: 0.4rem 1rem;
-          }
-
-          .times-section {
-            padding: 2rem 1rem;
-          }
-
-          .times-section h2 {
-            font-size: 1.4rem;
-          }
-
-          .times-grid {
-            grid-template-columns: 1fr;
-            gap: 1rem;
-          }
-
-          .time-card {
-            padding: 1.5rem 1rem;
-          }
-
-          .anfrage-btn {
-            padding: 0.6rem 2rem;
-            font-size: 0.9rem;
-          }
-
-          .apero-section {
-            padding: 2rem 1rem 3rem;
-          }
-
-          .apero-section h2 {
-            font-size: 1.3rem;
-          }
-
-          .apero-section p {
-            font-size: 0.95rem;
+          .pdf-button {
+            padding: 0.7rem 1.2rem;
+            font-size: 0.85rem;
           }
         }
 
@@ -598,70 +420,32 @@ export default function Firmenevents() {
           }
 
           .hero-content p {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
           }
 
-          .header-image-container {
-            width: 95%;
-            height: 30vh;
-            min-height: 200px;
-            max-height: 300px;
+          .text-content h2 {
+            font-size: 1.5rem;
           }
 
-          .header-image-inner {
-            height: 140%;
-            top: -20%;
+          .features-grid {
+            grid-template-columns: 1fr;
           }
 
-          .intro-text {
-            font-size: 0.9rem;
+          .images-grid {
+            grid-template-columns: 1fr;
+            gap: 0.5rem;
           }
 
-          .section-text h2 {
-            font-size: 1.2rem;
+          .image-wrapper.image-1,
+          .image-wrapper.image-2,
+          .image-wrapper.image-3,
+          .image-wrapper.image-4 {
+            grid-column: span 1;
+            aspect-ratio: 4/3;
           }
 
-          .section-text p {
-            font-size: 0.9rem;
-          }
-
-          .event-types h2 {
-            font-size: 1.2rem;
-          }
-
-          .event-tag {
-            font-size: 0.7rem;
-            padding: 0.3rem 0.8rem;
-          }
-
-          .times-section h2 {
-            font-size: 1.2rem;
-          }
-
-          .time-card h3 {
-            font-size: 1rem;
-          }
-
-          .time-card p {
-            font-size: 0.85rem;
-          }
-
-          .anfrage-btn {
-            padding: 0.5rem 1.6rem;
-            font-size: 0.85rem;
-          }
-
-          .apero-section h2 {
-            font-size: 1.1rem;
-          }
-
-          .apero-section p {
-            font-size: 0.9rem;
-          }
-
-          .apero-btn {
-            padding: 0.5rem 1.6rem;
-            font-size: 0.85rem;
+          .pdf-buttons {
+            flex-direction: column;
           }
         }
       `}</style>

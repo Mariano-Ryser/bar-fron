@@ -1,4 +1,4 @@
-/* HEADER - Fondo negro, letras blancas */
+/* HEADER - Fondo negro, letras blancas - CON Ocultamiento al scroll */
 .header {
   position: fixed;
   top: 0;
@@ -9,7 +9,10 @@
   backdrop-filter: blur(3px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   z-index: 1000;
-  transition: all 0.3s ease-in-out;
+  transition: height 0.3s ease-in-out, 
+              background 0.3s ease-in-out, 
+              box-shadow 0.3s ease-in-out,
+              transform 0.4s ease-in-out;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
@@ -19,6 +22,7 @@
   background: #000000;
 }
 
+/* OCULTAR AL HACER SCROLL HACIA ABAJO */
 .header.hidden {
   transform: translateY(-100%);
 }
@@ -45,38 +49,21 @@
 }
 
 .logo:hover {
-  transform: scale(1.08)translateY(6px)rotate(5deg);
+  transform: scale(1.08) translateY(3px) rotate(1deg);
 }
 
 .logoImage {
-  height: 7.5rem;
+  height: 8.5rem;
   width: auto;
   object-fit: contain;
+  transition: height 0.3s ease;
 }
 
-/* DESKTOP NAV - Letras blancas */
-.desktopNav {
-  display: none;
-  align-items: center;
-  gap: 0.5rem;
+.header.scrolled .logoImage {
+  height: 5.5rem;
 }
 
-.desktopNav a {
-  padding: 0.625rem 1.25rem;
-  text-decoration: none;
-  font-size: 1.25rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  color: #ffffff;
-  border-radius: 0.5rem;
-}
-
-.desktopNav a:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-}
-
-/* MOBILE TOGGLE - Solo visible en móvil */
+/* BOTÓN HAMBURGUESA - SIEMPRE VISIBLE */
 .mobileToggle {
   background: none;
   border: none;
@@ -101,7 +88,38 @@
   display: block;
 }
 
-/* FULL SCREEN MOBILE MENU */
+/* TAMAÑOS RESPONSIVE DEL BURGER */
+@media (max-width: 480px) {
+  .mobileToggle svg {
+    width: 28px !important;
+    height: 28px !important;
+  }
+  .mobileToggle {
+    padding: 0.4rem;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 1023px) {
+  .mobileToggle svg {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  .mobileToggle {
+    padding: 0.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mobileToggle svg {
+    width: 48px !important;
+    height: 48px !important;
+  }
+  .mobileToggle {
+    padding: 0.75rem;
+  }
+}
+
+/* FULL SCREEN MENU */
 .mobileMenu {
   position: fixed;
   top: 0;
@@ -124,7 +142,7 @@
   pointer-events: auto;
 }
 
-/* BOTÓN DE CERRAR DENTRO DEL MODAL - CRUZ BLANCA */
+/* BOTÓN DE CERRAR DENTRO DEL MODAL */
 .closeButton {
   position: absolute;
   top: 2rem;
@@ -193,32 +211,32 @@
   color: #cccccc;
 }
 
-/* BREAKPOINTS */
+/* BREAKPOINTS - EL BURGER SIEMPRE VISIBLE */
 @media (min-width: 1024px) {
-  .desktopNav {
-    display: flex;
-  }
-
   .mobileToggle {
-    display: none;
+    display: flex !important;
   }
-
+  
   .mobileMenu {
-    display: none;
+    display: flex !important;
   }
 }
 
 @media (max-width: 1023px) {
   .logoImage {
-    height: 3.5rem;
+    height: 4.5rem;
   }
 
   .header {
-    height: 6.5rem;
+    height: 8.5rem;
   }
 
   .header.scrolled {
     height: 4.5rem;
+  }
+
+  .header.scrolled .logoImage {
+    height: 3rem;
   }
 
   .closeButton {
@@ -248,6 +266,10 @@
     height: 2.8rem;
   }
 
+  .header.scrolled .logoImage {
+    height: 2.2rem;
+  }
+
   .container {
     padding: 0 1rem;
   }
@@ -255,11 +277,6 @@
   .mobileNavItem {
     font-size: 2rem;
     gap: 1rem;
-  }
-
-  .mobileToggle svg {
-    width: 28px !important;
-    height: 28px !important;
   }
 
   .closeButton {

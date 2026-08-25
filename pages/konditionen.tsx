@@ -1,328 +1,272 @@
-import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
 import { 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Send, 
-  MessageCircle, 
-  CheckCircle,
-  AlertCircle
+  Clock, 
+  Calendar, 
+  Users, 
+  GlassWater, 
+  Music, 
+  Sofa, 
+  Coffee, 
+  Umbrella, 
+  Moon, 
+  Sparkles, 
+  Mail,
+  Phone
 } from 'lucide-react';
 
-export default function Kontakt() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    eventType: '',
-    guests: '',
-    date: '',
-    message: '',
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [error, setError] = useState('');
-  const [visibleItems, setVisibleItems] = useState<number[]>([]);
-  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+export default function Konditionen() {
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const mieteRef = useRef<HTMLDivElement>(null);
+  const umsatzRef = useRef<HTMLDivElement>(null);
+  const angebotRef = useRef<HTMLDivElement>(null);
+  const reservationRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Forzar la carga de la imagen después del montaje
+    const timer = setTimeout(() => {
+      setImageLoaded(true);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const index = Number(entry.target.getAttribute('data-index'));
-            setVisibleItems(prev => {
-              if (!prev.includes(index)) {
-                return [...prev, index];
-              }
-              return prev;
-            });
+            const sectionId = entry.target.getAttribute('data-section');
+            if (sectionId) {
+              setVisibleSections(prev => new Set(prev).add(sectionId));
+            }
           }
         });
       },
-      { threshold: 0.1 }
+      { 
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      }
     );
 
-    itemRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref);
+    const refs = [mieteRef, umsatzRef, angebotRef, reservationRef];
+    refs.forEach((ref) => {
+      if (ref.current) observer.observe(ref.current);
     });
 
     return () => {
-      itemRefs.current.forEach((ref) => {
-        if (ref) observer.unobserve(ref);
+      refs.forEach((ref) => {
+        if (ref.current) observer.unobserve(ref.current);
       });
     };
   }, []);
 
-  const eventTypes = [
-    'Firmenevent',
-    'Private Party',
-    'Geburtstagsfeier',
-    'Apéro Riche',
-    'Weihnachtsfeier',
-    'Hochzeit',
-    'Anderer Anlass'
-  ];
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setError('');
-
-    if (!formData.name || !formData.email || !formData.message) {
-      setError('Bitte füllen Sie alle Pflichtfelder aus.');
-      setIsSubmitting(false);
-      return;
-    }
-
-    try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      setIsSubmitted(true);
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        eventType: '',
-        guests: '',
-        date: '',
-        message: '',
-      });
-    } catch (err) {
-      setError('Es gab einen Fehler beim Senden. Bitte versuchen Sie es später erneut.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const contactInfo = [
-    {
-      icon: <Mail size={20} />,
-      title: 'E-Mail',
-      value: 'info@salotto.ch',
-      link: 'mailto:info@salotto.ch',
-      description: 'Wir antworten innerhalb 24 Stunden'
-    },
-    {
-      icon: <Phone size={20} />,
-      title: 'Telefon',
-      value: '+41 78 874 79 74',
-      link: 'tel:+41788747974',
-      description: 'Mo - Sa 10:00 - 22:00'
-    },
-    {
-      icon: <MapPin size={20} />,
-      title: 'Adresse',
-      value: 'Hardturmstrasse 169, 8005 Zürich',
-      link: 'https://www.google.com/maps?q=Hardturmstrasse+169+8005+Zürich',
-      description: 'Google Maps öffnen'
-    },
-  ];
-
   return (
-    <div className="kontakt-page">
-      {/* Hero */}
-      <div className="hero-section">
-        <div className="hero-content">
-          <h1>Kontakt</h1>
-          <p>Wir sind für Sie da – für Ihre Fragen und Anliegen</p>
-          <div className="hero-line"></div>
+    <div className="konditionen-page">
+      {/* Hero Image */}
+      <div className="hero-image-container">
+        <div className="hero-image-wrapper">
+          <Image
+            src="/img/konditionen/konditionen1.webp"
+            alt="Salotto Location Konditionen"
+            fill
+            className={`hero-image ${imageLoaded ? 'loaded' : ''}`}
+            style={{ objectFit: 'cover' }}
+            quality={90}
+            priority={true}
+            sizes="100vw"
+            onLoad={() => setImageLoaded(true)}
+          />
+          <div className="hero-overlay">
+            <div className="hero-content">
+              <h1 className="hero-title">Konditionen &amp; Preise</h1>
+              <p className="hero-subtitle">Alles was Du für Deinen Event wissen musst</p>
+              <div className="hero-line"></div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="kontakt-container">
-        {/* Info Cards */}
-        <div className="info-grid">
-          {contactInfo.map((info, index) => {
-            const refCallback = (el: HTMLDivElement | null) => {
-              itemRefs.current[index] = el;
-            };
-
-            return (
-              <div 
-                key={index}
-                ref={refCallback}
-                data-index={index}
-                className={`info-card ${visibleItems.includes(index) ? 'visible' : ''}`}
-              >
-                <a href={info.link} target={info.link.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer" className="info-card-link">
-                  <div className="info-icon">{info.icon}</div>
-                  <h3>{info.title}</h3>
-                  <p className="info-value">{info.value}</p>
-                  <span className="info-description">{info.description}</span>
-                </a>
+      {/* Main Content */}
+      <div className="content-container">
+        {/* Miete Section */}
+        <div 
+          ref={mieteRef}
+          data-section="miete"
+          className={`section ${visibleSections.has('miete') ? 'visible' : ''}`}
+        >
+          <h2 className="section-title">Miete</h2>
+          
+          <div className="card-grid">
+            <div className="card card-1">
+              <div className="card-header">
+                <Calendar size={28} color="#ffffff" stroke="#ffffff" />
+                <h3>Tagesmiete Wochentags</h3>
               </div>
-            );
-          })}
+              <p className="card-text">
+                Falls du deinen Event an einem Werktag machen möchtest, stellen wir für dich eine 
+                <span className="highlight"> individuelle Offerte</span> zusammen!
+              </p>
+              <div className="card-badge">
+                <Clock size={16} color="#ffffff" stroke="#ffffff" />
+                <span className="badge-text">Bis 22.00 Uhr</span>
+              </div>
+            </div>
+
+            <div className="card card-2">
+              <div className="card-header">
+                <Moon size={28} color="#ffffff" stroke="#ffffff" />
+                <h3>Abendmiete – am Wochenende</h3>
+              </div>
+              <p className="card-text">
+                Zwischen <span className="highlight">17.00 bis 04.00 Uhr</span> – maximal 8 Stunden
+              </p>
+              <div className="card-details">
+                <div className="detail-item">
+                  <Clock size={16} color="#ffffff" stroke="#ffffff" />
+                  <span className="detail-text">Maximal 8 Stunden</span>
+                </div>
+                <div className="detail-item">
+                  <GlassWater size={16} color="#ffffff" stroke="#ffffff" />
+                  <span className="detail-text">Getränke ausschliesslich an der Bar</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-
-        {/* Form + Map Grid */}
-        <div className="form-map-grid">
-          {/* Form */}
-          <div className="form-container">
-            <h2>Anfrage senden</h2>
-            <p className="form-subtitle">Füllen Sie das Formular aus und wir melden uns bei Ihnen.</p>
-
-            {isSubmitted ? (
-              <div className="success-message">
-                <CheckCircle size={48} />
-                <h3>Vielen Dank!</h3>
-                <p>Wir haben Ihre Anfrage erhalten und werden uns in Kürze bei Ihnen melden.</p>
-                <button onClick={() => setIsSubmitted(false)} className="reset-button">
-                  Neue Anfrage
-                </button>
+        {/* Mindestumsatz Section */}
+        <div 
+          ref={umsatzRef}
+          data-section="umsatz"
+          className={`section ${visibleSections.has('umsatz') ? 'visible' : ''}`}
+        >
+          <h2 className="section-title">Mindestumsatz</h2>
+          <div className="umsatz-card">
+            <p className="umsatz-text">
+              Der Mindestumsatz beträgt <span className="highlight">CHF 250/Stunde</span> (nur Getränke)
+            </p>
+            <div className="umsatz-grid">
+              <div className="umsatz-item">
+                <span className="hours">6 Std</span>
+                <span className="price">CHF 1'500.-</span>
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="contact-form">
-                {error && (
-                  <div className="error-message">
-                    <AlertCircle size={18} />
-                    <span>{error}</span>
-                  </div>
-                )}
+              <div className="umsatz-item">
+                <span className="hours">7 Std</span>
+                <span className="price">CHF 1'750.-</span>
+              </div>
+              <div className="umsatz-item">
+                <span className="hours">8 Std</span>
+                <span className="price">CHF 2'000.-</span>
+              </div>
+            </div>
+            <div className="umsatz-footer">
+              <span className="highlight">Lokal-Reinigung CHF 100.-</span>
+            </div>
+          </div>
+        </div>
 
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="name">Name *</label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="Ihr vollständiger Name"
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="email">E-Mail *</label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="ihre@email.ch"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="phone">Telefon</label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      placeholder="+41 78 874 79 74"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="eventType">Art des Anlasses</label>
-                    <select
-                      id="eventType"
-                      name="eventType"
-                      value={formData.eventType}
-                      onChange={handleChange}
-                    >
-                      <option value="">Bitte wählen...</option>
-                      {eventTypes.map((type) => (
-                        <option key={type} value={type}>{type}</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="guests">Anzahl Gäste</label>
-                    <input
-                      type="number"
-                      id="guests"
-                      name="guests"
-                      value={formData.guests}
-                      onChange={handleChange}
-                      placeholder="z.B. 50"
-                      min="1"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="date">Wunschdatum</label>
-                    <input
-                      type="date"
-                      id="date"
-                      name="date"
-                      value={formData.date}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-
-                <div className="form-group full-width">
-                  <label htmlFor="message">Nachricht *</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Beschreiben Sie Ihren Anlass und Ihre Wünsche..."
-                    rows={5}
-                    required
-                  />
-                </div>
-
-                <button type="submit" className="submit-button" disabled={isSubmitting}>
-                  {isSubmitting ? (
-                    <>
-                      <span className="spinner"></span>
-                      Wird gesendet...
-                    </>
-                  ) : (
-                    <>
-                      <Send size={18} />
-                      Anfrage senden
-                    </>
-                  )}
-                </button>
-              </form>
-            )}
+        {/* Angebot Section */}
+        <div 
+          ref={angebotRef}
+          data-section="angebot"
+          className={`section ${visibleSections.has('angebot') ? 'visible' : ''}`}
+        >
+          <h2 className="section-title">Angebot</h2>
+          <div className="angebot-grid">
+            <div className="angebot-item">
+              <Sparkles size={20} color="#ffffff" stroke="#ffffff" />
+              <span>Exklusive Nutzung der gesamten Location</span>
+            </div>
+            <div className="angebot-item">
+              <Users size={20} color="#ffffff" stroke="#ffffff" />
+              <span>Bis zu 60 Personen – perfekt für kleine &amp; mittlere Feiern</span>
+            </div>
+            <div className="angebot-item">
+              <GlassWater size={20} color="#ffffff" stroke="#ffffff" />
+              <span>Professioneller Barbetrieb</span>
+            </div>
+            <div className="angebot-item">
+              <Music size={20} color="#ffffff" stroke="#ffffff" />
+              <span>Professionelle Musikanlage – für die perfekte Party-Atmosphäre</span>
+            </div>
+            <div className="angebot-item">
+              <Sofa size={20} color="#ffffff" stroke="#ffffff" />
+              <span>Individuelle Möblierung – flexibel nach Deinen Wünschen</span>
+            </div>
+            <div className="angebot-item">
+              <Coffee size={20} color="#ffffff" stroke="#ffffff" />
+              <span>Ausgesuchte Getränke- und Cocktailauswahl</span>
+            </div>
+            <div className="angebot-item">
+              <Umbrella size={20} color="#ffffff" stroke="#ffffff" />
+              <span>Gedeckter Aussenbereich – bei jedem Wetter geniessen</span>
+            </div>
+            <div className="angebot-item">
+              <Moon size={20} color="#ffffff" stroke="#ffffff" />
+              <span>Verlängerte Nachtbewilligung am Wochenende</span>
+            </div>
           </div>
 
-          {/* Map */}
-          <div className="map-container">
-            <h2>Besuchen Sie uns</h2>
-            <div className="map-wrapper">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2702.345678901234!2d8.4966!3d47.3927!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47900a1234567890%3A0x1234567890abcdef!2sHardturmstrasse%20169%2C%208005%20Z%C3%BCrich!5e0!3m2!1sde!2sch!4v1700000000000"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Salotto Location"
-              />
+          <div className="party-info">
+            <h4>Party-Info</h4>
+            <div className="party-details">
+              <div className="party-detail">
+                <Clock size={18} color="#ffffff" stroke="#ffffff" />
+                <span className="party-text">Letzte Runde 3.30 Uhr</span>
+              </div>
+              <div className="party-detail">
+                <Clock size={18} color="#ffffff" stroke="#ffffff" />
+                <span className="party-text">½ Stunde vorher einrichten</span>
+              </div>
+              <div className="party-detail">
+                <Clock size={18} color="#ffffff" stroke="#ffffff" />
+                <span className="party-text">Party max. 8 Stunden</span>
+              </div>
             </div>
-            <div className="map-info">
-              <p>
-                <MapPin size={16} />
-                Hardturmstrasse 169, 8005 Zürich
-              </p>
-              <a 
-                href="https://www.google.com/maps?q=Hardturmstrasse+169+8005+Zürich" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="map-link"
-              >
-                Route planen
+          </div>
+
+          <div className="highlight-box">
+            <p>
+              <span className="highlight">Keine Mietkosten</span> – nur zahlen, was Du konsumierst
+            </p>
+            <p>
+              <span className="highlight">Catering auf Anfrage</span> – rundum sorglos feiern
+            </p>
+          </div>
+        </div>
+
+        {/* Reservation Section */}
+        <div 
+          ref={reservationRef}
+          data-section="reservation"
+          className={`section reservation-section ${visibleSections.has('reservation') ? 'visible' : ''}`}
+        >
+          <h2 className="section-title">Reservation</h2>
+          <div className="reservation-content">
+            <p className="reservation-text">
+              Wir freuen uns, Dir unsere Möglichkeiten in unserem Eventlokal zu zeigen. 
+              Kommt anschliessend eine definitive Buchung zustande, senden wir Dir per E-Mail 
+              die Reservationsdetails.
+            </p>
+            <p className="reservation-text">
+              Vereinbare jetzt einen Termin mit <span className="highlight">Marcos</span>, 
+              um das Salotto Zürich kennenzulernen. Wir freuen uns sehr, einen Anlass nach 
+              Deinen persönlichen Wünschen zu organisieren und durchzuführen.
+            </p>
+            <p className="reservation-text">
+              Gerne stehen wir Dir für sämtliche weiteren Fragen zur Verfügung.
+            </p>
+
+            <div className="contact-buttons">
+              <a href="/kontakt" className="contact-button primary">
+                <Mail size={20} color="#ffffff" stroke="#ffffff" />
+                <span>Offerte Anfragen</span>
+              </a>
+              <a href="tel:+41441234567" className="contact-button secondary">
+                <Phone size={20} color="#ffffff" stroke="#ffffff" />
+                <span>Telefonisch Kontakt</span>
               </a>
             </div>
           </div>
@@ -330,495 +274,575 @@ export default function Kontakt() {
       </div>
 
       <style jsx>{`
-        .kontakt-page {
+        .konditionen-page {
           background: #000000;
           min-height: 100vh;
-          padding-top: 8rem;
           color: #ffffff;
         }
 
-        /* Hero */
-        .hero-section {
-          padding: 0rem 2rem 3rem;
+        /* Hero Image */
+        .hero-image-container {
+          position: relative;
+          width: 100%;
+          height: 60vh;
+          min-height: 400px;
+          max-height: 600px;
+          overflow: hidden;
+        }
+
+        .hero-image-wrapper {
+          position: relative;
+          width: 100%;
+          height: 100%;
+        }
+
+        .hero-image {
+          transition: filter 1.5s ease-out, transform 1.5s ease-out, opacity 1.5s ease-out;
+          filter: blur(30px);
+          transform: scale(1.1);
+          opacity: 0;
+        }
+
+        .hero-image.loaded {
+          filter: blur(0px);
+          transform: scale(1);
+          opacity: 1;
+        }
+
+        .hero-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.3) 0%,
+            rgba(0, 0, 0, 0.6) 50%,
+            rgba(0, 0, 0, 0.8) 100%
+          );
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .hero-content {
           text-align: center;
+          padding: 2rem;
         }
 
-        .hero-content h1 {
-          color: #ffffff;
-          font-size: 3.5rem;
+        .hero-title {
+          font-size: 4rem;
           font-weight: 300;
           letter-spacing: 4px;
-          margin-bottom: 0.5rem;
+          margin-bottom: 1rem;
+          color: #ffffff;
+          text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+          animation: fadeInUp 1.2s ease-out 0.3s both;
         }
 
-        .hero-content p {
-          font-size: 1.1rem;
-          color: rgba(255, 255, 255, 0.7);
+        .hero-subtitle {
+          font-size: 1.2rem;
+          color: rgba(255, 255, 255, 0.8);
           font-weight: 300;
+          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+          animation: fadeInUp 1.2s ease-out 0.6s both;
         }
 
         .hero-line {
-          width: 50px;
+          width: 60px;
           height: 2px;
           background: rgba(255, 255, 255, 0.3);
-          margin: 1rem auto 0;
+          margin: 1.5rem auto 0;
+          animation: fadeInUp 1.2s ease-out 0.9s both;
         }
 
-        .kontakt-container {
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* Content Container */
+        .content-container {
           max-width: 1200px;
           margin: 0 auto;
-          padding: 0 2rem 4rem;
+          padding: 3rem 2rem 4rem;
         }
 
-        /* Info Cards */
-        .info-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 1.5rem;
+        /* Sections */
+        .section {
+          margin-bottom: 4rem;
+          opacity: 0;
+          transform: translateY(50px);
+          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .section:last-child {
+          margin-bottom: 0;
+        }
+
+        .section-title {
+          font-size: 2.5rem;
+          font-weight: 300;
+          letter-spacing: 3px;
+          color: #ffffff;
           margin-bottom: 2rem;
+          padding-bottom: 1rem;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .info-card {
+        /* Cards */
+        .card-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 2rem;
+        }
+
+        .card {
           background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.08);
           border-radius: 12px;
-          padding: 1.5rem;
-          text-align: center;
+          padding: 2rem;
+          transition: all 0.5s ease;
+          opacity: 0;
+          transform: translateY(30px);
+        }
+
+        .section.visible .card-1 {
+          animation: cardFadeIn 0.6s ease-out 0.2s both;
+        }
+
+        .section.visible .card-2 {
+          animation: cardFadeIn 0.6s ease-out 0.4s both;
+        }
+
+        @keyframes cardFadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .card:hover {
+          background: rgba(255, 255, 255, 0.06);
+          transform: translateY(-4px);
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-header {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-bottom: 1.2rem;
+        }
+
+        .card-header h3 {
+          font-size: 1.3rem;
+          font-weight: 300;
+          letter-spacing: 1px;
+          color: #ffffff;
+        }
+
+        .card-text {
+          font-size: 1rem;
+          line-height: 1.8;
+          color: rgba(255, 255, 255, 0.8);
+          margin-bottom: 1.2rem;
+        }
+
+        .highlight {
+          color: #ffffff;
+          font-weight: 400;
+          background: rgba(255, 255, 255, 0.08);
+          padding: 0.1rem 0.4rem;
+          border-radius: 4px;
+        }
+
+        .card-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: rgba(255, 255, 255, 0.06);
+          padding: 0.5rem 1rem;
+          border-radius: 20px;
+          font-size: 0.9rem;
+        }
+
+        .badge-text {
+          color: #ffffff;
+        }
+
+        .card-details {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          margin-top: 1rem;
+        }
+
+        .detail-item {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          font-size: 0.95rem;
+        }
+
+        .detail-text {
+          color: #ffffff;
+        }
+
+        /* Umsatz */
+        .umsatz-card {
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 12px;
+          padding: 2rem;
           opacity: 0;
           transform: translateY(30px);
           transition: all 0.6s ease;
         }
 
-        .info-card.visible {
+        .section.visible .umsatz-card {
           opacity: 1;
           transform: translateY(0);
+          transition-delay: 0.3s;
         }
 
-        .info-card:nth-child(2) {
-          transition-delay: 0.1s;
-        }
-
-        .info-card:nth-child(3) {
-          transition-delay: 0.2s;
-        }
-
-        .info-card:hover {
-          transform: translateY(-5px);
-          border-color: rgba(255, 255, 255, 0.1);
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .info-card-link {
-          text-decoration: none;
-          color: inherit;
-          display: block;
-        }
-
-        .info-icon {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          background: rgba(153, 153, 153, 0.86);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          margin-bottom: 1rem;
-          color: rgba(255, 255, 255, 0.6);
-        }
-
-        .info-card h3 {
-          font-size: 1rem;
-          font-weight: 500;
-          letter-spacing: 1px;
-          margin-bottom: 0.5rem;
-          color: rgba(255, 255, 255, 0.8);
-        }
-
-        .info-value {
-          font-size: 1.1rem;
-          font-weight: 400;
+        .umsatz-text {
+          font-size: 1.2rem;
           color: rgba(255, 255, 255, 0.9);
-          margin-bottom: 0.25rem;
+          text-align: center;
+          margin-bottom: 2rem;
         }
 
-        .info-description {
-          font-size: 0.8rem;
-          color: rgba(255, 255, 255, 0.4);
+        .umsatz-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1rem;
+          margin-bottom: 1.5rem;
         }
 
-        /* WhatsApp */
-        .whatsapp-section {
-          background: rgba(37, 211, 102, 0.05);
-          border: 1px solid rgba(37, 211, 102, 0.15);
+        .umsatz-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 1.2rem;
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 8px;
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          transition: all 0.3s ease;
+        }
+
+        .umsatz-item:hover {
+          background: rgba(255, 255, 255, 0.08);
+          transform: scale(1.02);
+        }
+
+        .umsatz-item .hours {
+          font-size: 1rem;
+          color: rgba(255, 255, 255, 0.6);
+          margin-bottom: 0.3rem;
+        }
+
+        .umsatz-item .price {
+          font-size: 1.4rem;
+          color: #ffffff;
+          font-weight: 300;
+        }
+
+        .umsatz-footer {
+          text-align: center;
+          padding-top: 1.5rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* Angebot */
+        .angebot-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1rem;
+          margin-bottom: 2rem;
+        }
+
+        .angebot-item {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          padding: 1rem;
+          background: rgba(255, 255, 255, 0.03);
+          border-radius: 8px;
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          transition: all 0.4s ease;
+          opacity: 0;
+          transform: translateX(-20px);
+        }
+
+        .section.visible .angebot-item {
+          animation: itemFadeIn 0.5s ease-out both;
+        }
+
+        .section.visible .angebot-item:nth-child(1) { animation-delay: 0.1s; }
+        .section.visible .angebot-item:nth-child(2) { animation-delay: 0.2s; }
+        .section.visible .angebot-item:nth-child(3) { animation-delay: 0.3s; }
+        .section.visible .angebot-item:nth-child(4) { animation-delay: 0.4s; }
+        .section.visible .angebot-item:nth-child(5) { animation-delay: 0.5s; }
+        .section.visible .angebot-item:nth-child(6) { animation-delay: 0.6s; }
+        .section.visible .angebot-item:nth-child(7) { animation-delay: 0.7s; }
+        .section.visible .angebot-item:nth-child(8) { animation-delay: 0.8s; }
+
+        @keyframes itemFadeIn {
+          from {
+            opacity: 0;
+            transform: translateX(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        .angebot-item:hover {
+          background: rgba(255, 255, 255, 0.06);
+          transform: translateX(4px);
+        }
+
+        .angebot-item span {
+          font-size: 0.95rem;
+          color: #ffffff;
+        }
+
+        .party-info {
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.08);
           border-radius: 12px;
           padding: 1.5rem 2rem;
-          margin-bottom: 2rem;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 1.5rem;
-          flex-wrap: wrap;
+          margin-bottom: 1.5rem;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: all 0.6s ease;
         }
 
-        .whatsapp-content {
-          display: flex;
-          align-items: center;
-          gap: 1.5rem;
-          flex: 1;
-          flex-wrap: wrap;
+        .section.visible .party-info {
+          opacity: 1;
+          transform: translateY(0);
+          transition-delay: 0.5s;
         }
 
-        .whatsapp-icon {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          background: #25D366;
-          color: #ffffff;
-          flex-shrink: 0;
-        }
-
-        .whatsapp-text h3 {
+        .party-info h4 {
           font-size: 1.1rem;
-          font-weight: 500;
-          margin-bottom: 0.2rem;
+          font-weight: 300;
+          letter-spacing: 1px;
+          color: rgba(255, 255, 255, 0.7);
+          margin-bottom: 1rem;
+        }
+
+        .party-details {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .party-detail {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          font-size: 0.95rem;
+        }
+
+        .party-text {
+          color: #ffffff;
+        }
+
+        .highlight-box {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          padding: 1.5rem;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          text-align: center;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: all 0.6s ease;
+        }
+
+        .section.visible .highlight-box {
+          opacity: 1;
+          transform: translateY(0);
+          transition-delay: 0.7s;
+        }
+
+        .highlight-box p {
+          font-size: 1.1rem;
           color: rgba(255, 255, 255, 0.9);
         }
 
-        .whatsapp-text p {
-          font-size: 0.9rem;
-          color: rgba(255, 255, 255, 0.6);
-          margin: 0;
-        }
-
-        .whatsapp-button {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.6rem;
-          background: #25D366;
-          color: #ffffff;
-          padding: 0.6rem 1.5rem;
-          border-radius: 50px;
-          text-decoration: none;
-          font-weight: 500;
-          transition: all 0.3s ease;
-          white-space: nowrap;
-        }
-
-        .whatsapp-button:hover {
-          transform: scale(1.02);
-          box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
-        }
-
-        /* Form + Map */
-        .form-map-grid {
-          display: grid;
-          grid-template-columns: 1.5fr 1fr;
-          gap: 2rem;
-          margin-bottom: 2rem;
-        }
-
-        .form-container {
-          background: rgba(255, 255, 255, 0.03);
+        /* Reservation */
+        .reservation-section {
+          background: rgba(255, 255, 255, 0.02);
           border: 1px solid rgba(255, 255, 255, 0.05);
           border-radius: 12px;
           padding: 2rem;
         }
 
-        .form-container h2 {
-          font-size: 1.5rem;
-          font-weight: 300;
-          letter-spacing: 2px;
-          margin-bottom: 0.25rem;
-        }
-
-        .form-subtitle {
-          color: rgba(255, 255, 255, 0.5);
-          font-size: 0.9rem;
+        .reservation-text {
+          font-size: 1.05rem;
+          line-height: 1.8;
+          color: rgba(255, 255, 255, 0.8);
           margin-bottom: 1.5rem;
         }
 
-        .contact-form {
+        .contact-buttons {
           display: flex;
-          flex-direction: column;
           gap: 1rem;
+          margin-top: 1.5rem;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: all 0.6s ease;
         }
 
-        .form-row {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 1rem;
+        .section.visible .contact-buttons {
+          opacity: 1;
+          transform: translateY(0);
+          transition-delay: 0.6s;
         }
 
-        .form-group {
-          display: flex;
-          flex-direction: column;
-          gap: 0.3rem;
-        }
-
-        .form-group.full-width {
-          grid-column: 1 / -1;
-        }
-
-        .form-group label {
-          font-size: 0.8rem;
-          font-weight: 500;
-          color: rgba(255, 255, 255, 0.6);
-          letter-spacing: 1px;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 8px;
-          padding: 0.6rem 1rem;
-          color: #ffffff;
-          font-size: 0.95rem;
-          transition: all 0.3s ease;
-          font-family: inherit;
-          width: 100%;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-          outline: none;
-          border-color: rgba(255, 255, 255, 0.2);
-          background: rgba(255, 255, 255, 0.08);
-        }
-
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-          color: rgba(255, 255, 255, 0.3);
-        }
-
-        .form-group select option {
-          background: #000000;
-          color: #ffffff;
-        }
-
-        .error-message {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          background: rgba(255, 0, 0, 0.1);
-          border: 1px solid rgba(255, 0, 0, 0.2);
-          border-radius: 8px;
-          padding: 0.75rem 1rem;
-          color: #ff6b6b;
-          font-size: 0.9rem;
-        }
-
-        .submit-button {
+        .contact-button {
           display: inline-flex;
           align-items: center;
-          justify-content: center;
-          gap: 0.6rem;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          color: #ffffff;
-          padding: 0.8rem 2rem;
-          border-radius: 50px;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          font-size: 1rem;
-          font-weight: 500;
-          margin-top: 0.5rem;
-        }
-
-        .submit-button:hover:not(:disabled) {
-          background: rgba(255, 255, 255, 0.1);
-          border-color: rgba(255, 255, 255, 0.2);
-          transform: translateY(-2px);
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .submit-button:disabled {
-          opacity: 0.5;
-          cursor: not-allowed;
-        }
-
-        .spinner {
-          width: 20px;
-          height: 20px;
-          border: 2px solid rgba(255, 255, 255, 0.1);
-          border-top: 2px solid #ffffff;
-          border-radius: 50%;
-          animation: spin 0.8s linear infinite;
-          display: inline-block;
-        }
-
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-
-        .success-message {
-          text-align: center;
-          padding: 2rem 0;
-        }
-
-        .success-message svg {
-          color: #4CAF50;
-          margin-bottom: 1rem;
-        }
-
-        .success-message h3 {
-          font-size: 1.5rem;
-          font-weight: 300;
-          margin-bottom: 0.5rem;
-        }
-
-        .success-message p {
-          color: rgba(255, 255, 255, 0.6);
-          margin-bottom: 1.5rem;
-        }
-
-        .reset-button {
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          color: #ffffff;
-          padding: 0.6rem 2rem;
-          border-radius: 50px;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          font-size: 0.9rem;
-        }
-
-        .reset-button:hover {
-          background: rgba(255, 255, 255, 0.1);
-        }
-
-        /* Map */
-        .map-container {
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.05);
-          border-radius: 12px;
-          padding: 1.5rem;
-          display: flex;
-          flex-direction: column;
-        }
-
-        .map-container h2 {
-          font-size: 1.2rem;
-          font-weight: 300;
-          letter-spacing: 2px;
-          margin-bottom: 1rem;
-        }
-
-        .map-wrapper {
-          flex: 1;
-          min-height: 300px;
+          gap: 0.75rem;
+          padding: 0.85rem 2rem;
           border-radius: 8px;
-          overflow: hidden;
-          background: #1a1a1a;
-        }
-
-        .map-wrapper iframe {
-          min-height: 300px;
-        }
-
-        .map-info {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-top: 1rem;
-          padding-top: 1rem;
-          border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .map-info p {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          font-size: 0.9rem;
-          color: rgba(255, 255, 255, 0.6);
-        }
-
-        .map-link {
-          color: rgba(255, 255, 255, 0.6);
           text-decoration: none;
-          font-size: 0.9rem;
-          transition: color 0.3s ease;
+          font-size: 1rem;
+          font-weight: 300;
+          transition: all 0.3s ease;
+          border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .map-link:hover {
+        .contact-button.primary {
+          background: rgba(255, 255, 255, 0.08);
+          color: #ffffff;
+        }
+
+        .contact-button.primary:hover {
+          background: rgba(255, 255, 255, 0.15);
+          transform: translateY(-2px);
+          box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-button.secondary {
+          background: transparent;
+          color: rgba(255, 255, 255, 0.7);
+        }
+
+        .contact-button.secondary:hover {
+          background: rgba(255, 255, 255, 0.05);
+          transform: translateY(-2px);
+        }
+
+        .contact-button span {
           color: #ffffff;
         }
 
         /* Responsive */
         @media (max-width: 1024px) {
-          .form-map-grid {
-            grid-template-columns: 1fr;
+          .hero-title {
+            font-size: 3rem;
           }
 
-          .map-wrapper {
-            min-height: 250px;
+          .content-container {
+            padding: 2rem 1.5rem 3rem;
           }
         }
 
         @media (max-width: 768px) {
-          .kontakt-page {
-            padding-top: 6rem;
+          .konditionen-page {
+            padding-top: 0rem;
           }
 
-          .hero-content h1 {
-            font-size: 2.5rem;
+          .hero-image-container {
+            height: 40vh;
+            min-height: 300px;
           }
 
-          .kontakt-container {
-            padding: 0 1rem 2rem;
+          .hero-title {
+            font-size: 2.2rem;
           }
 
-          .info-grid {
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+          .hero-subtitle {
+            font-size: 1rem;
           }
 
-          .form-row {
+          .section-title {
+            font-size: 2rem;
+          }
+
+          .card-grid {
             grid-template-columns: 1fr;
           }
 
-          .whatsapp-section {
-            padding: 1rem 1.2rem;
-            flex-direction: column;
-            align-items: stretch;
+          .umsatz-grid {
+            grid-template-columns: 1fr;
           }
 
-          .whatsapp-content {
-            flex-direction: column;
-            text-align: center;
+          .angebot-grid {
+            grid-template-columns: 1fr;
           }
 
-          .whatsapp-button {
+          .contact-buttons {
+            flex-direction: column;
+          }
+
+          .contact-button {
             justify-content: center;
-          }
-
-          .form-container {
-            padding: 1.5rem;
           }
         }
 
         @media (max-width: 480px) {
-          .hero-content h1 {
-            font-size: 2rem;
+          .hero-image-container {
+            height: 30vh;
+            min-height: 250px;
           }
 
-          .info-grid {
-            grid-template-columns: 1fr;
+          .hero-title {
+            font-size: 1.8rem;
+            letter-spacing: 2px;
           }
 
-          .whatsapp-section {
-            padding: 1rem;
+          .section-title {
+            font-size: 1.6rem;
           }
 
-          .form-container {
-            padding: 1rem;
+          .card {
+            padding: 1.5rem;
+          }
+
+          .card-header h3 {
+            font-size: 1.1rem;
+          }
+
+          .umsatz-text {
+            font-size: 1rem;
+          }
+
+          .reservation-section {
+            padding: 1.5rem;
           }
         }
       `}</style>

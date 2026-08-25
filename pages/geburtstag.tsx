@@ -4,10 +4,22 @@ import { useRef, useEffect, useState } from 'react';
 
 export default function Geburtstag() {
   const router = useRouter();
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
+  const [isHeroVisible, setIsHeroVisible] = useState(false);
   const imageRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  
+  const introRef = useRef<HTMLDivElement>(null);
+  const featuresRef = useRef<HTMLDivElement>(null);
+  const section1Ref = useRef<HTMLDivElement>(null);
+  const section2Ref = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Hero animation
+    setIsHeroVisible(true);
+
+    // Parallax effect
     const handleScroll = () => {
       if (imageRef.current) {
         const scrolled = window.scrollY;
@@ -17,11 +29,38 @@ export default function Geburtstag() {
     };
 
     window.addEventListener('scroll', handleScroll);
-    
-    // Animación de entrada
-    setIsVisible(true);
-    
+
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const sectionId = entry.target.getAttribute('data-section');
+            if (sectionId) {
+              setVisibleSections(prev => new Set(prev).add(sectionId));
+            }
+          }
+        });
+      },
+      { 
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    );
+
+    const refs = [introRef, featuresRef, section1Ref, section2Ref, ctaRef];
+    refs.forEach((ref) => {
+      if (ref.current) observer.observe(ref.current);
+    });
+
+    return () => {
+      refs.forEach((ref) => {
+        if (ref.current) observer.unobserve(ref.current);
+      });
+    };
   }, []);
 
   const handleAnfrageClick = () => {
@@ -30,41 +69,45 @@ export default function Geburtstag() {
 
   return (
     <div className="geburtstag-page">
-      {/* Hero Section con animación */}
-      <div className="hero-section">
-        <div className="hero-content">
-          <h1 className={`fade-in ${isVisible ? 'visible' : ''}`}>
-            Geburtstagsfeier
-          </h1>
-          <p className={`fade-in-delay ${isVisible ? 'visible' : ''}`}>
-            & Privat Partys
-          </p>
-          <div className={`hero-line ${isVisible ? 'visible' : ''}`}></div>
-          <p className={`hero-sub ${isVisible ? 'visible' : ''}`}>
-            🎉 Feiere unvergesslich in Zürich
-          </p>
-        </div>
-      </div>
-
-      {/* Header Image con Parallax */}
-      <div className="header-image-wrapper">
-        <div className="header-image-container">
-          <div className="header-image-inner" ref={imageRef}>
+      {/* Hero Image con Parallax y blur */}
+      <div className="hero-image-container">
+        <div className="hero-image-wrapper">
+          <div className="hero-image-inner" ref={imageRef}>
             <Image
-              src="/img/geburtstag/party1.webp" 
+              src="/img/geburtstag/party3.webp"
               alt="Geburtstagsfeier Salotto Zürich"
               fill
+              className={`hero-image ${imageLoaded ? 'loaded' : ''}`}
               style={{ objectFit: 'cover' }}
               priority
-              className="header-image"
+              quality={90}
+              sizes="100vw"
+              onLoad={() => setImageLoaded(true)}
             />
           </div>
-          <div className="header-image-overlay"></div>
+          <div className="hero-overlay">
+            <div className="hero-content">
+              <h1 className={`hero-title ${isHeroVisible ? 'visible' : ''}`}>
+                Geburtstagsfeier
+              </h1>
+              <p className={`hero-subtitle ${isHeroVisible ? 'visible' : ''}`}>
+                & Privat Partys
+              </p>
+              <div className={`hero-line ${isHeroVisible ? 'visible' : ''}`}></div>
+              <p className={`hero-description ${isHeroVisible ? 'visible' : ''}`}>
+                🎉 Feiere unvergesslich in Zürich
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Intro Text con animación */}
-      <div className="intro-section">
+      <div 
+        ref={introRef}
+        data-section="intro"
+        className={`intro-section ${visibleSections.has('intro') ? 'visible' : ''}`}
+      >
         <div className="intro-content">
           <p className="intro-text">
             Du suchst eine einzigartige Location für Deine Geburtstagsfeier in Zürich? 
@@ -80,24 +123,28 @@ export default function Geburtstag() {
       </div>
 
       {/* Features Grid */}
-      <div className="features-section">
+      <div 
+        ref={featuresRef}
+        data-section="features"
+        className={`features-section ${visibleSections.has('features') ? 'visible' : ''}`}
+      >
         <div className="features-grid">
-          <div className="feature-card">
+          <div className="feature-card feature-1">
             <div className="feature-icon">🎂</div>
             <h3>Runder Geburtstag</h3>
             <p>Feiere Deinen besonderen Tag in exklusiver Atmosphäre</p>
           </div>
-          <div className="feature-card">
+          <div className="feature-card feature-2">
             <div className="feature-icon">🎁</div>
             <h3>Überraschungsparty</h3>
             <p>Perfekte Location für unvergessliche Überraschungen</p>
           </div>
-          <div className="feature-card">
+          <div className="feature-card feature-3">
             <div className="feature-icon">🎵</div>
             <h3>Party & Musik</h3>
             <p>Mit Bar, Musik und legendärer Discokugel</p>
           </div>
-          <div className="feature-card">
+          <div className="feature-card feature-4">
             <div className="feature-icon">👥</div>
             <h3>Bis zu 60 Gäste</h3>
             <p>Genug Platz für alle Freunde und Familie</p>
@@ -106,7 +153,11 @@ export default function Geburtstag() {
       </div>
 
       {/* Section con Imagen 1 */}
-      <div className="section-with-image">
+      <div 
+        ref={section1Ref}
+        data-section="section1"
+        className={`section-with-image ${visibleSections.has('section1') ? 'visible' : ''}`}
+      >
         <div className="section-text">
           <h2>Deine Geburtstagsfeier in Zürich</h2>
           <p>
@@ -126,16 +177,22 @@ export default function Geburtstag() {
         </div>
         <div className="section-image">
           <Image
-            src="/img/geburtstag/party2.jpg"
+            src="/img/geburtstag/party1.webp"
             alt="Party Location Zürich"
             fill
             style={{ objectFit: 'cover' }}
+            quality={85}
+            sizes="(max-width: 768px) 100vw, 50vw"
           />
         </div>
       </div>
 
       {/* Section con Imagen 2 (reverse) */}
-      <div className="section-with-image reverse">
+      <div 
+        ref={section2Ref}
+        data-section="section2"
+        className={`section-with-image reverse ${visibleSections.has('section2') ? 'visible' : ''}`}
+      >
         <div className="section-text">
           <h2>Exklusiv für Dich und Deine Gäste</h2>
           <p>
@@ -149,47 +206,22 @@ export default function Geburtstag() {
         </div>
         <div className="section-image">
           <Image
-            src="/img/geburtstag/party3.jpg"
+            src="/img/geburtstag/party2.webp"
             alt="Geburtstagsfeier Location"
             fill
             style={{ objectFit: 'cover' }}
+            quality={85}
+            sizes="(max-width: 768px) 100vw, 50vw"
           />
         </div>
       </div>
 
-      {/* Extras Section */}
-      {/* <div className="extras-section">
-        <h2>Was wir Dir bieten</h2>
-        <div className="extras-grid">
-          <div className="extra-item">
-            <span className="extra-emoji">🍾</span>
-            <span>Exklusive Bar</span>
-          </div>
-          <div className="extra-item">
-            <span className="extra-emoji">🪩</span>
-            <span>Discokugel</span>
-          </div>
-          <div className="extra-item">
-            <span className="extra-emoji">🎶</span>
-            <span>Musik-Anlage</span>
-          </div>
-          <div className="extra-item">
-            <span className="extra-emoji">🕯️</span>
-            <span>Stimmungsvolle Beleuchtung</span>
-          </div>
-          <div className="extra-item">
-            <span className="extra-emoji">🍽️</span>
-            <span>Catering möglich</span>
-          </div>
-          <div className="extra-item">
-            <span className="extra-emoji">🎉</span>
-            <span>Dekoration nach Wunsch</span>
-          </div>
-        </div>
-      </div> */}
-
       {/* CTA Section */}
-      <div className="cta-section">
+      <div 
+        ref={ctaRef}
+        data-section="cta"
+        className={`cta-section ${visibleSections.has('cta') ? 'visible' : ''}`}
+      >
         <h2>Bereit für Deine Geburtstagsfeier?</h2>
         <p>Kontaktiere uns für eine unverbindliche Anfrage</p>
         <button 
@@ -204,107 +236,27 @@ export default function Geburtstag() {
         .geburtstag-page {
           background: #000000;
           min-height: 100vh;
-          padding-top: 8rem;
+          padding-top: 0;
           color: #ffffff;
         }
 
-        /* ===== HERO ===== */
-        .hero-section {
-          padding: 0rem 2rem 2rem;
-          text-align: center;
-        }
-
-        .hero-content h1 {
-          color: #ffffff;
-          font-size: 3.5rem;
-          font-weight: 300;
-          letter-spacing: 4px;
-          margin-bottom: 0.5rem;
-        }
-
-        .hero-content p {
-          font-size: 1.1rem;
-          color: rgba(255, 255, 255, 0.7);
-          font-weight: 300;
-        }
-
-        .hero-sub {
-          margin-top: 1rem;
-          font-size: 1.2rem !important;
-          color: rgba(255, 215, 0, 0.7) !important;
-        }
-
-        .hero-line {
-          width: 50px;
-          height: 2px;
-          background: rgba(255, 215, 0, 0.5);
-          margin: 1rem auto 0;
-        }
-
-        /* ===== ANIMACIONES ===== */
-        .fade-in {
-          opacity: 0;
-          transform: translateY(30px);
-          transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .fade-in.visible {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        .fade-in-delay {
-          opacity: 0;
-          transform: translateY(30px);
-          transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
-        }
-
-        .fade-in-delay.visible {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        .hero-line {
-          opacity: 0;
-          transform: scaleX(0);
-          transition: opacity 0.8s ease 0.6s, transform 0.8s ease 0.6s;
-          transform-origin: center;
-        }
-
-        .hero-line.visible {
-          opacity: 1;
-          transform: scaleX(1);
-        }
-
-        .hero-sub {
-          opacity: 0;
-          transform: translateY(20px);
-          transition: opacity 0.8s ease 0.9s, transform 0.8s ease 0.9s;
-        }
-
-        .hero-sub.visible {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        /* ===== HEADER IMAGE ===== */
-        .header-image-wrapper {
-          display: flex;
-          justify-content: center;
-          padding: 1rem 0 2rem;
-        }
-
-        .header-image-container {
+        /* ===== HERO IMAGE con Parallax ===== */
+        .hero-image-container {
           position: relative;
-          width: 65%;
-          height: 50vh;
-          min-height: 350px;
-          max-height: 650px;
+          width: 100%;
+          height: 60vh;
+          min-height: 400px;
+          max-height: 600px;
           overflow: hidden;
-          background: #1a1a1a;
         }
 
-        .header-image-inner {
+        .hero-image-wrapper {
+          position: relative;
+          width: 100%;
+          height: 100%;
+        }
+
+        .hero-image-inner {
           position: relative;
           width: 100%;
           height: 120%;
@@ -313,33 +265,121 @@ export default function Geburtstag() {
           transition: none;
         }
 
-        .header-image-overlay {
+        .hero-image {
+          transition: filter 1.5s ease-out, transform 1.5s ease-out, opacity 1.5s ease-out;
+          filter: blur(30px);
+          transform: scale(1.1);
+          opacity: 0;
+        }
+
+        .hero-image.loaded {
+          filter: blur(0px);
+          transform: scale(1);
+          opacity: 1;
+        }
+
+        .hero-overlay {
           position: absolute;
           top: 0;
           left: 0;
           right: 0;
           bottom: 0;
           background: linear-gradient(
-            0deg,
-            rgba(0, 0, 0, 0.4) 0%,
-            transparent 50%,
-            transparent 100%
+            to bottom,
+            rgba(0, 0, 0, 0.3) 0%,
+            rgba(0, 0, 0, 0.6) 50%,
+            rgba(0, 0, 0, 0.8) 100%
           );
-          pointer-events: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           z-index: 2;
+        }
+
+        .hero-content {
+          text-align: center;
+          padding: 2rem;
+        }
+
+        .hero-title {
+          font-size: 4rem;
+          font-weight: 300;
+          letter-spacing: 4px;
+          margin-bottom: 0.5rem;
+          color: #ffffff;
+          text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+        }
+
+        .hero-title.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .hero-subtitle {
+          font-size: 1.2rem;
+          color: rgba(255, 255, 255, 0.7);
+          font-weight: 300;
+          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.8s ease 0.6s, transform 0.8s ease 0.6s;
+        }
+
+        .hero-subtitle.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .hero-line {
+          width: 60px;
+          height: 2px;
+          background: rgba(255, 215, 0, 0.5);
+          margin: 1.5rem auto 0;
+          opacity: 0;
+          transform: scaleX(0);
+          transition: opacity 0.8s ease 0.9s, transform 0.8s ease 0.9s;
+          transform-origin: center;
+        }
+
+        .hero-line.visible {
+          opacity: 1;
+          transform: scaleX(1);
+        }
+
+        .hero-description {
+          font-size: 1.2rem;
+          color: rgba(255, 215, 0, 0.7);
+          font-weight: 300;
+          margin-top: 1rem;
+          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 0.8s ease 1.2s, transform 0.8s ease 1.2s;
+        }
+
+        .hero-description.visible {
+          opacity: 1;
+          transform: translateY(0);
         }
 
         /* ===== INTRO ===== */
         .intro-section {
           max-width: 800px;
           margin: 0 auto;
-          padding: 3rem 2rem;
+          padding: 4rem 2rem;
           text-align: center;
           border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          opacity: 0;
+          transform: translateY(50px);
+          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .intro-content {
-          animation: fadeInUp 1s ease;
+        .intro-section.visible {
+          opacity: 1;
+          transform: translateY(0);
         }
 
         .intro-text {
@@ -366,8 +406,16 @@ export default function Geburtstag() {
         .features-section {
           max-width: 1200px;
           margin: 0 auto;
-          padding: 3rem 2rem;
+          padding: 4rem 2rem;
           border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          opacity: 0;
+          transform: translateY(50px);
+          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .features-section.visible {
+          opacity: 1;
+          transform: translateY(0);
         }
 
         .features-grid {
@@ -381,8 +429,37 @@ export default function Geburtstag() {
           padding: 2rem 1.5rem;
           background: rgba(255, 255, 255, 0.03);
           border: 1px solid rgba(255, 255, 255, 0.06);
-          transition: all 0.4s ease;
+          transition: all 0.5s ease;
           border-radius: 8px;
+          opacity: 0;
+          transform: translateY(30px);
+        }
+
+        .features-section.visible .feature-1 {
+          animation: cardFadeIn 0.6s ease-out 0.1s both;
+        }
+
+        .features-section.visible .feature-2 {
+          animation: cardFadeIn 0.6s ease-out 0.2s both;
+        }
+
+        .features-section.visible .feature-3 {
+          animation: cardFadeIn 0.6s ease-out 0.3s both;
+        }
+
+        .features-section.visible .feature-4 {
+          animation: cardFadeIn 0.6s ease-out 0.4s both;
+        }
+
+        @keyframes cardFadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
 
         .feature-card:hover {
@@ -417,9 +494,17 @@ export default function Geburtstag() {
           gap: 3rem;
           max-width: 1200px;
           margin: 0 auto;
-          padding: 3rem 2rem;
+          padding: 4rem 2rem;
           align-items: center;
           border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          opacity: 0;
+          transform: translateY(50px);
+          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section-with-image.visible {
+          opacity: 1;
+          transform: translateY(0);
         }
 
         .section-with-image:last-of-type {
@@ -436,6 +521,22 @@ export default function Geburtstag() {
 
         .section-text {
           direction: ltr;
+          opacity: 0;
+          transform: translateX(-30px);
+          transition: all 0.8s ease 0.3s;
+        }
+
+        .section-with-image.visible .section-text {
+          opacity: 1;
+          transform: translateX(0);
+        }
+
+        .section-with-image.reverse .section-text {
+          transform: translateX(30px);
+        }
+
+        .section-with-image.reverse.visible .section-text {
+          transform: translateX(0);
         }
 
         .section-text h2 {
@@ -466,7 +567,15 @@ export default function Geburtstag() {
           aspect-ratio: 4/3;
           overflow: hidden;
           background: #1a1a1a;
-          border-radius: 4px;
+          border-radius: 12px;
+          opacity: 0;
+          transform: scale(0.95);
+          transition: all 0.8s ease 0.5s;
+        }
+
+        .section-with-image.visible .section-image {
+          opacity: 1;
+          transform: scale(1);
         }
 
         .section-image img {
@@ -487,6 +596,14 @@ export default function Geburtstag() {
           cursor: pointer;
           transition: all 0.3s ease;
           letter-spacing: 1px;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: all 0.6s ease 0.7s;
+        }
+
+        .section-with-image.visible .anfrage-btn {
+          opacity: 1;
+          transform: translateY(0);
         }
 
         .anfrage-btn:hover {
@@ -495,61 +612,20 @@ export default function Geburtstag() {
           transform: scale(1.02);
         }
 
-        /* ===== EXTRAS ===== */
-        .extras-section {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 3rem 2rem;
-          text-align: center;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .extras-section h2 {
-          font-size: 1.8rem;
-          font-weight: 300;
-          letter-spacing: 2px;
-          margin-bottom: 2rem;
-          color: rgba(255, 255, 255, 0.9);
-        }
-
-        .extras-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 1.5rem;
-          max-width: 700px;
-          margin: 0 auto;
-        }
-
-        .extra-item {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 0.75rem;
-          padding: 1rem 1.5rem;
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.06);
-          border-radius: 50px;
-          font-size: 0.95rem;
-          color: rgba(255, 255, 255, 0.7);
-          transition: all 0.3s ease;
-        }
-
-        .extra-item:hover {
-          border-color: rgba(255, 215, 0, 0.3);
-          color: #ffffff;
-          transform: translateY(-2px);
-        }
-
-        .extra-emoji {
-          font-size: 1.2rem;
-        }
-
         /* ===== CTA ===== */
         .cta-section {
           max-width: 800px;
           margin: 0 auto;
           padding: 4rem 2rem;
           text-align: center;
+          opacity: 0;
+          transform: translateY(50px);
+          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .cta-section.visible {
+          opacity: 1;
+          transform: translateY(0);
         }
 
         .cta-section h2 {
@@ -584,34 +660,16 @@ export default function Geburtstag() {
           transform: scale(1.02);
         }
 
-        /* ===== ANIMACIONES ===== */
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes pulse {
-          0%, 100% {
-            transform: scale(1);
-          }
-          50% {
-            transform: scale(1.05);
-          }
-        }
-
         /* ===== RESPONSIVE ===== */
         @media (max-width: 1024px) {
-          .header-image-container {
-            width: 85%;
-            height: 45vh;
-            min-height: 300px;
+          .hero-image-container {
+            height: 50vh;
+            min-height: 350px;
             max-height: 500px;
+          }
+
+          .hero-title {
+            font-size: 3rem;
           }
 
           .features-grid {
@@ -620,53 +678,35 @@ export default function Geburtstag() {
 
           .section-with-image {
             gap: 2rem;
-            padding: 2rem 2rem;
+            padding: 3rem 2rem;
           }
 
           .section-text h2 {
             font-size: 1.5rem;
           }
-
-          .extras-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
         }
 
         @media (max-width: 768px) {
-          .geburtstag-page {
-            padding-top: 6rem;
-          }
-
-          .hero-section {
-            padding: 0.5rem 1rem 1.5rem;
-          }
-
-          .hero-content h1 {
-            font-size: 2.5rem;
-          }
-
-          .hero-content p {
-            font-size: 1rem;
-          }
-
-          .header-image-wrapper {
-            padding: 0.5rem 0 1.5rem;
-          }
-
-          .header-image-container {
-            width: 92%;
-            height: 35vh;
-            min-height: 250px;
+          .hero-image-container {
+            height: 40vh;
+            min-height: 300px;
             max-height: 400px;
           }
 
-          .header-image-inner {
-            height: 130%;
-            top: -15%;
+          .hero-title {
+            font-size: 2.5rem;
+          }
+
+          .hero-subtitle {
+            font-size: 1rem;
+          }
+
+          .hero-description {
+            font-size: 1rem;
           }
 
           .intro-section {
-            padding: 2rem 1rem;
+            padding: 3rem 1.5rem;
           }
 
           .intro-text {
@@ -674,7 +714,7 @@ export default function Geburtstag() {
           }
 
           .features-section {
-            padding: 2rem 1rem;
+            padding: 3rem 1.5rem;
           }
 
           .features-grid {
@@ -689,11 +729,19 @@ export default function Geburtstag() {
           .section-with-image {
             grid-template-columns: 1fr;
             gap: 1.5rem;
-            padding: 2rem 1rem;
+            padding: 3rem 1.5rem;
           }
 
           .section-with-image.reverse {
             direction: ltr;
+          }
+
+          .section-with-image.reverse .section-text {
+            transform: translateX(-30px);
+          }
+
+          .section-with-image.reverse.visible .section-text {
+            transform: translateX(0);
           }
 
           .section-image {
@@ -708,31 +756,13 @@ export default function Geburtstag() {
             font-size: 0.95rem;
           }
 
-          .extras-section {
-            padding: 2rem 1rem;
-          }
-
-          .extras-section h2 {
-            font-size: 1.4rem;
-          }
-
-          .extras-grid {
-            grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
-          }
-
-          .extra-item {
-            font-size: 0.85rem;
-            padding: 0.8rem 1rem;
-          }
-
           .anfrage-btn {
             padding: 0.6rem 2rem;
             font-size: 0.9rem;
           }
 
           .cta-section {
-            padding: 3rem 1rem;
+            padding: 3rem 1.5rem;
           }
 
           .cta-section h2 {
@@ -746,24 +776,23 @@ export default function Geburtstag() {
         }
 
         @media (max-width: 480px) {
-          .hero-content h1 {
-            font-size: 2rem;
+          .hero-image-container {
+            height: 30vh;
+            min-height: 250px;
+            max-height: 350px;
           }
 
-          .hero-content p {
+          .hero-title {
+            font-size: 2rem;
+            letter-spacing: 2px;
+          }
+
+          .hero-subtitle {
             font-size: 0.9rem;
           }
 
-          .header-image-container {
-            width: 95%;
-            height: 30vh;
-            min-height: 200px;
-            max-height: 300px;
-          }
-
-          .header-image-inner {
-            height: 140%;
-            top: -20%;
+          .hero-description {
+            font-size: 0.9rem;
           }
 
           .intro-text {
@@ -806,20 +835,6 @@ export default function Geburtstag() {
           .section-text .highlight-text {
             font-size: 0.95rem;
             padding: 0.75rem;
-          }
-
-          .extras-grid {
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-          }
-
-          .extra-item {
-            font-size: 0.75rem;
-            padding: 0.6rem 0.8rem;
-          }
-
-          .extra-emoji {
-            font-size: 1rem;
           }
 
           .anfrage-btn {
