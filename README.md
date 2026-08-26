@@ -1,227 +1,283 @@
-# ⚡️ LZ LAGER – Die Artikelsuchmaschine für Lager-Ninjas 🧠📦
+🍷 Salotto - Restaurant & Eventlocation Website
+📖 Descripción del Proyecto
+Salotto es un sitio web moderno para un restaurante y eventlocation en Zürich. El proyecto está construido con Next.js y utiliza CSS-in-JS con el sistema de estilos styled-jsx para un desarrollo modular y mantenible.
 
-## 🚀 Was ist LZ LAGER?
+El sitio web presenta una experiencia de usuario elegante y fluida, con animaciones suaves, efectos parallax, y un diseño responsivo que se adapta perfectamente a todos los dispositivos.
 
-Im Labyrinth der Logistik, wo verlorene Artikel zu Legenden werden und Effizienz oft nur ein Gerücht ist, kommt **LZ LAGER** ins Spiel – ein blitzschnelles, präzises und skalierbares Tool zur Artikelsuche in komplexen Lagerumgebungen.
+🏗️ Tecnologías Utilizadas
+Tecnología	Versión	Propósito
+Next.js	14.x	Framework de React para renderizado del lado del servidor y enrutamiento
+React	18.x	Biblioteca para construir interfaces de usuario
+TypeScript	5.x	Tipado estático para un código más robusto
+styled-jsx	-	CSS-in-JS para estilos a nivel de componente
+Lucide React	-	Biblioteca de iconos SVG
+EmailJS	-	Servicio para envío de correos desde el formulario de contacto
+🚀 Estructura del Proyecto
+text
+salotto/
+├── pages/                        # Páginas del sitio (Next.js routing)
+│   ├── index.tsx                 # Homepage con carousel hero
+│   ├── apero.tsx                 # Página de Apéro & Apéro Riche
+│   ├── firmenevents.tsx          # Página de Firmenevents
+│   ├── geburtstag.tsx            # Página de Geburtstagsfeier
+│   ├── jetztmieten.tsx           # Página de contacto / formulario
+│   ├── mittagessen.tsx           # Página de Mittagessen
+│   ├── konditionen.tsx           # Página de Konditionen
+│   └── _app.tsx                  # Componente principal de la aplicación
+│
+├── components/                   # Componentes reutilizables
+│   ├── Footer.tsx                # Footer del sitio
+│   └── HomeHero.tsx              # Hero carousel de la página principal
+│
+├── public/
+│   ├── img/                      # Imágenes del sitio
+│   │   ├── bar*.jpg/webp         # Imágenes del bar
+│   │   ├── apero/                # Imágenes de la sección Apéro
+│   │   ├── geburtstag/           # Imágenes de la sección Geburtstag
+│   │   ├── jetztmieten/          # Imágenes de la sección Jetzt Mieten
+│   │   └── logo-salotto.png      # Logo del sitio
+│   └── pdf/                      # Documentos PDF descargables
+│       ├── getraenkekarte.pdf
+│       └── apero-food-karte.pdf
+│
+├── package.json                  # Dependencias y scripts
+├── tsconfig.json                 # Configuración de TypeScript
+└── README.md                     # Este archivo
+🎨 Sistema de Estilos
+styled-jsx
+El proyecto utiliza styled-jsx para el estilado de componentes. Este enfoque ofrece:
 
-Keine Geisterpaletten mehr. Keine rätselhaften Regale. Nur Ergebnisse.**
+Aislamiento de estilos: Los estilos son específicos del componente, evitando conflictos CSS globales.
 
- 🧰 Tech Stack
+CSS nativo: Se utiliza CSS puro dentro de los componentes.
 
-- **Frontend**: [Next.js](https://nextjs.org/) – Modular, modern und bereit für alles.
-- **Backend**: [Node Js - Azure Functions](https://azure.microsoft.com/en-us/services/functions/) – Skalierbar, serverless und kampferprobt.
-- **Datenbank**: [MongoDB](https://www.mongodb.com/) – NoSQL, weil Lagerlogik nicht relational ist.
-- **Hosting**: Azure / Vercel (je nach Einsatzzweck)
+Soporte de SCSS: Permite usar sintaxis anidada y variables.
 
-## 🎯 Features
+Ejemplo de uso:
+tsx
+export default function Component() {
+  return (
+    <div className="container">
+      <h1>Hola Mundo</h1>
+      
+      <style jsx>{`
+        .container {
+          background: #000;
+          padding: 2rem;
+        }
+        
+        h1 {
+          color: #ffffff;
+          font-size: 2rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+          h1 {
+            font-size: 1.5rem;
+          }
+        }
+      `}</style>
+    </div>
+  );
+}
+📱 Diseño Responsivo
+El sitio está completamente optimizado para dispositivos móviles, tablets y desktop.
 
-- 🔍 **Ultraschnelle Artikelsuche** – Keine Wartezeiten, kein Frust.
-- 🤖 **Intelligente Filterlogik** – Nur relevante Resultate.
-- 📦 **Lagerintegration** – Bereit für Scanner, Sensoren, APIs.
-- 🧱 **Modular aufgebaut** – Leicht erweiterbar für neue Lagerzonen, neue Anforderungen.
-- 🧠 **UX mit Gehirn** – Minimale kognitive Belastung, maximale Klarheit.
-- 🧩 **Skalierbar & rückverfolgbar** – Von kleinen Regalen bis hin zu Mega-Hubs.
+Breakpoints utilizados:
+Breakpoint	Dispositivo
+1024px	Desktop pequeño / Tablet horizontal
+768px	Tablet vertical
+480px	Móvil
+Características responsivas:
+Grid layouts que se adaptan a diferentes tamaños de pantalla
 
-## 🛠️ Setup & Installation
+Hero full-screen con ajuste de altura en móvil
 
-.env-example -> NEXT_PUBLIC_BACKEND_URL=
+Imágenes con object-fit: cover para mantener proporciones
 
-## 🛠️ Add Language
-If you wish , you will need to edit the following files. to add a new language
+Menús y navegación que se reorganizan en móvil
 
-// backend/modules/user/user.model.js
-language: {
-  type: String,
-  enum: [
-    'en', 'de', 'es' ,etc... <- Add new
-  ],
-  default: 'en'
-},
-//frontend/contexts/LanguageContext.js
-const languageOptions = [
-  { code: 'en', name: 'English', flag: '🇺🇸' },
-  { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-  { code: 'es', name: 'Español', flag: '🇪🇸' },
-];
+Formularios con inputs optimizados para touch
 
-add the .json files to frontend/locales
-example = de.json
- "settings": {
-    "title": "Einstellungen",
-  },
+🎯 Componentes Principales
+1. HomeHero
+Carousel de imágenes con efecto parallax y navegación.
 
+tsx
+<HomeHero />
+Características:
 
+Slider automático (5 segundos)
 
-```bash
-https://github.com/Mariano-Ryser/LZ-Front.git
-cd lz-lager
+Efecto de zoom lento en imágenes
+
+Navegación con dots y flechas
+
+Logo animado con pulse
+
+Links de navegación principales
+
+2. Footer
+Footer con información de contacto, horarios y enlaces.
+
+Características:
+
+Logo y descripción de la marca
+
+Información de contacto (teléfono, email, dirección)
+
+Horarios de apertura
+
+Enlaces a políticas de privacidad
+
+📄 Páginas
+Home (index.tsx)
+Página principal con hero carousel.
+
+Apéro (apero.tsx)
+Información sobre Apéro y Apéro Riche para hasta 60 personas.
+
+Descripción del servicio
+
+Características destacadas
+
+PDF descargables (Getränkekarte, Food-Karte)
+
+Galería de imágenes
+
+Links a Konditionen y Jetzt mieten
+
+Firmenevents (firmenevents.tsx)
+Página para eventos corporativos.
+
+Lista de tipos de eventos
+
+Sección con imagen y llamada a la acción
+
+Formulario de contacto
+
+Geburtstag (geburtstag.tsx)
+Página para cumpleaños y fiestas privadas.
+
+Características destacadas con iconos
+
+Secciones con imágenes
+
+Links a Konditionen y Jetzt mieten
+
+Jetzt Mieten (jetztmieten.tsx)
+Formulario de contacto para solicitar ofertas.
+
+Formulario con campos: Betreff, Name, Email, Telefon, Nachricht
+
+Integración con EmailJS
+
+Teléfono de contacto
+
+Mensaje de éxito
+
+🎨 Paleta de Colores
+Color	Uso
+#000000	Fondo principal
+#ffffff	Texto principal
+#ffd700 / #fbff0d	Acentos y hover (dorado)
+rgba(255,255,255,0.7)	Texto secundario
+rgba(255,255,255,0.3)	Separadores y elementos sutiles
+🔧 Instalación y Configuración
+1. Clonar el repositorio
+bash
+git clone https://github.com/tu-usuario/salotto.git
+cd salotto
+2. Instalar dependencias
+bash
 npm install
+# o
+yarn install
+3. Configurar EmailJS
+En pages/jetztmieten.tsx, reemplazar las variables:
+
+tsx
+const result = await emailjs.send(
+  'YOUR_SERVICE_ID',    // Reemplazar con tu Service ID
+  'YOUR_TEMPLATE_ID',   // Reemplazar con tu Template ID
+  {
+    betreff: formData.betreff,
+    name: formData.name,
+    email: formData.email,
+    telefon: formData.telefon,
+    text: formData.text,
+  },
+  'YOUR_PUBLIC_KEY'     // Reemplazar con tu Public Key
+);
+4. Ejecutar en desarrollo
+bash
 npm run dev
+# o
+yarn dev
+5. Construir para producción
+bash
+npm run build
+npm start
+# o
+yarn build
+yarn start
+🗂️ Imágenes y Recursos
+Las imágenes del sitio se encuentran en public/img/.
 
+Estructura de imágenes:
+text
+public/img/
+├── bar*.jpg/webp          # Imágenes del carousel home
+├── apero/
+│   ├── apero1.webp
+│   ├── apero2.webp
+│   ├── apero3.webp
+│   └── apero4.webp
+├── geburtstag/
+│   ├── party1.webp
+│   ├── party2.webp
+│   └── party3.webp
+├── jetztmieten/
+│   ├── jetztmieten1.jpg
+│   └── jetztmieten2.jpg
+├── event-1.png            # Imagen hero firmenevents
+├── event-2.jpg            # Imagen sección firmenevents
+└── logo-salotto.png       # Logo principal
+PDFs descargables:
+text
+public/pdf/
+├── getraenkekarte.pdf
+└── apero-food-karte.pdf
+🔄 Dependencias Principales
+json
+{
+  "dependencies": {
+    "next": "^14.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "typescript": "^5.0.0",
+    "lucide-react": "^0.300.0",
+    "@emailjs/browser": "^3.0.0"
+  }
+}
+📈 Mejoras Futuras
+□ Implementar sistema de reservas online
+□ Galería de eventos con filtros
+□ Blog de noticias y eventos
+□ Sistema de comentarios y reseñas
+□ Integración con Google Maps avanzada
+□ Modo oscuro/claro
+□ Internacionalización (i18n) para soporte multilingüe
+👨‍💻 Equipo de Desarrollo
+Este proyecto fue desarrollado por Stockercloud para Salotto Zürich.
 
-Konstruktive Kritik ist immer willkommen. =D
+📄 Licencia
+© 2026 Salotto. Todos los derechos reservados.
 
-medida cel 380 x 700
+🤝 Contribuciones
+Para sugerencias o reportes de errores, por favor contactar al equipo de desarrollo.
 
-° Mariano Ryser
+Última actualización: 2026
 
-
-# {{}}
-# PreloadDashboard.jsx
-Es un componente que renderiza las paginas apenas entras al Dashboard principal admindDash/index.js , el cual esta ahi mismo importado y utilizado con un useEffect.
-
-
-/frontend
-├─ .next
-├─ node_modules
-├─ components
-│   ├─ auth
-│   │   ├─ AuthProvider.js
-│   │   ├─ ProtectedRoute.js
-│   │   └─ withAdminAuth.js
-│   ├─ dashboard
-│   │   ├─ DashboardLayout.mocule.css
-│   │   └─ DashboardLayout.js
-│   ├─ header
-│   │   ├─ Header.module.css
-│   │   └─ Header.tsx
-│   ├─ homeComponents
-│   │   ├─ CTASection.tsx
-│   │   ├─ FeaturesSection.tsx
-│   │   ├─ Foter.tsx
-│   │   ├─ HomeHero.tsx
-│   │   ├─ ShowcaseSection.tsx.tsx
-│   │   └─ TrustedBySection.tsx
-│   ├─ icons
-│   │   └─ DashboardIcons.js
-│   ├─ medium
-│   ├─ premium
-│   │   ├─ PerformanceMetrics.module.css
-│   │   ├─ PerformanceMetrics.tsx
-│   │   ├─ PremiumFeatures.js
-│   │   ├─ QuickStarts.module.css
-│   │   ├─ QuickStarts.tsx
-│   │   ├─ SalesChart.module.css
-│   │   └─ salesChart.tsx
-│   ├─ shared
-│   │   └─ LoadMoreTrigger.js
-│   ├─ ui
-│   │   ├─ ExcelImportExport.js
-│   │   ├─ ExcelTemplate.js
-│   │   ├─ ExportExcelButton.js
-│   │   └─ LogoutButton.tsx
-│   ├─ Layout.js
-│   ├─ MapaAlmacen.js
-│   └─ Skeleton.js
-│
-├─ hooks
-│   ├─ useApi.js
-│   ├─ useClients.js
-│   ├─ useInfiniteScroll.js
-│   ├─ useProducts.js
-│   ├─ useSale.js
-│   └─ useUser.js
-│       
-├─ pages
-│   ├─ adminDash
-│   │   ├─ artikel
-│   │   │    ├─ components
-│   │   │    │    ├─ ProductCreator.module.css
-│   │   │    │    ├─ ProductCreator.tsx
-│   │   │    │    ├─ ProductEditor.module.css
-│   │   │    │    └─ ProductEditor.tsx
-│   │   │    ├─ index.module.css
-│   │   │    └─ index.tsx
-│   │   ├─ CEO
-│   │   │    ├─ components
-│   │   │    │    ├─ UserEditModal.module.css
-│   │   │    │    └─ UserEditModal.tsx
-│   │   │    ├─ ceoDashboard.module.css
-│   │   │    └─ index.tsx
-│   │   ├─ clients
-│   │   │    ├─ components
-│   │   │    │    ├─ ClientCreator.js
-│   │   │    │    └─ ClientEditor.tsx
-│   │   │    ├─ clients.module.css
-│   │   │    └─ index.tsx
-│   │   ├─ importExport
-│   │   │    └─ index.tsx
-│   │   ├─ regnung
-│   │   │    ├─ components
-│   │   │    │    ├─ Creator.module.css
-│   │   │    │    ├─ RechnungCreator.js
-│   │   │    │    ├─ RechnungPrint.js
-│   │   │    │    ├─ RechnungUpdate.js
-│   │   │    │    └─ Update.module.css
-│   │   │    ├─ index.tsx
-│   │   │    └─ SalesPage.module.css
-│   │   ├─ scanner
-│   │   │    ├─ index.tsx
-│   │   │    └─ ScannerSalesPage.module.css
-│   │   ├─ settings
-│   │   │    ├─ components
-│   │   │    │    └─ SettingsComponent.tsx
-│   │   │    ├─ index.js
-│   │   │    └─ settings.module.css
-│   │   ├─ verkauftteArtikel
-│   │   │    ├─ index.tsx
-│   │   │    └─ verkaufteArtikel.module.css
-│   │   ├─ DashboardHome.module.css
-│   │   └─ index.tsx
-│   ├─ api
-│   ├─ informativePages
-│   │   ├─ privacyPage.js
-│   │   ├─ privacyPage.module.css
-│   │   ├─ termsPage.js
-│   │   ├─ uberUns.module.css
-│   │   └─ uberUns.tsx.js
-│   ├─ login
-│   │   ├─ index.tsx
-│   │   └─ login.module.css
-│   ├─ register
-│   │   ├─ index.tsx
-│   │   └─ register.module.css
-│   ├─ _app.js
-│   ├─ _document.js
-│   └─ index.tsx
-│
-├─ public
-│
-├─ services
-│    ├─ bulkImportService.js
-│    ├─ clientService.js
-│    ├─ productService.js
-│    ├─ saleService.js
-│    └─ userService.js
-├─ styles
-│
-├─ utils
-│   ├─ formatters.js
-│   └─ loader.js
-├─ .env
-├─ .env-example
-├─ eslint.json
-├─ .gitignore
-├─ next-env.d.js
-├─ next.config.js
-├─ package-lock.json
-├─ package.json
-├─ README.md
-└─ styled-jsx.d.ts
-
-
-
-
-
-
-                                    TOAST
-
-components/shared/Toast.jsx  ->  es un componente multifuncion succes error warning info..
-                                 para remplazar los alerts y reutilizar en otro componentes,
-                                 se utiliza en el componente RechnungCreator.js. 
-context/ToastContext.jsx ->     Aqui es donde se configura el mensaje de alerta.
-
-_page - ToastContext     -> el Toast tambien se encuentra envolviendo toda la aplicacion para tener su funcionalidad
-                             en toda la aplicacion con mensajes de alerta.
-  
-
+This response is AI-generated, for reference only.

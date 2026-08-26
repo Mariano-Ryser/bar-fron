@@ -352,7 +352,6 @@ export default function JetztMieten() {
             <Phone size={20} color="#ffffff" stroke="#ffffff" />
             <span className="btn-text">076 227 55 43</span>
           </button>
-         
         </div>
       </div>
 
@@ -360,8 +359,10 @@ export default function JetztMieten() {
         .jetztmieten-page {
           background: #000000;
           min-height: 100vh;
-          padding-top: 0;
+          padding-top: 0rem;
           color: #ffffff;
+          overflow: hidden;
+          width: 100%;
         }
 
         /* ===== HERO IMAGE con Parallax ===== */
@@ -493,7 +494,7 @@ export default function JetztMieten() {
         .intro-section {
           max-width: 900px;
           margin: 0 auto;
-          padding: 4rem 2rem;
+          padding: 3rem 2rem;
           text-align: center;
           border-bottom: 1px solid rgba(255, 255, 255, 0.05);
           opacity: 0;
@@ -549,7 +550,7 @@ export default function JetztMieten() {
         .form-section {
           max-width: 1200px;
           margin: 0 auto;
-          padding: 4rem 2rem;
+          padding: 3rem 2rem;
           opacity: 0;
           transform: translateY(50px);
           transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
@@ -615,6 +616,8 @@ export default function JetztMieten() {
           font-size: 1rem;
           transition: all 0.3s ease;
           font-family: inherit;
+          width: 100%;
+          box-sizing: border-box;
         }
 
         .form-group select option {
@@ -767,7 +770,7 @@ export default function JetztMieten() {
         .cta-section {
           max-width: 800px;
           margin: 0 auto;
-          padding: 4rem 2rem;
+          padding: 3rem 2rem;
           text-align: center;
           border-top: 1px solid rgba(255, 255, 255, 0.05);
           opacity: 0;
@@ -827,16 +830,6 @@ export default function JetztMieten() {
           transform: scale(1.02);
         }
 
-        .cta-btn.secondary {
-          background: transparent;
-          color: rgba(255, 255, 255, 0.7);
-        }
-
-        .cta-btn.secondary:hover {
-          background: rgba(255, 255, 255, 0.05);
-          transform: translateY(-2px);
-        }
-
         .cta-btn .btn-text {
           color: #ffffff;
         }
@@ -848,161 +841,173 @@ export default function JetztMieten() {
             min-height: 350px;
             max-height: 500px;
           }
-
-          .hero-title {
-            font-size: 3rem;
-          }
-
-          .form-grid {
-            gap: 2.5rem;
-          }
+          .hero-title { font-size: 3rem; }
+          .form-grid { gap: 2.5rem; }
         }
 
         @media (max-width: 768px) {
+          .jetztmieten-page {
+          background: #000000;
+          min-height: 100vh;
+          padding-top: 8rem;
+          color: #ffffff;
+          overflow: hidden;
+          width: 100%;
+        }
           .hero-image-container {
             height: 40vh;
             min-height: 300px;
             max-height: 400px;
           }
-
-          .hero-title {
-            font-size: 2.5rem;
+          .hero-title { font-size: 2.5rem; }
+          .hero-subtitle { font-size: 1.2rem; }
+          .hero-description { font-size: 1rem; }
+          
+          .intro-section { 
+            padding: 2rem 1.5rem; 
           }
-
-          .hero-subtitle {
-            font-size: 1.2rem;
+          .intro-text { 
+            font-size: 0.95rem; 
+            margin-bottom: 1rem;
           }
-
-          .hero-description {
-            font-size: 1rem;
+          .intro-text.highlight { 
+            font-size: 1rem; 
+            padding: 1rem; 
           }
-
-          .intro-section {
-            padding: 3rem 1.5rem;
+          .intro-features { 
+            flex-direction: column; 
+            gap: 0.75rem; 
+            align-items: center; 
           }
-
-          .intro-text {
-            font-size: 0.95rem;
+          
+          .form-section { 
+            padding: 2rem 1.5rem; 
           }
-
-          .intro-text.highlight {
-            font-size: 1rem;
-            padding: 1rem;
+          .form-grid { 
+            grid-template-columns: 1fr; 
+            gap: 1.5rem; 
           }
-
-          .intro-features {
-            flex-direction: column;
-            gap: 0.75rem;
-            align-items: center;
+          .form-column h2 { 
+            font-size: 1.6rem; 
           }
-
-          .form-section {
-            padding: 3rem 1.5rem;
+          .contact-form { 
+            gap: 1rem; 
           }
-
-          .form-grid {
-            grid-template-columns: 1fr;
-            gap: 2rem;
+          
+          .image-card { 
+            aspect-ratio: 16/10; 
           }
-
-          .form-column h2 {
-            font-size: 1.6rem;
+          
+          .cta-section { 
+            padding: 2rem 1.5rem; 
           }
-
-          .image-card {
-            aspect-ratio: 16/10;
+          .cta-section h2 { 
+            font-size: 1.6rem; 
           }
-
-          .cta-section {
-            padding: 3rem 1.5rem;
+          .cta-buttons { 
+            flex-direction: column; 
+            align-items: center; 
           }
-
-          .cta-section h2 {
-            font-size: 1.6rem;
-          }
-
-          .cta-buttons {
-            flex-direction: column;
-            align-items: center;
-          }
-
-          .cta-btn {
-            width: 100%;
-            justify-content: center;
-            padding: 0.8rem 2rem;
-            font-size: 0.95rem;
+          .cta-btn { 
+            width: 100%; 
+            justify-content: center; 
+            padding: 0.8rem 2rem; 
+            font-size: 0.95rem; 
           }
         }
 
         @media (max-width: 480px) {
+          .jetztmieten-page { 
+            padding-top: 6rem; 
+          }
+          
           .hero-image-container {
             height: 30vh;
             min-height: 250px;
             max-height: 350px;
           }
-
-          .hero-title {
-            font-size: 2rem;
-            letter-spacing: 2px;
+          .hero-title { 
+            font-size: 2rem; 
+            letter-spacing: 2px; 
           }
-
-          .hero-subtitle {
-            font-size: 1rem;
+          .hero-subtitle { 
+            font-size: 1rem; 
           }
-
-          .hero-description {
-            font-size: 0.9rem;
+          .hero-description { 
+            font-size: 0.9rem; 
           }
-
-          .intro-text {
-            font-size: 0.9rem;
+          
+          .intro-section { 
+            padding: 1.5rem 1.2rem; 
           }
-
-          .intro-text.highlight {
-            font-size: 0.95rem;
-            padding: 0.75rem;
+          .intro-text { 
+            font-size: 0.9rem; 
           }
-
-          .intro-feature {
-            font-size: 0.9rem;
+          .intro-text.highlight { 
+            font-size: 0.95rem; 
+            padding: 0.75rem; 
           }
-
-          .form-column h2 {
-            font-size: 1.3rem;
+          .intro-feature { 
+            font-size: 0.9rem; 
           }
-
+          
+          .form-section { 
+            padding: 1.5rem 1.2rem; 
+          }
+          .form-grid { 
+            gap: 1rem; 
+          }
+          .form-column h2 { 
+            font-size: 1.3rem; 
+          }
+          .form-subtitle { 
+            font-size: 0.9rem; 
+            margin-bottom: 1.5rem;
+          }
           .form-group select,
           .form-group input,
-          .form-group textarea {
-            padding: 0.7rem 0.85rem;
-            font-size: 0.9rem;
+          .form-group textarea { 
+            padding: 0.7rem 0.85rem; 
+            font-size: 0.9rem; 
           }
-
-          .submit-btn {
-            padding: 0.8rem 1.6rem;
-            font-size: 0.9rem;
+          .form-group textarea { 
+            min-height: 100px; 
           }
-
-          .cta-section h2 {
-            font-size: 1.3rem;
+          .submit-btn { 
+            padding: 0.8rem 1.6rem; 
+            font-size: 0.9rem; 
           }
-
-          .cta-section p {
-            font-size: 0.9rem;
+          
+          .image-badge { 
+            padding: 0.5rem 1rem; 
           }
-
-          .cta-btn {
-            font-size: 0.85rem;
-            padding: 0.6rem 1.6rem;
+          .image-badge span { 
+            font-size: 0.85rem; 
           }
-
-          .image-badge {
-            padding: 0.5rem 1rem;
-            font-size: 0.85rem;
+          
+          .cta-section { 
+            padding: 1.5rem 1.2rem; 
           }
-
-          .image-badge span {
-            font-size: 0.85rem;
+          .cta-section h2 { 
+            font-size: 1.3rem; 
+          }
+          .cta-section p { 
+            font-size: 0.9rem; 
+            margin-bottom: 1.5rem;
+          }
+          .cta-btn { 
+            font-size: 0.85rem; 
+            padding: 0.6rem 1.6rem; 
+          }
+          
+          .success-message { 
+            padding: 2rem 1.5rem; 
+          }
+          .success-message h3 { 
+            font-size: 1.2rem; 
+          }
+          .success-message p { 
+            font-size: 0.9rem; 
           }
         }
       `}</style>

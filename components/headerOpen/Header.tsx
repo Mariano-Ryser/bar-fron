@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import Router from "next/router";
 import { Menu, X } from "lucide-react";
 import styles from "./Header.module.css";
-import Watermark from "../Watermark";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -81,12 +80,7 @@ export default function Header() {
   return (
     <>
       <header className={`${styles.header} ${scrolled ? styles.scrolled : ""} ${hidden ? styles.hidden : ""}`}>
-      {/* <Watermark 
-  size={150} 
-  blurAmount={5}
-  duration={10000}
-  delay={0}
-/> */}
+     
         <div className={styles.container}>
           {/* Logo */}
           <div className={styles.logo} onClick={handleLogoClick}>

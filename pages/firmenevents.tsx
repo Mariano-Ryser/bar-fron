@@ -99,13 +99,15 @@ export default function Firmenevents() {
           </div>
           <div className="hero-overlay">
             <div className="hero-content">
-              <h1 className={`hero-title ${isHeroVisible ? 'visible' : ''}`}>
-                Firmenevents
-              </h1>
-              <p className={`hero-subtitle ${isHeroVisible ? 'visible' : ''}`}>
-                Du kümmerst dich ums Feiern – wir übernehmen den Rest
-              </p>
-              <div className={`hero-line ${isHeroVisible ? 'visible' : ''}`}></div>
+              <div className="hero-text-wrapper">
+                <h1 className={`hero-title ${isHeroVisible ? 'visible' : ''}`}>
+                  Firmenevents
+                </h1>
+                <p className={`hero-subtitle ${isHeroVisible ? 'visible' : ''}`}>
+                  Du kümmerst dich ums Feiern – wir übernehmen den Rest
+                </p>
+                <div className={`hero-line ${isHeroVisible ? 'visible' : ''}`}></div>
+              </div>
             </div>
           </div>
         </div>
@@ -190,11 +192,30 @@ export default function Firmenevents() {
         </button>
       </div>
 
+      {/* Quick Links - Al final de todo */}
+      <div className="quick-links-section">
+        <div className="quick-links-container">
+          <a href="/konditionen" className="quick-link">
+            <span>→ Konditionen und Preise</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+          <a href="/jetztmieten" className="quick-link primary">
+            <span>→ Jetzt mieten</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+
       <style jsx>{`
         .firmenevents-page {
           background: #000000;
           min-height: 100vh;
-          padding-top: 0;
           color: #ffffff;
         }
 
@@ -252,11 +273,36 @@ export default function Firmenevents() {
           align-items: center;
           justify-content: center;
           z-index: 2;
+          padding: 3rem 4rem;
         }
 
         .hero-content {
           text-align: center;
-          padding: 2rem;
+          padding: 0;
+          max-width: 600px;
+          width: 100%;
+        }
+
+        .hero-text-wrapper {
+          animation: textRevealFromRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes textRevealFromRight {
+          0% {
+            opacity: 0;
+            transform: translateX(60px) scale(0.55);
+            filter: blur(25px);
+          }
+          60% {
+            opacity: 0.7;
+            transform: translateX(10px) scale(0.98);
+            filter: blur(3px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            filter: blur(0px);
+          }
         }
 
         .hero-title {
@@ -267,39 +313,39 @@ export default function Firmenevents() {
           color: #ffffff;
           text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
           opacity: 0;
-          transform: translateY(30px);
+          transform: translateX(160px);
           transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
         }
 
         .hero-title.visible {
           opacity: 1;
-          transform: translateY(0);
+          transform: translateX(0);
         }
 
         .hero-subtitle {
           font-size: 1.2rem;
-          color: rgba(255, 255, 255, 0.7);
+          color: rgba(255, 255, 255, 0.8);
           font-weight: 300;
           text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
           opacity: 0;
-          transform: translateY(30px);
-          transition: opacity 0.8s ease 0.6s, transform 0.8s ease 0.6s;
+          transform: translateX(60px);
+          transition: opacity 0.8s ease 0.5s, transform 0.8s ease 0.5s;
         }
 
         .hero-subtitle.visible {
           opacity: 1;
-          transform: translateY(0);
+          transform: translateX(0);
         }
 
         .hero-line {
           width: 60px;
           height: 2px;
           background: rgba(255, 255, 255, 0.3);
-          margin: 1.5rem auto 0;
+          margin: 1.5rem 0 0 auto;
           opacity: 0;
           transform: scaleX(0);
-          transition: opacity 0.8s ease 0.9s, transform 0.8s ease 0.9s;
-          transform-origin: center;
+          transition: opacity 0.8s ease 0.7s, transform 0.8s ease 0.7s;
+          transform-origin: right;
         }
 
         .hero-line.visible {
@@ -563,6 +609,86 @@ export default function Firmenevents() {
           transform: scale(1.02);
         }
 
+        /* ===== QUICK LINKS - Al final ===== */
+        .quick-links-section {
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 2rem 2rem 4rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .quick-links-container {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+          max-width: 500px;
+          margin: 0 auto;
+        }
+
+        .quick-link {
+          display: inline-flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0.85rem 1.5rem;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          border-radius: 8px;
+          color: #ffffff;
+          text-decoration: none;
+          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          font-weight: 300;
+          font-size: 0.95rem;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .quick-link::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent);
+          transform: translateX(-100%);
+          transition: transform 0.6s ease;
+        }
+
+        .quick-link:hover::before {
+          transform: translateX(0);
+        }
+
+        .quick-link:hover {
+          background: rgba(255, 255, 255, 0.1);
+          border-color: rgba(255, 255, 255, 0.25);
+          transform: translateX(5px);
+        }
+
+        .quick-link.primary {
+          background: rgba(255, 255, 255, 0.08);
+          border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .quick-link.primary:hover {
+          background: rgba(255, 255, 255, 0.15);
+          border-color: rgba(255, 255, 255, 0.35);
+          transform: translateX(5px);
+          box-shadow: 0 8px 30px rgba(255, 255, 255, 0.05);
+        }
+
+        .quick-link svg {
+          color: #ffffff !important;
+          flex-shrink: 0;
+          transition: transform 0.3s ease;
+        }
+
+        .quick-link:hover svg {
+          transform: translateX(5px);
+        }
+
+        .quick-link span {
+          color: #ffffff;
+          position: relative;
+          z-index: 1;
+        }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 1024px) {
           .hero-image-container {
@@ -586,10 +712,27 @@ export default function Firmenevents() {
         }
 
         @media (max-width: 768px) {
+            .firmenevents-page {
+          padding-top: 8rem;
+        }
           .hero-image-container {
             height: 40vh;
             min-height: 300px;
             max-height: 400px;
+          }
+
+          .hero-overlay {
+            padding: 2rem;
+            justify-content: center;
+          }
+
+          .hero-content {
+            text-align: center;
+          }
+
+          .hero-line {
+            margin: 1.5rem auto 0;
+            transform-origin: center;
           }
 
           .hero-title {
@@ -656,13 +799,24 @@ export default function Firmenevents() {
             padding: 0.8rem 2.5rem;
             font-size: 0.95rem;
           }
+
+          .quick-links-section {
+            padding: 1.5rem 1.5rem 3rem;
+          }
         }
 
         @media (max-width: 480px) {
+            .firmenevents-page {
+          padding-top: 6rem;
+        }
           .hero-image-container {
             height: 30vh;
             min-height: 250px;
             max-height: 350px;
+          }
+
+          .hero-overlay {
+            padding: 1.5rem;
           }
 
           .hero-title {
@@ -710,6 +864,15 @@ export default function Firmenevents() {
 
           .cta-btn {
             padding: 0.6rem 2rem;
+            font-size: 0.85rem;
+          }
+
+          .quick-links-section {
+            padding: 1rem 1rem 2rem;
+          }
+
+          .quick-link {
+            padding: 0.7rem 1.2rem;
             font-size: 0.85rem;
           }
         }

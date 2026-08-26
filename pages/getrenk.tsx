@@ -56,7 +56,7 @@ export default function Getraenkekarte() {
     { id: 'all', name: 'Alle', icon: <GlassWater size={16} /> },
     { id: 'aperitif', name: 'Aperitif', icon: <Wine size={16} /> },
     { id: 'cocktails', name: 'Cocktails', icon: <GlassWater size={16} /> },
-    { id: 'biere', name: 'Biere', icon: <Beer size={16} /> },
+    { id: 'biere', name: 'Biere', icon: <Beer size={16} /> },  
     { id: 'weine', name: 'Weine', icon: <Wine size={16} /> },
     { id: 'softdrinks', name: 'Softdrinks', icon: <Coffee size={16} /> },
   ];

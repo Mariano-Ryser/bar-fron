@@ -6,7 +6,6 @@ import styles from "./Footer.module.css";
 export default function Footer() {
   // Definir las rutas
   const companyItems = [
-    { key: "Über uns", route: "/" },
     { key: "Datenschutz", route: "/informativePages/termsPage" },
   ];
 

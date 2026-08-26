@@ -71,7 +71,7 @@ export default function Header() {
     { href: "/mittagessen", text: "Mittagessen" },
     { href: "/galerie", text: "Galerie" },
     { href: "/jetztmieten", text: "Jetzt mieten" },
-  ];
+  ]; 
 
   const handleNavClick = (href: string) => {
     setMobileOpen(false);

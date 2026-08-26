@@ -1,12 +1,10 @@
 import { useRouter } from "next/router";
-import styles from './privacyPage.module.css';
+import styles from './termsPage.module.css';
 import Footer from '../../components/footer/Footer';
-import { useLanguage } from "../../contexts/LanguageContext";
 import { useEffect, useState } from "react";
 
-export default function PrivacyPage() {
+export default function TermsPage() {
   const router = useRouter();
-  const { t } = useLanguage();
   const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {

@@ -274,30 +274,12 @@ export default function Mittagessen() {
         </div>
       </div>
 
-      {/* CTA Section */}
-      <div 
-        ref={ctaRef}
-        data-section="cta"
-        className={`cta-section ${visibleSections.has('cta') ? 'visible' : ''}`}
-      >
-        <h2>Lust auf Mittagessen?</h2>
-        <p>Besuche uns in Zürich oder bestelle zum Mitnehmen</p>
-        <div className="cta-buttons">
-          <button onClick={handleReservationClick} className="cta-btn primary">
-            <Phone size={20} color="#ffffff" stroke="#ffffff" />
-            <span className="btn-text">Reservieren</span>
-          </button>
-          <a href="/kontakt" className="cta-btn secondary">
-            <span className="btn-text">Kontakt aufnehmen</span>
-          </a>
-        </div>
-      </div>
-
+   
       <style jsx>{`
         .mittagessen-page {
           background: #000000;
           min-height: 100vh;
-          padding-top: 0;
+          
           color: #ffffff;
         }
 
@@ -773,6 +755,9 @@ export default function Mittagessen() {
         }
 
         @media (max-width: 768px) {
+              .mittagessen-page {
+          padding-top: 8rem;
+        }
           .hero-image-container {
             height: 40vh;
             min-height: 300px;
@@ -876,6 +861,9 @@ export default function Mittagessen() {
         }
 
         @media (max-width: 480px) {
+          .mittagessen-page {
+          padding-top: 6rem;
+        }
           .hero-image-container {
             height: 30vh;
             min-height: 250px;

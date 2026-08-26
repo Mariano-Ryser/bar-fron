@@ -37,8 +37,7 @@ export default function CTASection() {
             Die perfekte Eventlocation in Zürich West
           </h2>
           <p className={`cta-text ${isVisible ? 'visible' : ''}`}>
-            Ob Geburtstag, Firmenfeier, Apéro, Networking-Event oder private Party – das Salotto Zürich bietet den idealen Rahmen für unvergessliche Veranstaltungen. Die stilvolle Location verbindet urbanes Ambiente mit einer entspannten Atmosphäre und schafft den perfekten Ort, um gemeinsam besondere Momente zu erleben. Du kümmerst dich ums Feiern – wir übernehmen den Rest. Das Salotto bietet dir ein All-in-One-Eventlocation-Paket.
-          </p>
+         Ob Geburtstag, Firmenfeier, Apéro, Networking-Event oder private Party – das Salotto Zürich bietet den idealen Rahmen für unvergessliche Veranstaltungen. Die stilvolle Location verbindet urbanes Ambiente mit einer entspannten Atmosphäre und schafft den perfekten Ort, um gemeinsam besondere Momente zu erleben. </p>
         </div>
       </div>
 

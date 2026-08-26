@@ -16,10 +16,8 @@ export default function Geburtstag() {
   const ctaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Hero animation
     setIsHeroVisible(true);
 
-    // Parallax effect
     const handleScroll = () => {
       if (imageRef.current) {
         const scrolled = window.scrollY;
@@ -63,10 +61,6 @@ export default function Geburtstag() {
     };
   }, []);
 
-  const handleAnfrageClick = () => {
-    router.push('/kontakt');
-  };
-
   return (
     <div className="geburtstag-page">
       {/* Hero Image con Parallax y blur */}
@@ -95,7 +89,7 @@ export default function Geburtstag() {
               </p>
               <div className={`hero-line ${isHeroVisible ? 'visible' : ''}`}></div>
               <p className={`hero-description ${isHeroVisible ? 'visible' : ''}`}>
-                🎉 Feiere unvergesslich in Zürich
+                Feiere unvergesslich in Zürich
               </p>
             </div>
           </div>
@@ -168,12 +162,6 @@ export default function Geburtstag() {
             Du feierst – wir kümmern uns um den Rest. So wird Deine Geburtstagsfeier 
             in Zürich unkompliziert und unvergesslich.
           </p>
-          <button 
-            onClick={handleAnfrageClick} 
-            className="anfrage-btn"
-          >
-            Jetzt Anfrage senden
-          </button>
         </div>
         <div className="section-image">
           <Image
@@ -224,12 +212,26 @@ export default function Geburtstag() {
       >
         <h2>Bereit für Deine Geburtstagsfeier?</h2>
         <p>Kontaktiere uns für eine unverbindliche Anfrage</p>
-        <button 
-          onClick={handleAnfrageClick} 
-          className="cta-btn"
-        >
-          Jetzt Anfragen
-        </button>
+      </div>
+
+      {/* Quick Links - Al final */}
+      <div className="quick-links-section">
+        <div className="quick-links-container">
+          <a href="/konditionen" className="quick-link">
+            <span>Konditionen und Preise</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </a>
+          <a href="/jetztmieten" className="quick-link primary">
+            <span>Jetzt mieten</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </a>
+        </div>
       </div>
 
       <style jsx>{`
@@ -238,6 +240,7 @@ export default function Geburtstag() {
           min-height: 100vh;
           padding-top: 0;
           color: #ffffff;
+          overflow-x: hidden;
         }
 
         /* ===== HERO IMAGE con Parallax ===== */
@@ -369,7 +372,7 @@ export default function Geburtstag() {
         .intro-section {
           max-width: 800px;
           margin: 0 auto;
-          padding: 4rem 2rem;
+          padding: 3rem 2rem;
           text-align: center;
           border-bottom: 1px solid rgba(255, 255, 255, 0.05);
           opacity: 0;
@@ -406,7 +409,7 @@ export default function Geburtstag() {
         .features-section {
           max-width: 1200px;
           margin: 0 auto;
-          padding: 4rem 2rem;
+          padding: 3rem 2rem;
           border-bottom: 1px solid rgba(255, 255, 255, 0.05);
           opacity: 0;
           transform: translateY(50px);
@@ -421,7 +424,7 @@ export default function Geburtstag() {
         .features-grid {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
-          gap: 2rem;
+          gap: 1.5rem;
         }
 
         .feature-card {
@@ -438,15 +441,12 @@ export default function Geburtstag() {
         .features-section.visible .feature-1 {
           animation: cardFadeIn 0.6s ease-out 0.1s both;
         }
-
         .features-section.visible .feature-2 {
           animation: cardFadeIn 0.6s ease-out 0.2s both;
         }
-
         .features-section.visible .feature-3 {
           animation: cardFadeIn 0.6s ease-out 0.3s both;
         }
-
         .features-section.visible .feature-4 {
           animation: cardFadeIn 0.6s ease-out 0.4s both;
         }
@@ -491,10 +491,10 @@ export default function Geburtstag() {
         .section-with-image {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 3rem;
+          gap: 2.5rem;
           max-width: 1200px;
           margin: 0 auto;
-          padding: 4rem 2rem;
+          padding: 3rem 2rem;
           align-items: center;
           border-bottom: 1px solid rgba(255, 255, 255, 0.05);
           opacity: 0;
@@ -514,7 +514,6 @@ export default function Geburtstag() {
         .section-with-image.reverse {
           direction: rtl;
         }
-
         .section-with-image.reverse .section-text {
           direction: ltr;
         }
@@ -534,7 +533,6 @@ export default function Geburtstag() {
         .section-with-image.reverse .section-text {
           transform: translateX(30px);
         }
-
         .section-with-image.reverse.visible .section-text {
           transform: translateX(0);
         }
@@ -581,42 +579,15 @@ export default function Geburtstag() {
         .section-image img {
           transition: transform 0.6s ease;
         }
-
         .section-image:hover img {
           transform: scale(1.05);
-        }
-
-        .anfrage-btn {
-          background: transparent;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          color: #ffffff;
-          padding: 0.8rem 2.5rem;
-          border-radius: 50px;
-          font-size: 1rem;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          letter-spacing: 1px;
-          opacity: 0;
-          transform: translateY(20px);
-          transition: all 0.6s ease 0.7s;
-        }
-
-        .section-with-image.visible .anfrage-btn {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        .anfrage-btn:hover {
-          background: rgba(255, 215, 0, 0.1);
-          border-color: rgba(255, 215, 0, 0.4);
-          transform: scale(1.02);
         }
 
         /* ===== CTA ===== */
         .cta-section {
           max-width: 800px;
           margin: 0 auto;
-          padding: 4rem 2rem;
+          padding: 3rem 2rem;
           text-align: center;
           opacity: 0;
           transform: translateY(50px);
@@ -639,220 +610,187 @@ export default function Geburtstag() {
         .cta-section p {
           color: rgba(255, 255, 255, 0.5);
           font-size: 1.05rem;
-          margin-bottom: 2rem;
+          margin-bottom: 0;
         }
 
-        .cta-btn {
-          background: rgba(255, 215, 0, 0.15);
-          border: 1px solid rgba(255, 215, 0, 0.3);
+        /* ===== QUICK LINKS ===== */
+        .quick-links-section {
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 2rem 2rem 4rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .quick-links-container {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+          max-width: 500px;
+          margin: 0 auto;
+        }
+
+        .quick-link {
+          display: inline-flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0.85rem 1.5rem;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          border-radius: 8px;
           color: #ffffff;
-          padding: 1rem 3rem;
-          border-radius: 50px;
-          font-size: 1.05rem;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          letter-spacing: 1px;
+          text-decoration: none;
+          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          font-weight: 300;
+          font-size: 0.95rem;
+          position: relative;
+          overflow: hidden;
         }
 
-        .cta-btn:hover {
-          background: rgba(255, 215, 0, 0.25);
-          border-color: rgba(255, 215, 0, 0.6);
-          transform: scale(1.02);
+        .quick-link::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent);
+          transform: translateX(-100%);
+          transition: transform 0.6s ease;
+        }
+
+        .quick-link:hover::before {
+          transform: translateX(0);
+        }
+
+        .quick-link:hover {
+          background: rgba(255, 255, 255, 0.1);
+          border-color: rgba(255, 255, 255, 0.25);
+          transform: translateX(5px);
+        }
+
+        .quick-link.primary {
+          background: rgba(255, 215, 0, 0.08);
+          border-color: rgba(255, 215, 0, 0.2);
+        }
+
+        .quick-link.primary:hover {
+          background: rgba(255, 215, 0, 0.15);
+          border-color: rgba(255, 215, 0, 0.35);
+          transform: translateX(5px);
+          box-shadow: 0 8px 30px rgba(255, 215, 0, 0.05);
+        }
+
+        .quick-link svg {
+          color: #ffffff !important;
+          flex-shrink: 0;
+          transition: transform 0.3s ease;
+        }
+
+        .quick-link:hover svg {
+          transform: translateX(5px);
+        }
+
+        .quick-link span {
+          color: #ffffff;
+          position: relative;
+          z-index: 1;
         }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 1024px) {
+          
           .hero-image-container {
             height: 50vh;
             min-height: 350px;
             max-height: 500px;
           }
-
-          .hero-title {
-            font-size: 3rem;
-          }
-
-          .features-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-
-          .section-with-image {
-            gap: 2rem;
-            padding: 3rem 2rem;
-          }
-
-          .section-text h2 {
-            font-size: 1.5rem;
-          }
+          .hero-title { font-size: 3rem; }
+          .features-grid { grid-template-columns: repeat(2, 1fr); }
+          .section-with-image { gap: 2rem; padding: 2.5rem 2rem; }
+          .section-text h2 { font-size: 1.5rem; }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 768px) { 
+          .geburtstag-page { padding-top: 8rem; }
           .hero-image-container {
             height: 40vh;
             min-height: 300px;
             max-height: 400px;
           }
-
-          .hero-title {
-            font-size: 2.5rem;
+          .hero-title { font-size: 2.5rem; }
+          .hero-subtitle { font-size: 1rem; }
+          .hero-description { font-size: 1rem; }
+          
+          .intro-section { padding: 2rem 1.5rem; }
+          .intro-text { font-size: 0.95rem; }
+          
+          .features-section { padding: 2rem 1.5rem; }
+          .features-grid { 
+            grid-template-columns: 1fr 1fr; 
+            gap: 1rem; 
           }
-
-          .hero-subtitle {
-            font-size: 1rem;
-          }
-
-          .hero-description {
-            font-size: 1rem;
-          }
-
-          .intro-section {
-            padding: 3rem 1.5rem;
-          }
-
-          .intro-text {
-            font-size: 0.95rem;
-          }
-
-          .features-section {
-            padding: 3rem 1.5rem;
-          }
-
-          .features-grid {
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-          }
-
-          .feature-card {
-            padding: 1.5rem 1rem;
-          }
-
+          .feature-card { padding: 1.5rem 1rem; }
+          
           .section-with-image {
             grid-template-columns: 1fr;
             gap: 1.5rem;
-            padding: 3rem 1.5rem;
+            padding: 2rem 1.5rem;
           }
-
-          .section-with-image.reverse {
-            direction: ltr;
-          }
-
-          .section-with-image.reverse .section-text {
-            transform: translateX(-30px);
-          }
-
-          .section-with-image.reverse.visible .section-text {
-            transform: translateX(0);
-          }
-
-          .section-image {
-            aspect-ratio: 16/10;
-          }
-
-          .section-text h2 {
-            font-size: 1.4rem;
-          }
-
-          .section-text p {
-            font-size: 0.95rem;
-          }
-
-          .anfrage-btn {
-            padding: 0.6rem 2rem;
-            font-size: 0.9rem;
-          }
-
-          .cta-section {
-            padding: 3rem 1.5rem;
-          }
-
-          .cta-section h2 {
-            font-size: 1.6rem;
-          }
-
-          .cta-btn {
-            padding: 0.8rem 2.5rem;
-            font-size: 0.95rem;
-          }
+          .section-with-image.reverse { direction: ltr; }
+          .section-with-image.reverse .section-text { transform: translateX(-30px); }
+          .section-with-image.reverse.visible .section-text { transform: translateX(0); }
+          .section-image { aspect-ratio: 16/10; }
+          .section-text h2 { font-size: 1.4rem; }
+          .section-text p { font-size: 0.95rem; }
+          
+          .cta-section { padding: 2rem 1.5rem; }
+          .cta-section h2 { font-size: 1.6rem; }
+          
+          .quick-links-section { padding: 1.5rem 1.5rem 3rem; }
         }
 
         @media (max-width: 480px) {
+          .geburtstag-page { padding-top: 6rem; }
+          
           .hero-image-container {
             height: 30vh;
             min-height: 250px;
             max-height: 350px;
           }
-
-          .hero-title {
-            font-size: 2rem;
-            letter-spacing: 2px;
+          .hero-title { font-size: 2rem; letter-spacing: 2px; }
+          .hero-subtitle { font-size: 0.9rem; }
+          .hero-description { font-size: 0.9rem; }
+          
+          .intro-section { padding: 1.5rem 1.2rem; }
+          .intro-text { font-size: 0.9rem; }
+          .intro-text.highlight { font-size: 0.95rem; }
+          
+          .features-section { padding: 1.5rem 1.2rem; }
+          .features-grid { 
+            grid-template-columns: 1fr; 
+            gap: 0.75rem; 
           }
-
-          .hero-subtitle {
-            font-size: 0.9rem;
+          .feature-card { padding: 1rem; }
+          .feature-icon { font-size: 2rem; }
+          .feature-card h3 { font-size: 0.95rem; }
+          .feature-card p { font-size: 0.8rem; }
+          
+          .section-with-image { 
+            padding: 1.5rem 1.2rem; 
+            gap: 1rem;
           }
-
-          .hero-description {
-            font-size: 0.9rem;
+          .section-text h2 { font-size: 1.2rem; }
+          .section-text p { font-size: 0.9rem; }
+          .section-text .highlight-text { 
+            font-size: 0.95rem; 
+            padding: 0.75rem; 
           }
-
-          .intro-text {
-            font-size: 0.9rem;
-          }
-
-          .intro-text.highlight {
-            font-size: 0.95rem;
-          }
-
-          .features-grid {
-            grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
-          }
-
-          .feature-card {
-            padding: 1rem;
-          }
-
-          .feature-icon {
-            font-size: 2rem;
-          }
-
-          .feature-card h3 {
-            font-size: 0.95rem;
-          }
-
-          .feature-card p {
-            font-size: 0.8rem;
-          }
-
-          .section-text h2 {
-            font-size: 1.2rem;
-          }
-
-          .section-text p {
-            font-size: 0.9rem;
-          }
-
-          .section-text .highlight-text {
-            font-size: 0.95rem;
-            padding: 0.75rem;
-          }
-
-          .anfrage-btn {
-            padding: 0.5rem 1.6rem;
-            font-size: 0.85rem;
-          }
-
-          .cta-section h2 {
-            font-size: 1.3rem;
-          }
-
-          .cta-section p {
-            font-size: 0.9rem;
-          }
-
-          .cta-btn {
-            padding: 0.6rem 2rem;
-            font-size: 0.85rem;
+          
+          .cta-section { padding: 1.5rem 1.2rem; }
+          .cta-section h2 { font-size: 1.3rem; }
+          .cta-section p { font-size: 0.9rem; }
+          
+          .quick-links-section { padding: 1rem 1rem 2rem; }
+          .quick-link { 
+            padding: 0.7rem 1.2rem; 
+            font-size: 0.85rem; 
           }
         }
       `}</style>

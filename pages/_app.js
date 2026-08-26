@@ -1,11 +1,6 @@
 import '../styles/globals.css'
 import Head from 'next/head'
 import Layout from '../components/Layout'
-import SideBar from '../components/dashboard/sideBar/sideBarAdmin'
-import { DashboardProvider } from '../contexts/DashboardContext'
-import { AuthProvider } from '../components/auth/AuthProvider'
-import { LanguageProvider } from '../contexts/LanguageContext'
-import { ToastProvider } from '../contexts/ToastContext'
 
 function MyApp({ Component, pageProps, router }) {
   const isDashboard = router.pathname.startsWith("/dashboard");
@@ -77,23 +72,17 @@ function MyApp({ Component, pageProps, router }) {
         />
       </Head>
       
-      <AuthProvider>
-        <LanguageProvider>
-          <ToastProvider>
             {isDashboard ? (
               <DashboardProvider>
-                <SideBar>
+              
                   <Component {...pageProps} />
-                </SideBar>
+             
               </DashboardProvider>
             ) : (
               <Layout>
                 <Component {...pageProps} />
               </Layout>
             )}
-          </ToastProvider>
-        </LanguageProvider>
-      </AuthProvider>
     </>
   )
 }

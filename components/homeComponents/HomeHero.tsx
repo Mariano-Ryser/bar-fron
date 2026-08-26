@@ -1,29 +1,99 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 export default function HomeHero() {
+  const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
   const [isContentVisible, setIsContentVisible] = useState(false);
   const [isVideoEnded, setIsVideoEnded] = useState(false);
+
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const videoRefs = useRef<{ [key: number]: HTMLVideoElement | null }>({});
   const isTransitioningRef = useRef(false);
 
-  // Define los elementos del carousel (imágenes y videos)
+  // ============================================
+  // SLIDES
+  // ============================================
+
   const slides = [
-    { type: 'image', src: '/img/bar22.jpg', alt: 'Bar Ambiente 2' },
-    { type: 'image', src: '/img/bar23.jpg', alt: 'Bar Ambiente 4' },
-    { type: 'image', src: '/img/bar33.jpg', alt: 'Bar Ambiente 3' },
-    { type: 'image', src: '/img/bar1w.webp', alt: 'Bar Ambiente 1' },
-    { type: 'image', src: '/img/bar5.jpg', alt: 'Bar Ambiente 5' },
-    { type: 'image', src: '/img/bar44.jpg', alt: 'Bar Ambiente 6' },
-    // { type: 'video', src: '/img/videoPlato.mp4', alt: 'Video Plato' },
+    {
+      type: 'image',
+      src: '/img/bar33.jpg',
+      alt: 'Bar Ambiente 3',
+    },
+    {
+      type: 'image',
+      src: '/img/bar23.jpg',
+      alt: 'Bar Ambiente 4',
+    },
+    {
+      type: 'image',
+      src: '/img/bar1w.webp',
+      alt: 'Bar Ambiente 1',
+    },
+    {
+      type: 'image',
+      src: '/img/bar5.jpg',
+      alt: 'Bar Ambiente 5',
+    },
+    {
+      type: 'image',
+      src: '/img/bar22.jpg',
+      alt: 'Bar Ambiente 2',
+    },
+    {
+      type: 'image',
+      src: '/img/bar44.jpg',
+      alt: 'Bar Ambiente 6',
+    },
+
+    // {
+    //   type: 'video',
+    //   src: '/img/videoPlato.mp4',
+    //   alt: 'Video Plato',
+    // },
   ];
+
+  // ============================================
+  // NAVIGATION LINKS
+  // ============================================
+
+  const navLinks = [
+    {
+      href: '/firmenevents',
+      text: 'Eventlocation',
+    },
+    {
+      href: '/geburtstag',
+      text: 'Geburtstag',
+    },
+    {
+      href: '/apero',
+      text: 'Apéro',
+    },
+    {
+      href: '/mittagessen',
+      text: 'Mittagessen',
+    },
+    {
+      href: '/jetztmieten',
+      text: 'Jetzt mieten',
+    },
+    {
+      href: '/konditionen',
+      text: 'Konditionen',
+    },
+  ];
+
+  // ============================================
+  // INITIAL LOAD
+  // ============================================
 
   useEffect(() => {
     startAutoPlay();
-    
+
     const contentTimer = setTimeout(() => {
       setIsContentVisible(true);
     }, 300);
@@ -33,11 +103,14 @@ export default function HomeHero() {
     }, 2500);
 
     return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+
       clearTimeout(contentTimer);
       clearTimeout(loadTimer);
-      // Detener todos los videos al desmontar
-      Object.values(videoRefs.current).forEach(video => {
+
+      Object.values(videoRefs.current).forEach((video) => {
         if (video) {
           video.pause();
           video.currentTime = 0;
@@ -46,12 +119,13 @@ export default function HomeHero() {
     };
   }, []);
 
-  // Controlar reproducción de videos cuando cambia el slide
+  // ============================================
+  // VIDEO CONTROL
+  // ============================================
+
   useEffect(() => {
-    // Resetear estado del video
     setIsVideoEnded(false);
-    
-    // Detener todos los videos
+
     Object.entries(videoRefs.current).forEach(([index, video]) => {
       if (video) {
         video.pause();
@@ -59,32 +133,44 @@ export default function HomeHero() {
       }
     });
 
-    // Reproducir el video actual si existe
     const currentVideo = videoRefs.current[currentIndex];
-    if (currentVideo && slides[currentIndex].type === 'video') {
-      currentVideo.play().catch(err => {
+
+    if (
+      currentVideo &&
+      slides[currentIndex].type === 'video'
+    ) {
+      currentVideo.play().catch((err) => {
         console.log('Autoplay bloqueado:', err);
       });
     }
   }, [currentIndex]);
 
-  // Manejador cuando el video termina
   const handleVideoEnded = () => {
     setIsVideoEnded(true);
-    // Esperar un momento y luego pasar al siguiente slide
+
     setTimeout(() => {
       if (!isTransitioningRef.current) {
         goToNext();
       }
-    }, 500); // Pequeña pausa para que se vea el final del video
+    }, 500);
   };
 
+  // ============================================
+  // AUTOPLAY
+  // ============================================
+
   const startAutoPlay = () => {
-    if (timerRef.current) clearInterval(timerRef.current);
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+
     timerRef.current = setInterval(() => {
-      // Solo cambiar si no estamos en un video o si el video ya terminó
       const currentSlide = slides[currentIndex];
-      if (currentSlide.type !== 'video' || isVideoEnded) {
+
+      if (
+        currentSlide.type !== 'video' ||
+        isVideoEnded
+      ) {
         if (!isTransitioningRef.current) {
           goToNext();
         }
@@ -92,11 +178,21 @@ export default function HomeHero() {
     }, 5000);
   };
 
+  // ============================================
+  // SLIDE NAVIGATION
+  // ============================================
+
   const goToPrevious = () => {
     if (isTransitioningRef.current) return;
+
     isTransitioningRef.current = true;
-    setCurrentIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+
+    setCurrentIndex((prev) =>
+      prev === 0 ? slides.length - 1 : prev - 1
+    );
+
     resetTimer();
+
     setTimeout(() => {
       isTransitioningRef.current = false;
     }, 1500);
@@ -104,19 +200,34 @@ export default function HomeHero() {
 
   const goToNext = () => {
     if (isTransitioningRef.current) return;
+
     isTransitioningRef.current = true;
-    setCurrentIndex((prev) => (prev + 1) % slides.length);
+
+    setCurrentIndex(
+      (prev) => (prev + 1) % slides.length
+    );
+
     resetTimer();
+
     setTimeout(() => {
       isTransitioningRef.current = false;
     }, 1500);
   };
 
   const goToSlide = (index: number) => {
-    if (isTransitioningRef.current || index === currentIndex) return;
+    if (
+      isTransitioningRef.current ||
+      index === currentIndex
+    ) {
+      return;
+    }
+
     isTransitioningRef.current = true;
+
     setCurrentIndex(index);
+
     resetTimer();
+
     setTimeout(() => {
       isTransitioningRef.current = false;
     }, 1500);
@@ -129,14 +240,30 @@ export default function HomeHero() {
     }
   };
 
-  // Renderizar cada slide (imagen o video)
-  const renderSlide = (slide: typeof slides[0], index: number) => {
+  // ============================================
+  // ROUTING
+  // ============================================
+
+  const handleNavigation = (href: string) => {
+    router.push(href);
+  };
+
+  // ============================================
+  // RENDER SLIDE
+  // ============================================
+
+  const renderSlide = (
+    slide: typeof slides[0],
+    index: number
+  ) => {
     const isActive = index === currentIndex;
 
     if (slide.type === 'video') {
       return (
         <video
-          ref={(el) => { videoRefs.current[index] = el; }}
+          ref={(el) => {
+            videoRefs.current[index] = el;
+          }}
           src={slide.src}
           className="carousel-video"
           muted
@@ -153,103 +280,251 @@ export default function HomeHero() {
           }}
         />
       );
-    } else {
-      return (
-        <Image
-          src={slide.src}
-          alt={slide.alt}
-          fill
-          priority={index === 0}
-          quality={100}
-          sizes="100vw"
-          className="carousel-image"
-          style={{
-            objectFit: 'cover',
-          }}
-        />
-      );
     }
+
+    return (
+      <Image
+        src={slide.src}
+        alt={slide.alt}
+        fill
+        priority={index === 0}
+        quality={100}
+        sizes="100vw"
+        className="carousel-image"
+        style={{
+          objectFit: 'cover',
+        }}
+      />
+    );
   };
+
+  // ============================================
+  // JSX
+  // ============================================
 
   return (
     <section className="hero-carousel">
+
       <div className="carousel-container">
+
+        {/* =====================================
+            SLIDES
+        ====================================== */}
+
         {slides.map((slide, index) => {
-          const isFirstImage = index === 0 && isFirstLoad;
-          const isActive = index === currentIndex;
-          
+          const isFirstImage =
+            index === 0 && isFirstLoad;
+
+          const isActive =
+            index === currentIndex;
+
           return (
             <div
               key={index}
-              className={`carousel-slide ${isActive ? 'active' : ''} ${isFirstImage ? 'first-load' : ''}`}
+              className={`
+                carousel-slide
+                ${isActive ? 'active' : ''}
+                ${isFirstImage ? 'first-load' : ''}
+              `}
               style={{
                 opacity: isActive ? 1 : 0,
                 zIndex: isActive ? 2 : 1,
-                transition: 'opacity 1.5s ease-in-out',
+                transition:
+                  'opacity 1.5s ease-in-out',
               }}
             >
               {renderSlide(slide, index)}
-              <div className="image-overlay"></div>
-              
-              {/* Indicador de carga para videos */}
-              {slide.type === 'video' && isActive && (
-                <div className="video-indicator">
-                  <div className="video-progress"></div>
-                </div>
-              )}
+
+              <div className="image-overlay" />
+
+              {/* VIDEO INDICATOR */}
+
+              {slide.type === 'video' &&
+                isActive && (
+                  <div className="video-indicator">
+                    <div className="video-progress" />
+                  </div>
+                )}
             </div>
           );
         })}
 
-        {/* Contenido del hero - Con Logo */}
-        <div className={`hero-content ${isContentVisible ? 'visible' : ''}`}>
+        {/* =====================================
+            HERO CONTENT
+        ====================================== */}
+
+        <div
+          className={`
+            hero-content
+            ${isContentVisible ? 'visible' : ''}
+          `}
+        >
+
+          {/* LOGO */}
+
           <div className="logo-container">
-             <img
-              src="/img/logo-salotto.png" 
+
+            <img
+              src="/img/logo-salotto.png"
               alt="Salotto Logo"
               className="hero-logo"
-            /> 
+            />
+
           </div>
-           <h2 className="hero-subtitle">BAR | RESTAURANT | EVENTLOCATION</h2> 
+
+          {/* ===================================
+              NAVIGATION
+          ==================================== */}
+
+          <div className="hero-links">
+
+            {navLinks.map((link, index) => (
+
+              <span
+                key={index}
+                className="hero-link-wrapper"
+              >
+
+                <button
+                  onClick={() =>
+                    handleNavigation(link.href)
+                  }
+                  className="hero-link"
+                  style={{
+                    animationDelay:
+                      `${0.1 * index}s`,
+                  }}
+                >
+
+                  {/* 
+                    IMPORTANTE:
+                    SOLO ESTE SPAN SE ESCALA
+                  */}
+
+                  <span className="hero-link-text">
+                    {link.text}
+                  </span>
+
+                </button>
+
+                {index <
+                  navLinks.length - 1 && (
+                  <span className="hero-separator">
+                    |
+                  </span>
+                )}
+
+              </span>
+
+            ))}
+
+          </div>
+
         </div>
 
-        {/* Dots */}
-        <div className={`dots-container ${isContentVisible ? 'visible' : ''}`}>
+        {/* =====================================
+            DOTS
+        ====================================== */}
+
+        <div
+          className={`
+            dots-container
+            ${isContentVisible ? 'visible' : ''}
+          `}
+        >
+
           {slides.map((_, index) => (
+
             <button
               key={index}
-              className={`dot ${index === currentIndex ? 'active' : ''}`}
-              onClick={() => goToSlide(index)}
-              aria-label={`Gehe zu Slide ${index + 1}`}
+              className={`
+                dot
+                ${
+                  index === currentIndex
+                    ? 'active'
+                    : ''
+                }
+              `}
+              onClick={() =>
+                goToSlide(index)
+              }
+              aria-label={`Gehe zu Slide ${
+                index + 1
+              }`}
             />
+
           ))}
+
         </div>
 
-        {/* Botones */}
-        <button 
-          className={`nav-button prev ${isContentVisible ? 'visible' : ''}`}
+        {/* =====================================
+            PREVIOUS BUTTON
+        ====================================== */}
+
+        <button
+          className={`
+            nav-button
+            prev
+            ${isContentVisible ? 'visible' : ''}
+          `}
           onClick={goToPrevious}
           aria-label="Vorheriges Bild"
           disabled={isTransitioningRef.current}
         >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M15 18l-6-6 6-6"/>
+
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path d="M15 18l-6-6 6-6" />
           </svg>
+
         </button>
 
-        <button 
-          className={`nav-button next ${isContentVisible ? 'visible' : ''}`}
+        {/* =====================================
+            NEXT BUTTON
+        ====================================== */}
+
+        <button
+          className={`
+            nav-button
+            next
+            ${isContentVisible ? 'visible' : ''}
+          `}
           onClick={goToNext}
           aria-label="Nächstes Bild"
           disabled={isTransitioningRef.current}
         >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M9 18l6-6-6-6"/>
+
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path d="M9 18l6-6-6-6" />
           </svg>
+
         </button>
+
       </div>
 
+      {/* =========================================
+          STYLES
+      ========================================== */}
+
       <style jsx>{`
+
+        /* ========================================
+           HERO
+        ======================================== */
+
         .hero-carousel {
           width: 100%;
           height: 80vh;
@@ -267,12 +542,13 @@ export default function HomeHero() {
           overflow: hidden;
         }
 
+        /* ========================================
+           SLIDES
+        ======================================== */
+
         .carousel-slide {
           position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
+          inset: 0;
           width: 100%;
           height: 100%;
           will-change: opacity, transform;
@@ -287,29 +563,72 @@ export default function HomeHero() {
         }
 
         .carousel-slide.first-load {
-          animation: blurFadeIn 2s ease-out forwards;
+          animation:
+            blurFadeIn
+            2s
+            ease-out
+            forwards;
         }
 
         @keyframes blurFadeIn {
+
           0% {
             opacity: 0;
             filter: blur(20px);
             transform: scale(1.15);
           }
+
           100% {
             opacity: 1;
-            filter: blur(0px);
+            filter: blur(0);
             transform: scale(1);
           }
+
         }
+
+        /* ========================================
+           IMAGE
+        ======================================== */
 
         .carousel-image {
           width: 100%;
           height: 100%;
           position: relative;
-          transition: transform 10s ease-in-out;
+          transition:
+            transform
+            10s
+            ease-in-out;
           will-change: transform;
         }
+
+        .carousel-slide.active
+        .carousel-image {
+          animation:
+            slowZoom
+            10s
+            ease-in-out
+            infinite;
+        }
+
+        @keyframes slowZoom {
+
+          0% {
+            transform: scale(1);
+          }
+
+          50% {
+            transform: scale(1.15);
+          }
+
+          100% {
+            transform: scale(1);
+          }
+
+        }
+
+        /* ========================================
+           VIDEO
+        ======================================== */
 
         .carousel-video {
           width: 100%;
@@ -318,42 +637,33 @@ export default function HomeHero() {
           background: #000;
         }
 
-        .carousel-slide.active .carousel-image {
-          animation: slowZoom 10s ease-in-out infinite;
-        }
-
-        @keyframes slowZoom {
-          0% {
-            transform: scale(1);
-          }
-          50% {
-            transform: scale(1.15);
-          }
-          100% {
-            transform: scale(1);
-          }
-        }
+        /* ========================================
+           OVERLAY
+        ======================================== */
 
         .image-overlay {
           position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(0, 0, 0, 0.4);
+          inset: 0;
+          background:
+            rgba(0, 0, 0, 0.4);
           z-index: 3;
         }
 
-        /* Video indicator */
+        /* ========================================
+           VIDEO PROGRESS
+        ======================================== */
+
         .video-indicator {
           position: absolute;
           bottom: 80px;
           left: 50%;
-          transform: translateX(-50%);
+          transform:
+            translateX(-50%);
           z-index: 4;
           width: 100px;
           height: 3px;
-          background: rgba(255, 255, 255, 0.2);
+          background:
+            rgba(255, 255, 255, 0.2);
           border-radius: 2px;
           overflow: hidden;
         }
@@ -363,28 +673,61 @@ export default function HomeHero() {
           width: 0%;
           background: white;
           border-radius: 2px;
-          animation: videoProgress 5s linear forwards;
+          animation:
+            videoProgress
+            5s
+            linear
+            forwards;
         }
 
         @keyframes videoProgress {
-          0% { width: 0%; }
-          100% { width: 100%; }
+
+          0% {
+            width: 0%;
+          }
+
+          100% {
+            width: 100%;
+          }
+
         }
 
-        /* Hero Content - Mejorado */
+        /* ========================================
+           HERO CONTENT
+        ======================================== */
+
         .hero-content {
           position: absolute;
+
           top: 50%;
           left: 50%;
-          transform: translate(-50%, -50%);
+
+          transform:
+            translate(-50%, -50%);
+
           z-index: 10;
+
           text-align: center;
-          color: #ffffff;
+
+          color: #fff;
+
           width: 90%;
           max-width: 900px;
+
           pointer-events: none;
+
           opacity: 0;
-          transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+          transition:
+            opacity
+            1.5s
+            cubic-bezier(
+              0.4,
+              0,
+              0.2,
+              1
+            );
+
           will-change: opacity;
         }
 
@@ -392,73 +735,367 @@ export default function HomeHero() {
           opacity: 1;
         }
 
-        /* Logo Container */
+        /* ========================================
+           LOGO
+        ======================================== */
+
         .logo-container {
           display: flex;
           justify-content: center;
           align-items: center;
-          margin-bottom: 1.5rem;
+
+          margin-bottom: 0;
+
           opacity: 0;
-          transform: translateY(20px);
-          transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-          will-change: transform, opacity;
+
+          transform:
+            translateY(260px);
+
+          transition:
+            all
+            1.2s
+            cubic-bezier(
+              0.4,
+              0,
+              0.2,
+              1
+            );
+
+          will-change:
+            transform,
+            opacity;
         }
 
-        .hero-content.visible .logo-container {
+        .hero-content.visible
+        .logo-container {
           opacity: 1;
-          transform: translateY(0);
+
+          transform:
+            translateY(0);
         }
 
         .hero-logo {
-          max-width: 400px;
+          max-width: 500px;
           width: 100%;
           height: auto;
-          filter: drop-shadow(0 4px 30px rgba(0, 0, 0, 0.5));
-          animation: logoPulse 4s ease-in-out infinite;
+
+          filter:
+            drop-shadow(
+              0 4px 30px
+              rgba(0, 0, 0, 0.5)
+            );
+
+          animation:
+            logoPulse
+            4s
+            ease-in-out
+            infinite;
+
           will-change: filter;
         }
 
         @keyframes logoPulse {
-          0%, 100% {
-            filter: drop-shadow(0 4px 30px rgba(0, 0, 0, 0.5));
+
+          0%,
+          100% {
+            filter:
+              drop-shadow(
+                0 4px 30px
+                rgba(0, 0, 0, 0.5)
+              );
           }
+
           50% {
-            filter: drop-shadow(0 4px 50px rgba(255, 255, 255, 0.1));
+            filter:
+              drop-shadow(
+                0 4px 50px
+                rgba(255, 255, 255, 0.1)
+              );
           }
+
         }
 
-        .hero-subtitle {
-          font-size: 1.5rem;
-          font-weight: 300;
-          letter-spacing: 8px;
-          text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
-          color: rgba(255, 255, 255, 0.9);
-          margin: 0;
-          opacity: 0;
-          transform: translateY(15px);
-          transition: all 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
-          will-change: transform, opacity;
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-          backface-visibility: hidden;
-        }
+        /* ========================================
+           NAVIGATION CONTAINER
+        ======================================== */
 
-        .hero-content.visible .hero-subtitle {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        .hero-links {
 
-        /* Dots - Con transición suave */
-        .dots-container {
-          position: absolute;
-          bottom: 2.5rem;
-          left: 50%;
-          transform: translateX(-50%);
           display: flex;
-          gap: 0.75rem;
-          z-index: 10;
+
+          justify-content: center;
+
+          align-items: center;
+
+          gap: 0;
+
+          flex-wrap: wrap;
+
           opacity: 0;
-          transition: opacity 1s ease 0.8s;
+
+          transition:
+            opacity
+            1s
+            cubic-bezier(
+              0.4,
+              0,
+              0.2,
+              1
+            )
+            0.3s;
+
+          pointer-events: auto;
+
+          /*
+            IMPORTANTE:
+            El tamaño del contenedor
+            no cambia al hacer hover.
+          */
+
+          position: relative;
+
+          overflow: visible;
+        }
+
+        .hero-content.visible
+        .hero-links {
+          opacity: 1;
+        }
+
+        /* ========================================
+           EACH LINK
+        ======================================== */
+
+        .hero-link-wrapper {
+
+          display: flex;
+
+          align-items: center;
+
+          gap: 0;
+
+          position: relative;
+
+          /*
+            Evita que el flexbox
+            cambie el tamaño del elemento.
+          */
+
+          flex-shrink: 0;
+        }
+
+        /* ========================================
+           BUTTON
+        ======================================== */
+
+        .hero-link {
+
+          color: #fff;
+
+          background: transparent;
+
+          border: none;
+
+          text-decoration: none;
+
+          /*
+            ESTE FONT-SIZE NUNCA CAMBIA
+          */
+
+          font-size: 1.7rem;
+
+          font-weight: 600;
+
+          letter-spacing: 2px;
+
+          padding:
+            0.7rem
+            0.7rem;
+
+          cursor: pointer;
+
+          text-shadow:
+            0 2px 10px
+            rgba(0, 0, 0, 0.5);
+
+          /*
+            IMPORTANTE:
+            solo animamos opacity.
+          */
+
+          opacity: 0;
+
+          animation:
+            linkFadeIn
+            0.6s
+            ease
+            forwards;
+
+          white-space: nowrap;
+
+          font-family: inherit;
+
+          /*
+            EL BUTTON NO SE ESCALA
+          */
+
+          transform: none;
+
+          position: relative;
+
+          /*
+            Espacio estable
+          */
+
+          display: inline-flex;
+
+          align-items: center;
+
+          justify-content: center;
+
+          flex-shrink: 0;
+        }
+
+        /* ========================================
+           LINK TEXT
+        ======================================== */
+
+        .hero-link-text {
+color:white;
+          display: inline-block;
+
+          /*
+            AQUÍ ocurre el crecimiento.
+            Como es transform,
+            NO cambia el layout.
+          */
+
+          transform:
+            scale(1);
+
+          transform-origin:
+            center center;
+
+          transition:
+            transform
+            0.25s
+            ease,
+            color
+            0.25s
+            ease,
+            text-shadow
+            0.25s
+            ease;
+
+          will-change: transform;
+
+        }
+
+        /* ========================================
+           HOVER
+        ======================================== */
+
+        .hero-link:hover
+        .hero-link-text {
+
+          transform:
+            scale(1.02);
+
+          color:
+            #fbff0d;
+
+          text-shadow:
+            0 2px 20px
+            rgba(
+              255,
+              255,
+              255,
+              0.43
+            );
+        }
+
+        /* ========================================
+           ACTIVE
+        ======================================== */
+
+        .hero-link:active
+        .hero-link-text {
+
+          transform:
+            scale(0.98);
+        }
+
+        /* ========================================
+           LINK FADE IN
+        ======================================== */
+
+        @keyframes linkFadeIn {
+
+          from {
+            opacity: 0;
+          }
+
+          to {
+            opacity: 1;
+          }
+
+        }
+
+        /* ========================================
+           SEPARATOR
+        ======================================== */
+
+        .hero-separator {
+
+          color:
+            rgba(
+              255,
+              255,
+              255,
+              0.3
+            );
+
+          font-size: 1.1rem;
+
+          font-weight: 300;
+
+          padding:
+            0 0.25rem;
+
+          user-select: none;
+
+          flex-shrink: 0;
+        }
+
+        /* ========================================
+           DOTS
+        ======================================== */
+
+        .dots-container {
+
+          position: absolute;
+
+          bottom: 2.5rem;
+
+          left: 50%;
+
+          transform:
+            translateX(-50%);
+
+          display: flex;
+
+          gap: 0.75rem;
+
+          z-index: 10;
+
+          opacity: 0;
+
+          transition:
+            opacity
+            1s
+            ease
+            0.8s;
+
           will-change: opacity;
         }
 
@@ -467,67 +1104,178 @@ export default function HomeHero() {
         }
 
         .dot {
+
           width: 12px;
           height: 12px;
+
           border-radius: 50%;
-          background: rgba(255, 255, 255, 0.3);
-          border: 2px solid rgba(255, 255, 255, 0.2);
+
+          background:
+            rgba(
+              255,
+              255,
+              255,
+              0.3
+            );
+
+          border:
+            2px solid
+            rgba(
+              255,
+              255,
+              255,
+              0.2
+            );
+
           cursor: pointer;
-          transition: all 0.4s ease;
+
+          transition:
+            all
+            0.4s
+            ease;
+
           padding: 0;
-          will-change: transform, background;
+
+          will-change:
+            transform,
+            background;
         }
 
         .dot:hover {
-          transform: scale(1.3);
-          background: rgba(255, 255, 255, 0.6);
+
+          transform:
+            scale(1.3);
+
+          background:
+            rgba(
+              255,
+              255,
+              255,
+              0.6
+            );
         }
 
         .dot.active {
-          background: #ffffff;
-          border-color: #ffffff;
-          transform: scale(1.2);
-          box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+
+          background: #fff;
+
+          border-color: #fff;
+
+          transform:
+            scale(1.2);
+
+          box-shadow:
+            0 0 20px
+            rgba(
+              255,
+              255,
+              255,
+              0.3
+            );
         }
 
-        /* Botones - Con transición suave */
+        /* ========================================
+           NAV BUTTONS
+        ======================================== */
+
         .nav-button {
+
           position: absolute;
+
           top: 50%;
-          transform: translateY(-50%);
-          background: rgba(0, 0, 0, 0.3);
-          backdrop-filter: blur(8px);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          color: #ffffff;
+
+          transform:
+            translateY(-50%);
+
+          background:
+            rgba(
+              0,
+              0,
+              0,
+              0.3
+            );
+
+          backdrop-filter:
+            blur(8px);
+
+          border:
+            1px solid
+            rgba(
+              255,
+              255,
+              255,
+              0.15
+            );
+
+          color: #fff;
+
           width: 55px;
           height: 55px;
+
           border-radius: 50%;
+
           cursor: pointer;
-          transition: all 0.3s ease;
+
+          transition:
+            all
+            0.3s
+            ease;
+
           z-index: 10;
+
           display: flex;
+
           align-items: center;
+
           justify-content: center;
+
           opacity: 0;
+
           pointer-events: none;
-          will-change: opacity, transform;
+
+          will-change:
+            opacity,
+            transform;
         }
 
         .nav-button.visible {
+
           opacity: 0.6;
+
           pointer-events: auto;
         }
 
         .nav-button:hover:not(:disabled) {
-          background: rgba(255, 255, 255, 0.15);
+
+          background:
+            rgba(
+              255,
+              255,
+              255,
+              0.15
+            );
+
           opacity: 1;
-          transform: translateY(-50%) scale(1.1);
-          border-color: rgba(255, 255, 255, 0.3);
+
+          transform:
+            translateY(-50%)
+            scale(1.1);
+
+          border-color:
+            rgba(
+              255,
+              255,
+              255,
+              0.3
+            );
         }
 
         .nav-button:disabled {
+
           opacity: 0.3;
-          cursor: not-allowed;
+
+          cursor:
+            not-allowed;
         }
 
         .nav-button.prev {
@@ -539,40 +1287,91 @@ export default function HomeHero() {
         }
 
         .nav-button svg {
+
           width: 24px;
           height: 24px;
-          stroke: #ffffff;
+
+          stroke: #fff;
+
           stroke-width: 2;
         }
 
-        /* Responsive */
+        /* ========================================
+           RESPONSIVE
+        ======================================== */
+
         @media (max-width: 1024px) {
+
           .hero-logo {
             max-width: 320px;
           }
 
-          .hero-subtitle {
+          .hero-link {
             font-size: 1.2rem;
-            letter-spacing: 6px;
+            padding:
+              0.4rem
+              0.6rem;
+            letter-spacing: 1.5px;
           }
+
+          .hero-separator {
+            font-size: 1rem;
+          }
+
         }
 
+        /* ========================================
+           TABLET
+        ======================================== */
+
         @media (max-width: 768px) {
+
           .hero-logo {
             max-width: 250px;
           }
 
-          .hero-subtitle {
+          .logo-container {
+            margin-bottom: 1.5rem;
+          }
+
+          .hero-link {
             font-size: 1rem;
-            letter-spacing: 4px;
+
+            padding:
+              0.4rem
+              0.3rem;
+
+            letter-spacing: 0.5px;
+          }
+
+          .hero-link-text {
+            transform:
+              scale(1);
+          }
+
+          .hero-link:hover
+          .hero-link-text {
+
+            transform:
+              scale(1.08);
+          }
+
+          .hero-separator {
+
+            font-size: 0.85rem;
+
+            padding:
+              0 0.15rem;
           }
 
           .nav-button {
+
             width: 45px;
             height: 45px;
           }
 
           .nav-button svg {
+
             width: 20px;
             height: 20px;
           }
@@ -586,41 +1385,75 @@ export default function HomeHero() {
           }
 
           .dots-container {
+
             bottom: 1.5rem;
+
             gap: 0.5rem;
           }
 
           .dot {
+
             width: 10px;
             height: 10px;
           }
 
-          .logo-container {
-            margin-bottom: 1rem;
-          }
-
           .video-indicator {
+
             bottom: 60px;
+
             width: 80px;
           }
+
         }
 
+        /* ========================================
+           MOBILE
+        ======================================== */
+
         @media (max-width: 480px) {
+
           .hero-logo {
             max-width: 180px;
           }
 
-          .hero-subtitle {
-            font-size: 0.75rem;
-            letter-spacing: 3px;
+          .logo-container {
+            margin-bottom: 0;
+          }
+
+          .hero-link {
+
+            font-size: 1rem;
+
+            padding:
+              0.4rem
+              0.3rem;
+
+            letter-spacing: 0.5px;
+          }
+
+          .hero-link:hover
+          .hero-link-text {
+
+            transform:
+              scale(1.1);
+          }
+
+          .hero-separator {
+
+            font-size: 0.6rem;
+
+            padding:
+              0 0.1rem;
           }
 
           .nav-button {
+
             width: 38px;
             height: 38px;
           }
 
           .nav-button svg {
+
             width: 16px;
             height: 16px;
           }
@@ -634,25 +1467,29 @@ export default function HomeHero() {
           }
 
           .dots-container {
+
             bottom: 1rem;
+
             gap: 0.4rem;
           }
 
           .dot {
+
             width: 8px;
             height: 8px;
           }
 
-          .logo-container {
-            margin-bottom: 0.75rem;
-          }
-
           .video-indicator {
+
             bottom: 50px;
+
             width: 60px;
           }
+
         }
+
       `}</style>
+
     </section>
   );
 }

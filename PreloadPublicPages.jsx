@@ -7,13 +7,15 @@ export function preloadPublicPagesOnce() {
   hasPreloaded = true;
   
   const dashboardPages = [
-    '/galerie',
-    '/getrenk',
+    '/firmenevents',
+    '/apero',
+    '/geburtstag',
     '/speisekarte',
-    '/team',
-    '/kontakt',
-    // '/informativePages/termsPage',
-    // '/informativePages/privacyPage',
+    '/mittagessen',
+    '/galerie',
+    '/jetztmieten',
+    '/getrenk',
+    '/konditionen',
   ];
    
   console.log('🚀 ...');

@@ -260,14 +260,11 @@ export default function Konditionen() {
             </p>
 
             <div className="contact-buttons">
-              <a href="/kontakt" className="contact-button primary">
+              <a href="/jetztmieten" className="contact-button primary">
                 <Mail size={20} color="#ffffff" stroke="#ffffff" />
                 <span>Offerte Anfragen</span>
               </a>
-              <a href="tel:+41441234567" className="contact-button secondary">
-                <Phone size={20} color="#ffffff" stroke="#ffffff" />
-                <span>Telefonisch Kontakt</span>
-              </a>
+             
             </div>
           </div>
         </div>
@@ -278,6 +275,7 @@ export default function Konditionen() {
           background: #000000;
           min-height: 100vh;
           color: #ffffff;
+          padding-top:9rem;
         }
 
         /* Hero Image */
@@ -762,6 +760,7 @@ export default function Konditionen() {
 
         /* Responsive */
         @media (max-width: 1024px) {
+          
           .hero-title {
             font-size: 3rem;
           }
@@ -773,7 +772,7 @@ export default function Konditionen() {
 
         @media (max-width: 768px) {
           .konditionen-page {
-            padding-top: 0rem;
+            padding-top: 8rem;
           }
 
           .hero-image-container {
@@ -815,6 +814,10 @@ export default function Konditionen() {
         }
 
         @media (max-width: 480px) {
+           .konditionen-page {
+        
+          padding-top:6rem;
+        }
           .hero-image-container {
             height: 30vh;
             min-height: 250px;
@@ -830,7 +833,7 @@ export default function Konditionen() {
           }
 
           .card {
-            padding: 1.5rem;
+            padding: 1rem;
           }
 
           .card-header h3 {

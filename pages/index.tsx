@@ -5,35 +5,20 @@ import HomeHero from '../components/homeComponents/HomeHero';
 import FeaturesSection from '../components/homeComponents/FeaturesSection';
 import FeaturesGallery from '../components/homeComponents/FeaturesGallery';
 import CTASection from '../components/homeComponents/CTASection';
-import TechCarrousel from '../components/homeComponents/TechCarrousel'
-import TestimonialsSection from '../components/homeComponents/TestimonialsSection';
-import PricingSection from '../components/homeComponents/PricingSection';
-import FAQSection from '../components/homeComponents/FAQSection';
-import { useLanguage } from '../contexts/LanguageContext';
-import Watermark from '../components/Watermark';
+
 
 
 export default function Home() {
   useEffect(()=>{
     preloadPublicPagesOnce()},
     [])
-  const { t } = useLanguage();
   return ( 
     <>  
       <HomeHero />
       <FeaturesSection /> 
       <FeaturesGallery />
       <CTASection />
-     {/* <TestimonialsSection />  */}
-      {/* <PricingSection />  */}
-      {/* <TechCarrousel /> */}
-     {/* <FAQSection />  */}
-    {/* <Watermark 
-  size={250} 
-  blurAmount={5}
-  duration={6000}
-  delay={1000}
-/> */}
+    
       <style jsx>{`
         .privacy-background {
           position: fixed;
