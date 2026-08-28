@@ -61,7 +61,6 @@ export default function Konditionen() {
       });
     };
   }, []);
-
   return (
     <div className="konditionen-page">
       {/* Hero Image */}

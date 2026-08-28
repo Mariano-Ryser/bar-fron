@@ -69,22 +69,22 @@ export default function HomeHero() {
       href: '/geburtstag',
       text: 'Geburtstag',
     },
-    {
-      href: '/apero',
-      text: 'Apéro',
-    },
+    // {
+    //   href: '/apero',
+    //   text: 'Apéro',
+    // },
     {
       href: '/mittagessen',
       text: 'Mittagessen',
     },
-    {
-      href: '/jetztmieten',
-      text: 'Jetzt mieten',
-    },
-    {
-      href: '/konditionen',
-      text: 'Konditionen',
-    },
+    // {
+    //   href: '/jetztmieten',
+    //   text: 'Jetzt mieten',
+    // },
+    // {
+    //   href: '/konditionen',
+    //   text: 'Konditionen',
+    // },
   ];
 
   // ============================================

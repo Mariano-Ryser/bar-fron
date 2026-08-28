@@ -67,10 +67,10 @@ export default function Header() {
   const navItems = [
     { href: "/firmenevents", text: "Eventlocation" },
     { href: "/geburtstag", text: "Geburtstag" },
-    { href: "/apero", text: "Apéro" },
+    // { href: "/apero", text: "Apéro" },
     { href: "/mittagessen", text: "Mittagessen" },
-    { href: "/galerie", text: "Galerie" },
-    { href: "/jetztmieten", text: "Jetzt mieten" },
+    // { href: "/galerie", text: "Galerie" },
+    // { href: "/jetztmieten", text: "Jetzt mieten" },
   ]; 
 
   const handleNavClick = (href: string) => {

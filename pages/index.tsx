@@ -8,6 +8,7 @@ import CTASection from '../components/homeComponents/CTASection';
 
 
 
+
 export default function Home() {
   useEffect(()=>{
     preloadPublicPagesOnce()},
@@ -16,7 +17,7 @@ export default function Home() {
     <>  
       <HomeHero />
       <FeaturesSection /> 
-      <FeaturesGallery />
+      {/* <FeaturesGallery /> */}
       <CTASection />
     
       <style jsx>{`
