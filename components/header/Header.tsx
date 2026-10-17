@@ -2,21 +2,25 @@ import React, { useState, useEffect, useRef } from "react";
 import Router from "next/router";
 import { Menu, X } from "lucide-react";
 import styles from "./Header.module.css";
+import { siteConfig } from "../../config/siteConfig";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const menuRef = useRef(null);
-  const toggleRef = useRef(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
   const SCROLL_THRESHOLD = 100;
+
+  // ⬇️ Todo desde el config
+  const { company, nav: navItems } = siteConfig;
 
   useEffect(() => {
     const onScroll = () => {
       const currentScrollY = window.scrollY;
       setScrolled(currentScrollY > 8);
-      
+
       // Ocultar al bajar, mostrar al subir
       if (currentScrollY > lastScrollY && currentScrollY > SCROLL_THRESHOLD) {
         setHidden(true);
@@ -24,7 +28,7 @@ export default function Header() {
       } else if (currentScrollY < lastScrollY) {
         setHidden(false);
       }
-      
+
       setLastScrollY(currentScrollY);
     };
 
@@ -42,12 +46,12 @@ export default function Header() {
 
   useEffect(() => {
     if (mobileOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [mobileOpen]);
 
@@ -64,15 +68,6 @@ export default function Header() {
     setMobileOpen(false);
   };
 
-  const navItems = [
-    { href: "/firmenevents", text: "Eventlocation" },
-    { href: "/geburtstag", text: "Geburtstag" },
-    // { href: "/apero", text: "Apéro" },
-    { href: "/mittagessen", text: "Mittagessen" },
-    // { href: "/galerie", text: "Galerie" },
-    // { href: "/jetztmieten", text: "Jetzt mieten" },
-  ]; 
-
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
     Router.push(href);
@@ -80,18 +75,22 @@ export default function Header() {
 
   return (
     <>
-      <header className={`${styles.header} ${scrolled ? styles.scrolled : ""} ${hidden ? styles.hidden : ""}`}>
+      <header
+        className={`${styles.header} ${scrolled ? styles.scrolled : ""} ${
+          hidden ? styles.hidden : ""
+        }`}
+      >
         <div className={styles.container}>
-          {/* Logo */}
+          {/* Logo desde el config */}
           <div className={styles.logo} onClick={handleLogoClick}>
             <img
-              src="/img/logo-salotto.png" 
-              alt="Logo"
+              src={company.logo}
+              alt={company.logoAlt}
               className={styles.logoImage}
             />
           </div>
 
-          {/* Botón Hamburguesa - SIEMPRE VISIBLE (desktop y móvil) */}
+          {/* Botón Hamburguesa - SIEMPRE VISIBLE */}
           <button
             ref={toggleRef}
             className={styles.mobileToggle}
@@ -107,12 +106,12 @@ export default function Header() {
         </div>
       </header>
 
-      {/* FULL SCREEN MENU (se abre con el burger) */}
-      <div 
+      {/* FULL SCREEN MENU */}
+      <div
         ref={menuRef}
         className={`${styles.mobileMenu} ${mobileOpen ? styles.open : ""}`}
       >
-        <button 
+        <button
           className={styles.closeButton}
           onClick={closeMenu}
           aria-label="Cerrar menú"

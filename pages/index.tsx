@@ -7,8 +7,6 @@ import FeaturesGallery from '../components/homeComponents/FeaturesGallery';
 import CTASection from '../components/homeComponents/CTASection';
 
 
-
-
 export default function Home() {
   useEffect(()=>{
     preloadPublicPagesOnce()},

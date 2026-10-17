@@ -8,10 +8,10 @@
   background: rgba(0, 0, 0, 0.308);
   backdrop-filter: blur(3px);
   z-index: 1000;
-  transition: height 0.7s ease-in-out, 
-              background 0.3s ease-in-out, 
-              box-shadow 0.3s ease-in-out,
-              transform 0.7s ease-in-out;
+  transition: height 0.7s ease-in-out,
+    background 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out,
+    transform 0.7s ease-in-out;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
@@ -118,7 +118,7 @@
   }
 }
 
-/* FULL SCREEN MENU */
+/* ===== FULL SCREEN MENU ===== */
 .mobileMenu {
   position: fixed;
   top: 0;
@@ -129,7 +129,7 @@
   z-index: 1001;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.35s ease-in-out;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -176,9 +176,10 @@
   height: 32px;
 }
 
+/* ===== NAV DEL MENÚ ===== */
 .mobileNav {
   width: 100%;
-  max-width: 600px;
+  max-width: 640px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -189,25 +190,89 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.4rem;
   width: 100%;
 }
 
+/* ===== LINKS: tipografía grande, clara, con animación de entrada ===== */
 .mobileNavItem {
+  /* Tipografía más grande y clara */
   color: #ffffff;
-  text-decoration: none;
-  font-size: 2.5rem;
-  font-weight: 300;
-  transition: all 0.3s ease;
-  padding: 0.5rem 1rem;
+  font-size: clamp(2rem, 5.5vw, 3rem);
+  font-weight: 600;
+  letter-spacing: 3px;
+  line-height: 1.25;
   text-align: center;
+  text-decoration: none;
   width: 100%;
-  letter-spacing: 2px;
+  padding: 0.6rem 1.2rem;
+  position: relative;
+
+  /* Estado inicial (cerrado): invisible, desplazado a la izquierda, difuminado */
+  opacity: 0;
+  transform: translateX(-40px);
+  filter: blur(8px);
+
+  /* Salida suave al cerrar */
+  transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease,
+    color 0.3s ease;
+
+  /* Optimización de renderizado */
+  will-change: opacity, transform, filter;
+}
+
+/* Animación de entrada: fade + slide desde la izquierda + desenfoque que se disipa */
+@keyframes navLinkIn {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0);
+  }
+}
+
+/* Cuando el menú está abierto, cada link entra escalonado */
+.mobileMenu.open .mobileNavItem {
+  animation: navLinkIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Stagger escalonado: cada link entra un poco después */
+.mobileMenu.open .mobileNavItem:nth-child(1) { animation-delay: 0.10s; }
+.mobileMenu.open .mobileNavItem:nth-child(2) { animation-delay: 0.18s; }
+.mobileMenu.open .mobileNavItem:nth-child(3) { animation-delay: 0.26s; }
+.mobileMenu.open .mobileNavItem:nth-child(4) { animation-delay: 0.34s; }
+.mobileMenu.open .mobileNavItem:nth-child(5) { animation-delay: 0.42s; }
+.mobileMenu.open .mobileNavItem:nth-child(6) { animation-delay: 0.50s; }
+.mobileMenu.open .mobileNavItem:nth-child(7) { animation-delay: 0.58s; }
+.mobileMenu.open .mobileNavItem:nth-child(8) { animation-delay: 0.66s; }
+.mobileMenu.open .mobileNavItem:nth-child(9) { animation-delay: 0.74s; }
+.mobileMenu.open .mobileNavItem:nth-child(10) { animation-delay: 0.82s; }
+
+/* Línea decorativa que crece bajo el link al hacer hover */
+.mobileNavItem::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0.15rem;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ffffff, transparent);
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 0.7;
 }
 
 .mobileNavItem:hover {
-  transform: scale(1.05);
-  color: #cccccc;
+  color: #ffe927;
+
+}
+
+.mobileNavItem:hover::after {
+  width: 60%;
 }
 
 /* BREAKPOINTS - EL BURGER SIEMPRE VISIBLE */
@@ -215,7 +280,7 @@
   .mobileToggle {
     display: flex !important;
   }
-  
+
   .mobileMenu {
     display: flex !important;
   }
@@ -250,6 +315,12 @@
     width: 28px !important;
     height: 28px !important;
   }
+
+  /* Links un poco más compactos en tablet */
+  .mobileNavItem {
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    padding: 0.5rem 1rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -273,8 +344,14 @@
     padding: 0 1rem;
   }
 
+  /* Links adaptados a móvil */
   .mobileNavItem {
-    font-size: 2rem;
+    font-size: clamp(1.6rem, 6vw, 2.1rem);
+    letter-spacing: 1px;
+    padding: 0.5rem 0.8rem;
+  }
+
+  .mobileNavList {
     gap: 1rem;
   }
 
@@ -295,6 +372,7 @@
 @media (max-width: 360px) {
   .mobileNavItem {
     font-size: 1.5rem;
+    letter-spacing: 0.5px;
   }
 
   .logoImage {
@@ -312,5 +390,20 @@
   .closeButton svg {
     width: 20px !important;
     height: 20px !important;
+  }
+}
+
+/* Accesibilidad: respeta la preferencia de reducir movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .mobileNavItem {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .mobileNavItem::after {
+    transition: none !important;
   }
 }

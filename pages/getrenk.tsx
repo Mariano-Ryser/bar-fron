@@ -1,15 +1,262 @@
 // pages/getraenkekarte.tsx
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import Image from 'next/image';
-import { Wine, Beer, GlassWater, Coffee, X, ChevronLeft, ChevronRight, Clock, Utensils } from 'lucide-react';
-import BubbleBackground from '../components/BubbleBackground';
-import MusicPlayer from '../components/MusicPlayer'; 
+import { Wine, Beer, GlassWater, Coffee, X, ChevronLeft, ChevronRight, Clock, Utensils, Search, Euro } from 'lucide-react';
+
+interface DrinkItem {
+  id: number;
+  name: string;
+  description: string;
+  category: string;
+  image: string;
+  alcohol: boolean;
+  volume: string;
+  ingredients: { name: string; amount: string }[];
+  prepTime: string;
+  price: string;
+}
+
 export default function Getraenkekarte() {
   const [activeCategory, setActiveCategory] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
   const [visibleItems, setVisibleItems] = useState<number[]>([]);
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
   const [preloadedImages, setPreloadedImages] = useState<Set<number>>(new Set());
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const categories = [
+    { id: 'all', name: 'Alle', icon: <GlassWater size={16} /> },
+    { id: 'aperitif', name: 'Aperitif', icon: <Wine size={16} /> },
+    { id: 'cocktails', name: 'Cocktails', icon: <GlassWater size={16} /> },
+    { id: 'biere', name: 'Biere', icon: <Beer size={16} /> },
+    { id: 'weine', name: 'Weine', icon: <Wine size={16} /> },
+    { id: 'softdrinks', name: 'Softdrinks', icon: <Coffee size={16} /> },
+  ];
+
+  const drinkItems: DrinkItem[] = [
+    {
+      id: 1,
+      name: 'Aperol Spritz',
+      description: 'Aperol, Prosecco, Soda, Orange - Der italienische Klassiker',
+      category: 'aperitif',
+      image: '/img/getrenk/aperolSpritz.jpg',
+      alcohol: true,
+      volume: '0.3l',
+      ingredients: [
+        { name: 'Aperol', amount: '6 cl' },
+        { name: 'Prosecco', amount: '9 cl' },
+        { name: 'Soda', amount: '3 cl' },
+        { name: 'Orange', amount: '1 Scheibe' },
+      ],
+      prepTime: '2-3 Min.',
+      price: '8,50 CHF',
+    },
+    {
+      id: 2,
+      name: 'Campari Soda',
+      description: 'Campari mit Soda - Bitter und erfrischend',
+      category: 'aperitif',
+      image: '/img/getrenk/campariSoda.jpg',
+      alcohol: true,
+      volume: '0.2l',
+      ingredients: [
+        { name: 'Campari', amount: '6 cl' },
+        { name: 'Soda', amount: '10 cl' },
+        { name: 'Zitrone', amount: '1 Scheibe' },
+      ],
+      prepTime: '1-2 Min.',
+      price: '7,50 CHF',
+    },
+    {
+      id: 3,
+      name: 'Cuba Libre',
+      description: 'Rum, Cola, Limette - Ein zeitloser Klassiker',
+      category: 'cocktails',
+      image: '/img/getrenk/cubaLibre.jpg',
+      alcohol: true,
+      volume: '0.4l',
+      ingredients: [
+        { name: 'Weißer Rum', amount: '5 cl' },
+        { name: 'Cola', amount: '15 cl' },
+        { name: 'Limette', amount: '1/2 Stück' },
+        { name: 'Eis', amount: 'nach Bedarf' },
+      ],
+      prepTime: '2-3 Min.',
+      price: '9,00 CHF',
+    },
+    {
+      id: 4,
+      name: 'Espresso Martini',
+      description: 'Wodka, Kaffeelikör, Espresso - Wachmacher mit Stil',
+      category: 'cocktails',
+      image: '/img/getrenk/expresoMartini.jpg',
+      alcohol: true,
+      volume: '0.2l',
+      ingredients: [
+        { name: 'Wodka', amount: '4 cl' },
+        { name: 'Kaffeelikör', amount: '2 cl' },
+        { name: 'Espresso', amount: '3 cl' },
+      ],
+      prepTime: '3-4 Min.',
+      price: '10,50 CHF',
+    },
+    {
+      id: 5,
+      name: 'Gin Tonic',
+      description: 'Gin, Tonic Water, Gurke, Limette - Klassisch frisch',
+      category: 'cocktails',
+      image: '/img/getrenk/ginTonic.jpg',
+      alcohol: true,
+      volume: '0.3l',
+      ingredients: [
+        { name: 'Gin', amount: '5 cl' },
+        { name: 'Tonic Water', amount: '15 cl' },
+        { name: 'Gurke', amount: '2 Scheiben' },
+        { name: 'Limette', amount: '1/4 Stück' },
+      ],
+      prepTime: '2-3 Min.',
+      price: '9,50 CHF',
+    },
+    {
+      id: 6,
+      name: 'Hugo',
+      description: 'Prosecco, Holunderblütensirup, Minze, Soda - Fruchtig & leicht',
+      category: 'aperitif',
+      image: '/img/getrenk/hugo.jpg',
+      alcohol: true,
+      volume: '0.3l',
+      ingredients: [
+        { name: 'Prosecco', amount: '10 cl' },
+        { name: 'Holunderblütensirup', amount: '2 cl' },
+        { name: 'Soda', amount: '5 cl' },
+        { name: 'Minze', amount: '4-5 Blätter' },
+        { name: 'Limette', amount: '1/4 Stück' },
+      ],
+      prepTime: '2-3 Min.',
+      price: '8,50 CHF',
+    },
+    {
+      id: 7,
+      name: 'Mojito',
+      description: 'Weißer Rum, Limette, Minze, Zucker, Soda - Erfrischend & belebend',
+      category: 'cocktails',
+      image: '/img/getrenk/mojito.jpg',
+      alcohol: true,
+      volume: '0.3l',
+      ingredients: [
+        { name: 'Weißer Rum', amount: '5 cl' },
+        { name: 'Limette', amount: '1/2 Stück' },
+        { name: 'Minze', amount: '8-10 Blätter' },
+        { name: 'Zucker', amount: '2 TL' },
+        { name: 'Soda', amount: '10 cl' },
+        { name: 'Eis', amount: 'nach Bedarf' },
+      ],
+      prepTime: '3-4 Min.',
+      price: '9,00 CHF',
+    },
+    {
+      id: 8,
+      name: 'Moscow Mule',
+      description: 'Wodka, Ginger Beer, Limette - Würzig und erfrischend',
+      category: 'cocktails',
+      image: '/img/getrenk/moscowMule.jpg',
+      alcohol: true,
+      volume: '0.3l',
+      ingredients: [
+        { name: 'Wodka', amount: '5 cl' },
+        { name: 'Ginger Beer', amount: '12 cl' },
+        { name: 'Limette', amount: '1/2 Stück' },
+        { name: 'Eis', amount: 'nach Bedarf' },
+      ],
+      prepTime: '2-3 Min.',
+      price: '9,50 CHF',
+    },
+    {
+      id: 9,
+      name: 'Negroni',
+      description: 'Gin, Campari, Vermouth Rosso - Der bittere Klassiker',
+      category: 'cocktails',
+      image: '/img/getrenk/negroni.jpg',
+      alcohol: true,
+      volume: '0.2l',
+      ingredients: [
+        { name: 'Gin', amount: '3 cl' },
+        { name: 'Campari', amount: '3 cl' },
+        { name: 'Vermouth Rosso', amount: '3 cl' },
+        { name: 'Orange', amount: '1 Scheibe' },
+      ],
+      prepTime: '3-4 Min.',
+      price: '10,00 CHF',
+    },
+    {
+      id: 10,
+      name: 'Vodka Soda',
+      description: 'Wodka, Soda, Limette - Leicht und klar',
+      category: 'cocktails',
+      image: '/img/getrenk/vodkaSoda.jpg',
+      alcohol: true,
+      volume: '0.3l',
+      ingredients: [
+        { name: 'Wodka', amount: '5 cl' },
+        { name: 'Soda', amount: '15 cl' },
+        { name: 'Limette', amount: '1/4 Stück' },
+        { name: 'Eis', amount: 'nach Bedarf' },
+      ],
+      prepTime: '1-2 Min.',
+      price: '8,50 CHF',
+    },
+    {
+      id: 11,
+      name: 'Whisky Cola',
+      description: 'Whisky, Cola - Der Klassiker schlechthin',
+      category: 'cocktails',
+      image: '/img/getrenk/wiskyCola.jpg',
+      alcohol: true,
+      volume: '0.4l',
+      ingredients: [
+        { name: 'Whisky', amount: '5 cl' },
+        { name: 'Cola', amount: '15 cl' },
+        { name: 'Eis', amount: 'nach Bedarf' },
+      ],
+      prepTime: '1-2 Min.',
+      price: '9,00 CHF',
+    },
+    {
+      id: 12,
+      name: 'Whisky Sour',
+      description: 'Whisky, Zitronensaft, Zuckersirup, Eiweiß - Sauer und cremig',
+      category: 'cocktails',
+      image: '/img/getrenk/wiskySour.jpg',
+      alcohol: true,
+      volume: '0.2l',
+      ingredients: [
+        { name: 'Whisky', amount: '5 cl' },
+        { name: 'Zitronensaft', amount: '3 cl' },
+        { name: 'Zuckersirup', amount: '2 cl' },
+        { name: 'Eiweiß', amount: '1 Stück' },
+        { name: 'Angostura', amount: '2 Spritzer' },
+      ],
+      prepTime: '3-4 Min.',
+      price: '10,50 CHF',
+    },
+  ];
+
+  // Filtrar por categoría + búsqueda
+  const filteredItems = useMemo(() => {
+    let items = drinkItems;
+    if (activeCategory !== 'all') {
+      items = items.filter((item) => item.category === activeCategory);
+    }
+    if (searchQuery.trim()) {
+      const q = searchQuery.trim().toLowerCase();
+      items = items.filter(
+        (item) =>
+          item.name.toLowerCase().includes(q) ||
+          item.description.toLowerCase().includes(q)
+      );
+    }
+    return items;
+  }, [activeCategory, searchQuery, drinkItems]);
 
   // Intersection Observer
   useEffect(() => {
@@ -18,12 +265,9 @@ export default function Getraenkekarte() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const index = Number(entry.target.getAttribute('data-index'));
-            setVisibleItems(prev => {
-              if (!prev.includes(index)) {
-                return [...prev, index];
-              }
-              return prev;
-            });
+            setVisibleItems((prev) =>
+              prev.includes(index) ? prev : [...prev, index]
+            );
           }
         });
       },
@@ -39,7 +283,7 @@ export default function Getraenkekarte() {
         if (ref) observer.unobserve(ref);
       });
     };
-  }, []);
+  }, [filteredItems]);
 
   // Preload images
   useEffect(() => {
@@ -47,103 +291,10 @@ export default function Getraenkekarte() {
       const img = new window.Image();
       img.src = item.image;
       img.onload = () => {
-        setPreloadedImages(prev => new Set(prev).add(index));
+        setPreloadedImages((prev) => new Set(prev).add(index));
       };
     });
   }, []);
-
-  const categories = [
-    { id: 'all', name: 'Alle', icon: <GlassWater size={16} /> },
-    { id: 'aperitif', name: 'Aperitif', icon: <Wine size={16} /> },
-    { id: 'cocktails', name: 'Cocktails', icon: <GlassWater size={16} /> },
-    { id: 'biere', name: 'Biere', icon: <Beer size={16} /> },  
-    { id: 'weine', name: 'Weine', icon: <Wine size={16} /> },
-    { id: 'softdrinks', name: 'Softdrinks', icon: <Coffee size={16} /> },
-  ];
-
-  const drinkItems = [
-    {
-      id: 1,
-      name: 'Aperol Spritz',
-      description: 'Aperol, Prosecco, Soda, Orange - Der italienische Klassiker',
-      category: 'aperitif',
-      image: '/img/aperol-spritz.png',
-      alcohol: true,
-      volume: '0.3l',
-      ingredients: 'Aperol, Prosecco, Soda, Orange',
-      prepTime: '2-3 Min.'
-    },
-    {
-      id: 2,
-      name: 'Hugo',
-      description: 'Prosecco, Holunderblütensirup, Minze, Soda - Fruchtig & leicht',
-      category: 'aperitif',
-      image: '/img/hugo.png',
-      alcohol: true,
-      volume: '0.3l',
-      ingredients: 'Prosecco, Holunderblütensirup, Minze, Soda',
-      prepTime: '2-3 Min.'
-    },
-    {
-      id: 3,
-      name: 'Mojito',
-      description: 'Weißer Rum, Limette, Minze, Zucker, Soda - Erfrischend & belebend',
-      category: 'cocktails',
-      image: '/img/mojito.png',
-      alcohol: true,
-      volume: '0.3l',
-      ingredients: 'Weißer Rum, Limette, Minze, Zucker, Soda',
-      prepTime: '3-4 Min.'
-    },
-    {
-      id: 4,
-      name: 'Cuba Libre',
-      description: 'Rum, Cola, Limette - Ein zeitloser Klassiker',
-      category: 'cocktails',
-      image: '/img/cuba-libre.png',
-      alcohol: true,
-      volume: '0.4l',
-      ingredients: 'Rum, Cola, Limette',
-      prepTime: '2-3 Min.'
-    },
-    {
-      id: 5,
-      name: 'IPA',
-      description: 'India Pale Ale mit intensiver Hopfennote und fruchtigen Aromen',
-      category: 'biere',
-      image: '/img/ipa.png',
-      alcohol: true,
-      volume: '0.4l',
-      ingredients: 'Wasser, Gerstenmalz, Hopfen, Hefe',
-      prepTime: 'Sofort serviert'
-    },
-    {
-      id: 6,
-      name: 'Lager Bier',
-      description: 'Klares, erfrischendes Bier mit ausgewogenem Geschmack',
-      category: 'biere',
-      image: '/img/lager.png',
-      alcohol: true,
-      volume: '0.5l',
-      ingredients: 'Wasser, Gerstenmalz, Hopfen, Hefe',
-      prepTime: 'Sofort serviert'
-    },
-    {
-      id: 7,
-      name: 'Cola',
-      description: 'Cola - Erfrischend und belebend',
-      category: 'softdrinks',
-      image: '/img/cola.png',
-      alcohol: false,
-      volume: '0.5l',
-      ingredients: 'Cola-Sirup, Kohlensäure',
-      prepTime: 'Sofort serviert'
-    },
-  ];
-
-  const filteredItems = activeCategory === 'all' 
-    ? drinkItems 
-    : drinkItems.filter(item => item.category === activeCategory);
 
   const openModal = (index: number) => {
     setSelectedItem(index);
@@ -157,7 +308,9 @@ export default function Getraenkekarte() {
 
   const goToPrevious = () => {
     if (selectedItem !== null) {
-      setSelectedItem((selectedItem - 1 + filteredItems.length) % filteredItems.length);
+      setSelectedItem(
+        (selectedItem - 1 + filteredItems.length) % filteredItems.length
+      );
     }
   };
 
@@ -175,35 +328,42 @@ export default function Getraenkekarte() {
         if (e.key === 'ArrowRight') goToNext();
       }
     };
-
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedItem, filteredItems.length]);
 
   return (
     <div className="getraenkekarte-page">
-      {/* Bubble Background */}
-
-{/* <BubbleBackground 
-  bubbleCount={5}      // ← Solo 5 burbujas
-  minSize={20}
-  maxSize={300}
-  opacity={0.5}        // ← 100% visible
-  speedMultiplier={2.9}
-/> */}
- {/* <MusicPlayer 
-        autoPlay={true}        // ← Comienza automáticamente
-        volume={0.3}           // ← Volumen al 30%
-        songPath="/music/DarkTechnominimal.mp3"
-      /> */}
-
       {/* Hero Section */}
-
       <div className="hero-section">
         <div className="hero-content">
           <h1>Getränkekarte</h1>
           <p>Entdecke unsere vielfältige Auswahl an Getränken</p>
           <div className="hero-line"></div>
+        </div>
+      </div>
+
+      {/* Search Bar */}
+      <div className="search-wrapper">
+        <div className="search-container">
+          <Search size={18} className="search-icon" />
+          <input
+            type="text"
+            placeholder="Getränk suchen..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="search-input"
+            aria-label="Getränk suchen"
+          />
+          {searchQuery && (
+            <button
+              className="search-clear"
+              onClick={() => setSearchQuery('')}
+              aria-label="Suche löschen"
+            >
+              <X size={16} />
+            </button>
+          )}
         </div>
       </div>
 
@@ -213,7 +373,9 @@ export default function Getraenkekarte() {
           {categories.map((category) => (
             <button
               key={category.id}
-              className={`category-btn ${activeCategory === category.id ? 'active' : ''}`}
+              className={`category-btn ${
+                activeCategory === category.id ? 'active' : ''
+              }`}
               onClick={() => setActiveCategory(category.id)}
             >
               <span className="category-icon">{category.icon}</span>
@@ -224,64 +386,88 @@ export default function Getraenkekarte() {
       </div>
 
       {/* Drinks Grid */}
-      <div className="drinks-grid">
-        {filteredItems.map((item, index) => {
-          const refCallback = (el: HTMLDivElement | null) => {
-            itemRefs.current[index] = el;
-          };
+      {filteredItems.length === 0 ? (
+        <div className="no-results">
+          <p>Keine Getränke gefunden für „{searchQuery}“</p>
+        </div>
+      ) : (
+        <div className="drinks-grid">
+          {filteredItems.map((item, index) => {
+            const refCallback = (el: HTMLDivElement | null) => {
+              itemRefs.current[index] = el;
+            };
 
-          return (
-            <div
-              key={item.id}
-              ref={refCallback}
-              data-index={index}
-              className={`drink-item ${visibleItems.includes(index) ? 'visible' : ''}`}
-              onClick={() => openModal(index)}
-            >
-              <div className="drink-image">
-                <Image
-                  src={item.image}
-                  alt={item.name}
-                  fill
-                  className="drink-img"
-                  style={{ objectFit: 'cover' }}
-                  sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                  loading={index === 0 ? "eager" : "lazy"}
-                />
-                <div className="drink-overlay">
-                  {item.alcohol && (
-                    <span className="drink-badge alcohol">🍸 Alkohol</span>
-                  )}
-                  {!item.alcohol && (
-                    <span className="drink-badge non-alcohol">🧃 Alkoholfrei</span>
-                  )}
+            return (
+              <div
+                key={item.id}
+                ref={refCallback}
+                data-index={index}
+                className={`drink-item ${
+                  visibleItems.includes(index) ? 'visible' : ''
+                }`}
+                onClick={() => openModal(index)}
+              >
+                <div className="drink-image">
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    fill
+                    className="drink-img"
+                    style={{ objectFit: 'cover' }}
+                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    loading={index === 0 ? 'eager' : 'lazy'}
+                  />
+                  <div className="drink-overlay">
+                    {item.alcohol ? (
+                      <span className="drink-badge alcohol">🍸 Alkohol</span>
+                    ) : (
+                      <span className="drink-badge non-alcohol">
+                        🧃 Alkoholfrei
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div className="drink-content">
+                  <div className="drink-header">
+                    <h3>{item.name}</h3>
+                    <span className="drink-volume">{item.volume}</span>
+                  </div>
+                  <p className="drink-description">{item.description}</p>
+                  <div className="drink-price">{item.price}</div>
                 </div>
               </div>
-              <div className="drink-content">
-                <div className="drink-header">
-                  <h3>{item.name}</h3>
-                  <span className="drink-volume">{item.volume}</span>
-                </div>
-                <p className="drink-description">{item.description}</p>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
 
       {/* Modal */}
       {selectedItem !== null && filteredItems[selectedItem] && (
         <div className="modal-overlay" onClick={closeModal}>
-          <button className="modal-close" onClick={closeModal}>
-            <X size={40} color="#ffffff" stroke="#ffffff" strokeWidth={2} />
+          <button className="modal-close" onClick={closeModal} aria-label="Schließen">
+            <X size={28} color="#ffffff" stroke="#ffffff" strokeWidth={2} />
           </button>
 
-          <button className="modal-nav prev" onClick={(e) => { e.stopPropagation(); goToPrevious(); }}>
-            <ChevronLeft size={40} color="#ffffff" stroke="#ffffff" strokeWidth={2} />
+          <button
+            className="modal-nav prev"
+            onClick={(e) => {
+              e.stopPropagation();
+              goToPrevious();
+            }}
+            aria-label="Vorheriges"
+          >
+            <ChevronLeft size={28} color="#ffffff" stroke="#ffffff" strokeWidth={2} />
           </button>
 
-          <button className="modal-nav next" onClick={(e) => { e.stopPropagation(); goToNext(); }}>
-            <ChevronRight size={40} color="#ffffff" stroke="#ffffff" strokeWidth={2} />
+          <button
+            className="modal-nav next"
+            onClick={(e) => {
+              e.stopPropagation();
+              goToNext();
+            }}
+            aria-label="Nächstes"
+          >
+            <ChevronRight size={28} color="#ffffff" stroke="#ffffff" strokeWidth={2} />
           </button>
 
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -307,24 +493,44 @@ export default function Getraenkekarte() {
                 <h2 className="modal-title">{filteredItems[selectedItem].name}</h2>
                 <span className="modal-volume">{filteredItems[selectedItem].volume}</span>
               </div>
-              <p className="modal-description">{filteredItems[selectedItem].description}</p>
+              <p className="modal-description">
+                {filteredItems[selectedItem].description}
+              </p>
+
+              <div className="modal-section">
+                <h3 className="modal-section-title">
+                  <Utensils size={16} /> Zutaten & Mengen
+                </h3>
+                <ul className="ingredients-list">
+                  {filteredItems[selectedItem].ingredients.map((ing, i) => (
+                    <li key={i} className="ingredient-row">
+                      <span className="ingredient-name">{ing.name}</span>
+                      <span className="ingredient-amount">{ing.amount}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
               <div className="modal-details">
-                <div className="modal-detail-item">
-                  <Utensils size={16} />
-                  <span>Zutaten: {filteredItems[selectedItem].ingredients}</span>
-                </div>
                 <div className="modal-detail-item">
                   <Clock size={16} />
                   <span>Zubereitung: {filteredItems[selectedItem].prepTime}</span>
                 </div>
+                <div className="modal-detail-item">
+                  <Euro size={16} />
+                  <span>Preis: {filteredItems[selectedItem].price}</span>
+                </div>
               </div>
+
               <div className="modal-tags">
                 {filteredItems[selectedItem].alcohol ? (
                   <span className="modal-tag alcohol">🍸 Alkoholisch</span>
                 ) : (
                   <span className="modal-tag non-alcohol">🧃 Alkoholfrei</span>
                 )}
-                <span className="modal-tag badge">{filteredItems[selectedItem].category}</span>
+                <span className="modal-tag badge">
+                  {filteredItems[selectedItem].category}
+                </span>
               </div>
               <span className="modal-counter">
                 {selectedItem + 1} / {filteredItems.length}
@@ -342,23 +548,39 @@ export default function Getraenkekarte() {
           color: #ffffff;
           position: relative;
           overflow: hidden;
+          font-family: inherit;
+        }
+
+        /* Forzar texto claro en toda la página */
+        .getraenkekarte-page,
+        .getraenkekarte-page h1,
+        .getraenkekarte-page h2,
+        .getraenkekarte-page h3,
+        .getraenkekarte-page p,
+        .getraenkekarte-page span,
+        .getraenkekarte-page button,
+        .getraenkekarte-page input,
+        .getraenkekarte-page li {
+          color: #ffffff;
         }
 
         .hero-section,
+        .search-wrapper,
         .categories-wrapper,
         .drinks-grid,
+        .no-results,
         .modal-overlay {
           position: relative;
           z-index: 1;
         }
 
         .hero-section {
-          padding: 0rem 2rem 3rem;
+          padding: 0rem 2rem 2rem;
           text-align: center;
         }
 
         .hero-content h1 {
-          color: #ffffff;
+          color: #ffffff !important;
           font-size: 3.5rem;
           font-weight: 300;
           letter-spacing: 4px;
@@ -367,7 +589,7 @@ export default function Getraenkekarte() {
 
         .hero-content p {
           font-size: 1.1rem;
-          color: rgba(255, 255, 255, 0.7);
+          color: rgba(255, 255, 255, 0.75) !important;
           font-weight: 300;
         }
 
@@ -376,6 +598,69 @@ export default function Getraenkekarte() {
           height: 2px;
           background: rgba(255, 255, 255, 0.3);
           margin: 1rem auto 0;
+        }
+
+        /* Search Bar */
+        .search-wrapper {
+          max-width: 600px;
+          margin: 0 auto 1.5rem;
+          padding: 0 1.5rem;
+        }
+
+        .search-container {
+          position: relative;
+          display: flex;
+          align-items: center;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          border-radius: 50px;
+          padding: 0.7rem 1.2rem;
+          transition: all 0.3s ease;
+        }
+
+        .search-container:focus-within {
+          border-color: rgba(255, 255, 255, 0.4);
+          background: rgba(255, 255, 255, 0.08);
+          box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+        }
+
+        .search-icon {
+          color: rgba(255, 255, 255, 0.5);
+          flex-shrink: 0;
+          margin-right: 0.6rem;
+        }
+
+        .search-input {
+          flex: 1;
+          background: transparent;
+          border: none;
+          outline: none;
+          font-size: 0.95rem;
+          color: #ffffff !important;
+          font-family: inherit;
+        }
+
+        .search-input::placeholder {
+          color: rgba(255, 255, 255, 0.4);
+        }
+
+        .search-clear {
+          background: rgba(255, 255, 255, 0.1);
+          border: none;
+          border-radius: 50%;
+          width: 26px;
+          height: 26px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          color: #ffffff !important;
+          flex-shrink: 0;
+          transition: background 0.2s;
+        }
+
+        .search-clear:hover {
+          background: rgba(255, 255, 255, 0.2);
         }
 
         .categories-wrapper {
@@ -400,23 +685,24 @@ export default function Getraenkekarte() {
           gap: 0.5rem;
           background: transparent;
           border: 1px solid rgba(255, 255, 255, 0.1);
-          color: rgba(255, 255, 255, 0.6);
+          color: rgba(255, 255, 255, 0.7) !important;
           padding: 0.5rem 1.2rem;
           border-radius: 50px;
           cursor: pointer;
           transition: all 0.3s ease;
           font-size: 0.85rem;
+          font-family: inherit;
         }
 
         .category-btn:hover {
           border-color: rgba(255, 255, 255, 0.3);
-          color: #ffffff;
+          color: #ffffff !important;
         }
 
         .category-btn.active {
-          background: rgba(255, 255, 255, 0.1);
+          background: rgba(255, 255, 255, 0.12);
           border-color: rgba(255, 255, 255, 0.3);
-          color: #ffffff;
+          color: #ffffff !important;
         }
 
         .category-icon {
@@ -431,6 +717,13 @@ export default function Getraenkekarte() {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           gap: 2rem;
+        }
+
+        .no-results {
+          text-align: center;
+          padding: 4rem 2rem;
+          color: rgba(255, 255, 255, 0.6) !important;
+          font-size: 1rem;
         }
 
         .drink-item {
@@ -478,7 +771,11 @@ export default function Getraenkekarte() {
           left: 0;
           right: 0;
           bottom: 0;
-          background: linear-gradient(0deg, rgba(0,0,0,0.6) 0%, transparent 100%);
+          background: linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.6) 0%,
+            transparent 100%
+          );
           display: flex;
           align-items: flex-start;
           justify-content: flex-end;
@@ -493,7 +790,7 @@ export default function Getraenkekarte() {
           font-size: 0.65rem;
           text-transform: uppercase;
           letter-spacing: 1px;
-          color: #ffffff;
+          color: #ffffff !important;
           border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
@@ -521,7 +818,7 @@ export default function Getraenkekarte() {
         }
 
         .drink-header h3 {
-          color: #ffffff;
+          color: #ffffff !important;
           font-size: 1.2rem;
           font-weight: 500;
           margin: 0 0 0.25rem 0;
@@ -529,7 +826,7 @@ export default function Getraenkekarte() {
 
         .drink-volume {
           font-size: 0.8rem;
-          color: rgba(255, 255, 255, 0.4);
+          color: rgba(255, 255, 255, 0.5) !important;
           background: rgba(255, 255, 255, 0.05);
           padding: 0.2rem 0.6rem;
           border-radius: 4px;
@@ -537,11 +834,19 @@ export default function Getraenkekarte() {
 
         .drink-description {
           font-size: 0.9rem;
-          color: rgba(255, 255, 255, 0.6);
+          color: rgba(255, 255, 255, 0.65) !important;
           line-height: 1.5;
-          margin: 0;
+          margin: 0 0 0.75rem 0;
         }
 
+        .drink-price {
+          font-size: 1rem;
+          font-weight: 500;
+          color: #ffd54f !important;
+          letter-spacing: 1px;
+        }
+
+        /* Modal */
         .modal-overlay {
           position: fixed;
           top: 0;
@@ -557,19 +862,23 @@ export default function Getraenkekarte() {
         }
 
         @keyframes modalFadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
         }
 
         .modal-close {
           position: absolute;
-          top: 1.5rem;
-          right: 1.5rem;
+          top: 1rem;
+          right: 1rem;
           background: rgba(255, 255, 255, 0.1);
           border: 1px solid rgba(255, 255, 255, 0.2);
           border-radius: 50%;
-          width: 50px;
-          height: 50px;
+          width: 44px;
+          height: 44px;
           cursor: pointer;
           transition: all 0.3s ease;
           display: flex;
@@ -587,11 +896,11 @@ export default function Getraenkekarte() {
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.15);
           border-radius: 50%;
-          width: 50px;
-          height: 50px;
+          width: 44px;
+          height: 44px;
           cursor: pointer;
           transition: all 0.3s ease;
           display: flex;
@@ -601,16 +910,16 @@ export default function Getraenkekarte() {
         }
 
         .modal-nav:hover {
-          background: rgba(255, 255, 255, 0.15);
+          background: rgba(255, 255, 255, 0.2);
           transform: translateY(-50%) scale(1.1);
         }
 
         .modal-nav.prev {
-          left: 1.5rem;
+          left: 0.75rem;
         }
 
         .modal-nav.next {
-          right: 1.5rem;
+          right: 0.75rem;
         }
 
         .modal-content {
@@ -623,7 +932,7 @@ export default function Getraenkekarte() {
           gap: 1.5rem;
           background: #0a0a0a;
           border-radius: 14px;
-          overflow: hidden;
+          overflow-y: auto;
           padding: 1.5rem;
         }
 
@@ -635,6 +944,7 @@ export default function Getraenkekarte() {
           border-radius: 10px;
           overflow: hidden;
           background: #1a1a1a;
+          align-self: start;
         }
 
         .modal-image {
@@ -659,15 +969,19 @@ export default function Getraenkekarte() {
         }
 
         @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
         }
 
         .modal-info {
           display: flex;
           flex-direction: column;
-          justify-content: center;
-          gap: 0.75rem;
+          justify-content: flex-start;
+          gap: 0.9rem;
           padding: 0.5rem 0;
         }
 
@@ -683,13 +997,13 @@ export default function Getraenkekarte() {
           font-size: 1.8rem;
           font-weight: 300;
           letter-spacing: 2px;
-          color: rgba(255, 255, 255, 0.9);
+          color: #ffffff !important;
           margin: 0;
         }
 
         .modal-volume {
           font-size: 0.9rem;
-          color: rgba(255, 255, 255, 0.4);
+          color: rgba(255, 255, 255, 0.5) !important;
           background: rgba(255, 255, 255, 0.05);
           padding: 0.3rem 0.8rem;
           border-radius: 4px;
@@ -698,8 +1012,56 @@ export default function Getraenkekarte() {
         .modal-description {
           font-size: 0.95rem;
           line-height: 1.6;
-          color: rgba(255, 255, 255, 0.7);
+          color: rgba(255, 255, 255, 0.75) !important;
           margin: 0;
+        }
+
+        .modal-section {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .modal-section-title {
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+          font-size: 0.9rem;
+          font-weight: 500;
+          color: rgba(255, 255, 255, 0.85) !important;
+          margin: 0;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
+
+        .ingredients-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 0.35rem;
+        }
+
+        .ingredient-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 0.88rem;
+          padding: 0.45rem 0.75rem;
+          background: rgba(255, 255, 255, 0.03);
+          border-radius: 6px;
+          border-left: 2px solid rgba(255, 213, 79, 0.4);
+        }
+
+        .ingredient-name {
+          color: rgba(255, 255, 255, 0.8) !important;
+        }
+
+        .ingredient-amount {
+          color: #ffd54f !important;
+          font-weight: 500;
+          font-size: 0.82rem;
         }
 
         .modal-details {
@@ -713,11 +1075,11 @@ export default function Getraenkekarte() {
           align-items: center;
           gap: 0.6rem;
           font-size: 0.85rem;
-          color: rgba(255, 255, 255, 0.6);
+          color: rgba(255, 255, 255, 0.7) !important;
         }
 
         .modal-detail-item svg {
-          color: rgba(255, 255, 255, 0.3);
+          color: rgba(255, 255, 255, 0.4);
           flex-shrink: 0;
         }
 
@@ -733,29 +1095,31 @@ export default function Getraenkekarte() {
           border-radius: 50px;
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.08);
-          color: rgba(255, 255, 255, 0.7);
+          color: rgba(255, 255, 255, 0.75) !important;
         }
 
         .modal-tag.alcohol {
           border-color: rgba(255, 200, 0, 0.3);
-          color: #FFD54F;
+          color: #ffd54f !important;
         }
 
         .modal-tag.non-alcohol {
           border-color: rgba(0, 255, 100, 0.3);
-          color: #81C784;
+          color: #81c784 !important;
         }
 
         .modal-tag.badge {
           background: rgba(255, 255, 255, 0.05);
           border-color: rgba(255, 255, 255, 0.1);
-          color: rgba(255, 255, 255, 0.5);
+          color: rgba(255, 255, 255, 0.6) !important;
         }
 
         .modal-counter {
           font-size: 0.75rem;
-          color: rgba(255, 255, 255, 0.25);
+          color: rgba(255, 255, 255, 0.35) !important;
         }
+
+        /* ============ RESPONSIVE ============ */
 
         @media (max-width: 1024px) {
           .drinks-grid {
@@ -784,24 +1148,48 @@ export default function Getraenkekarte() {
 
         @media (max-width: 768px) {
           .getraenkekarte-page {
-            padding-top: 6rem;
+            padding-top: 5.5rem;
           }
 
           .hero-section {
-            padding: 0.5rem 1rem 2rem;
+            padding: 0.5rem 1rem 1.5rem;
           }
 
           .hero-content h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
+            letter-spacing: 2px;
           }
 
           .hero-content p {
-            font-size: 1rem;
+            font-size: 0.95rem;
+          }
+
+          .search-wrapper {
+            padding: 0 1rem;
+            margin-bottom: 1rem;
+          }
+
+          .search-container {
+            padding: 0.6rem 1rem;
+          }
+
+          .search-input {
+            font-size: 0.9rem;
           }
 
           .categories-wrapper {
             padding: 0 1rem;
             margin-bottom: 1.5rem;
+          }
+
+          .categories-container {
+            gap: 0.4rem;
+            padding-bottom: 1rem;
+          }
+
+          .category-btn {
+            padding: 0.4rem 0.9rem;
+            font-size: 0.78rem;
           }
 
           .drinks-grid {
@@ -811,60 +1199,142 @@ export default function Getraenkekarte() {
           }
 
           .drink-item {
-            width: 85%;
+            width: 100%;
+          }
+
+          .drink-content {
+            padding: 0.9rem 0.7rem;
+          }
+
+          .drink-header h3 {
+            font-size: 1rem;
+          }
+
+          .drink-description {
+            font-size: 0.78rem;
+            line-height: 1.4;
+          }
+
+          .drink-price {
+            font-size: 0.9rem;
+          }
+
+          .drink-volume {
+            font-size: 0.72rem;
+          }
+
+          .drink-badge {
+            font-size: 0.55rem;
+            padding: 0.15rem 0.55rem;
+          }
+
+          /* Modal móvil */
+          .modal-overlay {
+            align-items: flex-start;
+            padding-top: 3rem;
+            padding-bottom: 2rem;
           }
 
           .modal-content {
             grid-template-columns: 1fr;
-            max-height: 95vh;
-            padding: 1rem;
-            gap: 1rem;
-            width: 95%;
+            max-height: 92vh;
+            padding: 0.9rem;
+            gap: 0.9rem;
+            width: 94%;
+            overflow-y: auto;
           }
 
           .modal-image-container {
             aspect-ratio: 4 / 3;
-            max-height: 35vh;
-          }
-
-          .modal-title {
-            font-size: 1.3rem;
-          }
-
-          .modal-nav {
-            width: 40px;
-            height: 40px;
-          }
-
-          .modal-nav svg {
-            width: 24px;
-            height: 24px;
-          }
-
-          .modal-close {
-            width: 40px;
-            height: 40px;
-            top: 0.8rem;
-            right: 0.8rem;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .drinks-grid {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-          }
-
-          .drink-item {
-            width: 75%;
-          }
-
-          .modal-image-container {
             max-height: 30vh;
           }
 
           .modal-title {
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+          }
+
+          .modal-description {
+            font-size: 0.85rem;
+          }
+
+          .ingredient-row {
+            font-size: 0.82rem;
+            padding: 0.4rem 0.6rem;
+          }
+
+          .modal-nav {
+            width: 36px;
+            height: 36px;
+            top: 26%;
+          }
+
+          .modal-nav svg {
+            width: 20px;
+            height: 20px;
+          }
+
+          .modal-nav.prev {
+            left: 0.4rem;
+          }
+
+          .modal-nav.next {
+            right: 0.4rem;
+          }
+
+          .modal-close {
+            width: 36px;
+            height: 36px;
+            top: 0.6rem;
+            right: 0.6rem;
+          }
+
+          .modal-close svg {
+            width: 20px;
+            height: 20px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .hero-content h1 {
+            font-size: 1.8rem;
+          }
+
+          .drinks-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+          }
+
+          .drink-item {
+            width: 100%;
+          }
+
+          .drink-header h3 {
+            font-size: 0.9rem;
+          }
+
+          .drink-description {
+            font-size: 0.72rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+          }
+
+          .drink-price {
+            font-size: 0.85rem;
+          }
+
+          .modal-image-container {
+            max-height: 25vh;
+          }
+
+          .modal-title {
             font-size: 1.1rem;
+          }
+
+          .modal-nav {
+            top: 22%;
           }
         }
       `}</style>

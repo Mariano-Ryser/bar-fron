@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { FileText, Users, Calendar, Coffee, Sparkles } from 'lucide-react';
+import { FileText, Users, Calendar, Coffee, Sparkles, ArrowRight } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 
 export default function Apero() {
@@ -19,7 +19,6 @@ export default function Apero() {
     };
 
     window.addEventListener('scroll', handleScroll);
-
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -32,7 +31,7 @@ export default function Apero() {
 
   return (
     <div className="apero-page">
-      {/* Hero Section - Full Screen con Parallax y blur - IGUAL QUE FIRMENEVENTS */}
+      {/* HERO */}
       <div className="hero-image-container">
         <div className="hero-image-wrapper">
           <div className="hero-image-inner" ref={imageRef}>
@@ -50,100 +49,119 @@ export default function Apero() {
           </div>
           <div className="hero-overlay">
             <div className="hero-content">
+              <p className={`hero-eyebrow ${isHeroVisible ? 'visible' : ''}`}>
+                Salotto Zürich
+              </p>
               <h1 className={`hero-title ${isHeroVisible ? 'visible' : ''}`}>
                 Apéro &amp; Apéro Riche
               </h1>
               <p className={`hero-subtitle ${isHeroVisible ? 'visible' : ''}`}>
                 Für bis zu 60 Personen
               </p>
-              <div className={`hero-line ${isHeroVisible ? 'visible' : ''}`}></div>
+              <div className={`hero-line ${isHeroVisible ? 'visible' : ''}`} />
             </div>
           </div>
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* CONTENT */}
       <div className="content-container">
         <div className="content-grid">
-          {/* Left Column - Text */}
+          {/* TEXT */}
           <div className="text-column">
             <div className="text-content">
-              <h2>Genussvolle Apéro-Kultur in der Salotto Location</h2>
-              
+              <span className="section-eyebrow">Apéro-Kultur</span>
+              <h2 className="main-title">
+                Genussvolle Apéro-Kultur in der Salotto Location
+              </h2>
+
               <p className="description">
-                Für Apéros und Apéro Riche bieten wir Platz für bis zu 60 Personen. 
+                Für Apéros und Apéro Riche bieten wir Platz für bis zu 60 Personen.
                 Gerne erstellen wir Ihnen ein individuelles Angebot für Ihren Anlass.
               </p>
 
               <p className="description">
-                Auf Wunsch servieren wir einen Apéro Riche nach Auswahl aus unserer Karte – 
-                ideal für Firmenanlässe, Geburtstagsfeiern, Weihnachtsfeiern oder private Events.
+                Auf Wunsch servieren wir einen Apéro Riche nach Auswahl aus unserer
+                Karte – ideal für Firmenanlässe, Geburtstagsfeiern, Weihnachtsfeiern
+                oder private Events.
               </p>
 
-              {/* Features */}
+              {/* FEATURES */}
               <div className="features-grid">
                 <div className="feature-item">
-                  <Users size={24} color="#ffffff" stroke="#ffffff" />
+                  <span className="feature-icon">
+                    <Users size={22} color="#ffffff" stroke="#ffffff" strokeWidth={1.8} />
+                  </span>
                   <span>Bis zu 60 Personen</span>
                 </div>
                 <div className="feature-item">
-                  <Calendar size={24} color="#ffffff" stroke="#ffffff" />
+                  <span className="feature-icon">
+                    <Calendar size={22} color="#ffffff" stroke="#ffffff" strokeWidth={1.8} />
+                  </span>
                   <span>Individuelle Angebote</span>
                 </div>
                 <div className="feature-item">
-                  <Coffee size={24} color="#ffffff" stroke="#ffffff" />
+                  <span className="feature-icon">
+                    <Coffee size={22} color="#ffffff" stroke="#ffffff" strokeWidth={1.8} />
+                  </span>
                   <span>Apéro Riche nach Wahl</span>
                 </div>
                 <div className="feature-item">
-                  <Sparkles size={24} color="#ffffff" stroke="#ffffff" />
+                  <span className="feature-icon">
+                    <Sparkles size={22} color="#ffffff" stroke="#ffffff" strokeWidth={1.8} />
+                  </span>
                   <span>Für jeden Anlass</span>
                 </div>
               </div>
 
-              {/* PDF Downloads */}
+              {/* PDF DOWNLOADS */}
               <div className="pdf-downloads">
-                <h3>Unterlagen zum Download</h3>
+                <h3 className="block-title">Unterlagen zum Download</h3>
                 <div className="pdf-buttons">
-                  <a href="/pdf/getraenkekarte.pdf" className="pdf-button" target="_blank" rel="noopener noreferrer">
-                    <FileText size={20} color="#ffffff" stroke="#ffffff" />
+                  <a
+                    href="/pdf/getraenkekarte.pdf"
+                    className="action-button"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FileText size={20} color="#ffffff" stroke="#ffffff" strokeWidth={1.8} />
                     <span>PDF Getränkekarte</span>
                   </a>
-                  <a href="/pdf/apero-food-karte.pdf" className="pdf-button" target="_blank" rel="noopener noreferrer">
-                    <FileText size={20} color="#ffffff" stroke="#ffffff" />
+                  <a
+                    href="/pdf/apero-food-karte.pdf"
+                    className="action-button"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FileText size={20} color="#ffffff" stroke="#ffffff" strokeWidth={1.8} />
                     <span>PDF Apéro Food-Karte</span>
                   </a>
                 </div>
               </div>
 
-              {/* Quick Links */}
+              {/* QUICK LINKS */}
               <div className="quick-links">
-                <h3>Schnellzugriff</h3>
+                <h3 className="block-title">Schnellzugriff</h3>
                 <div className="quick-links-buttons">
-                  <a href="/konditionen" className="quick-link">
-                    <span>→ Konditionen und Preise</span>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <line x1="5" y1="12" x2="19" y2="12"></line>
-                      <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
+                  <a href="/konditionen" className="action-button with-arrow">
+                    <span>Konditionen und Preise</span>
+                    <ArrowRight size={18} color="#ffffff" stroke="#ffffff" strokeWidth={2} />
                   </a>
-                  <a href="/jetztmieten" className="quick-link primary">
-                    <span>→ Offerte anfragen</span>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <line x1="5" y1="12" x2="19" y2="12"></line>
-                      <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
+                  <a href="/jetztmieten" className="action-button primary with-arrow">
+                    <span>Offerte anfragen</span>
+                    <ArrowRight size={18} color="#ffffff" stroke="#ffffff" strokeWidth={2} />
                   </a>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right Column - Images */}
+          {/* IMAGES */}
           <div className="images-column">
             <div className="images-grid">
               {images.map((image, index) => (
-                <div 
-                  key={image.id} 
+                <div
+                  key={image.id}
                   className={`image-wrapper image-${index + 1}`}
                 >
                   <div className="image-container">
@@ -166,20 +184,23 @@ export default function Apero() {
       </div>
 
       <style jsx>{`
+        /* ============ BASE ============ */
         .apero-page {
-          background: #000000;
+          background: #000;
           min-height: 100vh;
-          color: #ffffff;
+          color: #fff;
           overflow-x: hidden;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
         }
 
-        /* ===== HERO - FULL SCREEN con Parallax y blur (IGUAL QUE FIRMENEVENTS) ===== */
+        /* ============ HERO ============ */
         .hero-image-container {
           position: relative;
           width: 100%;
-          height: 60vh;
-          min-height: 400px;
-          max-height: 600px;
+          height: 65vh;
+          min-height: 420px;
+          max-height: 640px;
           overflow: hidden;
         }
 
@@ -199,29 +220,27 @@ export default function Apero() {
         }
 
         .hero-image {
-          transition: filter 1.5s ease-out, transform 1.5s ease-out, opacity 1.5s ease-out;
-          filter: blur(30px);
-          transform: scale(1.1);
+          transition: filter 1.6s ease-out, transform 1.6s ease-out,
+            opacity 1.6s ease-out;
+          filter: blur(28px);
+          transform: scale(1.12);
           opacity: 0;
         }
 
         .hero-image.loaded {
-          filter: blur(0px);
+          filter: blur(0);
           transform: scale(1);
           opacity: 1;
         }
 
         .hero-overlay {
           position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
+          inset: 0;
           background: linear-gradient(
             to bottom,
-            rgba(0, 0, 0, 0.3) 0%,
-            rgba(0, 0, 0, 0.6) 50%,
-            rgba(0, 0, 0, 0.8) 100%
+            rgba(0, 0, 0, 0.35) 0%,
+            rgba(0, 0, 0, 0.65) 55%,
+            rgba(0, 0, 0, 0.9) 100%
           );
           display: flex;
           align-items: center;
@@ -232,33 +251,58 @@ export default function Apero() {
         .hero-content {
           text-align: center;
           padding: 2rem;
+          max-width: 900px;
         }
 
-        .hero-title {
-          font-size: 4rem;
-          font-weight: 300;
-          letter-spacing: 4px;
-          margin-bottom: 0.5rem;
-          color: #ffffff;
-          text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+        .hero-eyebrow {
+          font-size: 0.8rem;
+          font-weight: 600;
+          letter-spacing: 6px;
+          text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.55);
+          margin: 0 0 1rem;
           opacity: 0;
-          transform: translateY(30px);
-          transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+          transform: translateY(-16px);
+          transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
         }
 
-        .hero-title.visible {
+        .hero-eyebrow.visible {
           opacity: 1;
           transform: translateY(0);
         }
 
-        .hero-subtitle {
-          font-size: 1.2rem;
-          color: rgba(255, 255, 255, 0.7);
-          font-weight: 300;
-          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        .hero-title {
+          font-size: clamp(2rem, 5.5vw, 4.5rem);
+          font-weight: 500;
+          letter-spacing: 2px;
+          line-height: 1.05;
+          margin: 0 0 1rem;
+          color: #fff;
+          text-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
           opacity: 0;
-          transform: translateY(30px);
-          transition: opacity 0.8s ease 0.6s, transform 0.8s ease 0.6s;
+          transform: translateY(40px) scale(0.96);
+          filter: blur(8px);
+          transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1) 0.35s,
+            transform 1s cubic-bezier(0.22, 1, 0.36, 1) 0.35s,
+            filter 1s cubic-bezier(0.22, 1, 0.36, 1) 0.35s;
+        }
+
+        .hero-title.visible {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+          filter: blur(0);
+        }
+
+        .hero-subtitle {
+          font-size: clamp(1rem, 1.8vw, 1.3rem);
+          color: rgba(255, 255, 255, 0.85);
+          font-weight: 400;
+          letter-spacing: 0.5px;
+          text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+          margin: 0;
+          opacity: 0;
+          transform: translateY(24px);
+          transition: opacity 0.9s ease 0.7s, transform 0.9s ease 0.7s;
         }
 
         .hero-subtitle.visible {
@@ -267,14 +311,19 @@ export default function Apero() {
         }
 
         .hero-line {
-          width: 60px;
+          width: 70px;
           height: 2px;
-          background: rgba(255, 255, 255, 0.3);
-          margin: 1.5rem auto 0;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.6),
+            transparent
+          );
+          margin: 1.6rem auto 0;
           opacity: 0;
           transform: scaleX(0);
-          transition: opacity 0.8s ease 0.9s, transform 0.8s ease 0.9s;
           transform-origin: center;
+          transition: opacity 0.8s ease 1s, transform 0.9s ease 1s;
         }
 
         .hero-line.visible {
@@ -282,11 +331,11 @@ export default function Apero() {
           transform: scaleX(1);
         }
 
-        /* Content Container */
+        /* ============ CONTENT ============ */
         .content-container {
           max-width: 1400px;
           margin: 0 auto;
-          padding: 4rem 2rem 4rem;
+          padding: 4.5rem 2rem;
         }
 
         .content-grid {
@@ -296,19 +345,17 @@ export default function Apero() {
           align-items: start;
         }
 
-        /* Text Column */
+        /* ============ TEXT COLUMN ============ */
         .text-column {
-          display: flex;
-          flex-direction: column;
-          animation: contentFadeUp 0.8s ease-out 0.6s both;
+          animation: contentFadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
         }
 
         @keyframes contentFadeUp {
-          0% {
+          from {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(40px);
           }
-          100% {
+          to {
             opacity: 1;
             transform: translateY(0);
           }
@@ -317,247 +364,271 @@ export default function Apero() {
         .text-content {
           display: flex;
           flex-direction: column;
-          gap: 1.5rem;
+          gap: 1.6rem;
         }
 
-        .text-content h2 {
-          font-size: 2.2rem;
-          font-weight: 300;
-          letter-spacing: 2px;
-          color: #ffffff;
+        .section-eyebrow {
+          display: inline-block;
+          font-size: 0.78rem;
+          font-weight: 600;
+          letter-spacing: 4px;
+          text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.45);
+          opacity: 0;
+          transform: translateX(-20px);
+          animation: eyebrowIn 0.6s ease 0.4s both;
+        }
+
+        @keyframes eyebrowIn {
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        .main-title {
+          font-size: clamp(1.7rem, 3vw, 2.4rem);
+          font-weight: 500;
+          letter-spacing: 1px;
+          color: #fff;
           line-height: 1.2;
+          margin: 0;
+          padding-bottom: 1rem;
+          position: relative;
+          opacity: 0;
+          transform: translateY(24px);
+          animation: titleIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+        }
+
+        @keyframes titleIn {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* Subrayado animado del título principal */
+        .main-title::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          height: 2px;
+          width: 0;
+          background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0));
+          animation: underlineGrow 1.1s cubic-bezier(0.22, 1, 0.36, 1) 1s forwards;
+        }
+
+        @keyframes underlineGrow {
+          to {
+            width: 100px;
+          }
         }
 
         .description {
-          font-size: 1.1rem;
-          line-height: 1.8;
-          color: rgba(255, 255, 255, 0.8);
-          font-weight: 300;
+          font-size: 1.08rem;
+          line-height: 1.85;
+          color: rgba(255, 255, 255, 0.88);
+          font-weight: 400;
+          margin: 0;
+          opacity: 0;
+          transform: translateY(20px);
+          animation: fadeUp 0.8s ease 0.7s both;
         }
 
-        /* Features */
+        .description:nth-of-type(2) {
+          animation-delay: 0.8s;
+        }
+
+        @keyframes fadeUp {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* ============ FEATURES ============ */
         .features-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 1rem;
+          gap: 0.9rem;
           margin: 0.5rem 0;
         }
 
         .feature-item {
           display: flex;
           align-items: center;
-          gap: 0.75rem;
-          padding: 1rem;
-          background: rgba(255, 255, 255, 0.05);
+          gap: 0.85rem;
+          padding: 1rem 1.1rem;
+          background: rgba(255, 255, 255, 0.04);
           border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 8px;
-          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-          animation: featureSlide 0.6s ease-out both;
-          animation-delay: calc(0.8s + (var(--i, 0) * 0.1s));
+          border-radius: 10px;
+          transition: background 0.35s ease, border-color 0.35s ease,
+            transform 0.35s ease, box-shadow 0.35s ease;
+          opacity: 0;
+          transform: translateX(-16px);
+          animation: featureIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
 
-        .feature-item:nth-child(1) { --i: 0; }
-        .feature-item:nth-child(2) { --i: 1; }
-        .feature-item:nth-child(3) { --i: 2; }
-        .feature-item:nth-child(4) { --i: 3; }
+        .feature-item:nth-child(1) { animation-delay: 0.9s; }
+        .feature-item:nth-child(2) { animation-delay: 1.0s; }
+        .feature-item:nth-child(3) { animation-delay: 1.1s; }
+        .feature-item:nth-child(4) { animation-delay: 1.2s; }
 
-        @keyframes featureSlide {
-          0% {
+        @keyframes featureIn {
+          from {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateX(-16px);
           }
-          100% {
+          to {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateX(0);
           }
         }
 
         .feature-item:hover {
-          background: rgba(255, 255, 255, 0.1);
-          transform: translateY(-3px) scale(1.02);
+          background: rgba(255, 255, 255, 0.08);
           border-color: rgba(255, 255, 255, 0.2);
-          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+          transform: translateY(-3px);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
         }
 
-        .feature-item svg {
-          color: #ffffff !important;
-          flex-shrink: 0;
-          transition: transform 0.3s ease;
-        }
-
-        .feature-item:hover svg {
-          transform: scale(1.15) rotate(-5deg);
-        }
-
-        .feature-item span {
-          font-size: 0.95rem;
-          color: #ffffff;
-          font-weight: 300;
-        }
-
-        /* PDF Downloads */
-        .pdf-downloads {
-          padding-top: 1.5rem;
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .pdf-downloads h3 {
-          font-size: 1rem;
-          font-weight: 300;
-          letter-spacing: 1px;
-          color: rgba(255, 255, 255, 0.6);
-          margin-bottom: 1rem;
-          text-transform: uppercase;
-        }
-
-        .pdf-buttons {
-          display: flex;
-          flex-direction: column;
-          gap: 0.75rem;
-        }
-
-        .pdf-button {
+        .feature-icon {
           display: inline-flex;
           align-items: center;
-          gap: 0.75rem;
-          padding: 0.85rem 1.5rem;
+          justify-content: center;
+          width: 42px;
+          height: 42px;
+          border-radius: 50%;
           background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          border-radius: 8px;
-          color: #ffffff;
-          text-decoration: none;
-          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-          font-weight: 300;
-          font-size: 0.95rem;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .pdf-button::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent);
-          transform: translateX(-100%);
-          transition: transform 0.6s ease;
-        }
-
-        .pdf-button:hover::before {
-          transform: translateX(0);
-        }
-
-        .pdf-button:hover {
-          background: rgba(255, 255, 255, 0.1);
-          border-color: rgba(255, 255, 255, 0.25);
-          transform: translateX(5px);
-        }
-
-        .pdf-button svg {
-          color: #ffffff !important;
+          border: 1px solid rgba(255, 255, 255, 0.1);
           flex-shrink: 0;
           transition: transform 0.3s ease;
         }
 
-        .pdf-button:hover svg {
-          transform: scale(1.1);
+        .feature-item:hover .feature-icon {
+          transform: scale(1.08) rotate(-4deg);
         }
 
-        .pdf-button span {
-          color: #ffffff;
-          position: relative;
-          z-index: 1;
-        }
-
-        /* Quick Links */
-        .quick-links {
-          padding-top: 1.5rem;
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .quick-links h3 {
+        .feature-item span:not(.feature-icon) {
           font-size: 1rem;
-          font-weight: 300;
-          letter-spacing: 1px;
-          color: rgba(255, 255, 255, 0.6);
-          margin-bottom: 1rem;
-          text-transform: uppercase;
+          color: #fff;
+          font-weight: 400;
+          line-height: 1.4;
         }
 
+        /* ============ BLOCKS (PDF + Quick Links) ============ */
+        .pdf-downloads,
+        .quick-links {
+          padding-top: 1.6rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          opacity: 0;
+          transform: translateY(20px);
+          animation: fadeUp 0.8s ease both;
+        }
+
+        .pdf-downloads {
+          animation-delay: 1.35s;
+        }
+
+        .quick-links {
+          animation-delay: 1.5s;
+        }
+
+        .block-title {
+          font-size: 0.85rem;
+          font-weight: 600;
+          letter-spacing: 3px;
+          text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.5);
+          margin: 0 0 1rem;
+        }
+
+        .pdf-buttons,
         .quick-links-buttons {
           display: flex;
           flex-direction: column;
           gap: 0.75rem;
         }
 
-        .quick-link {
+        .action-button {
           display: inline-flex;
           align-items: center;
-          justify-content: space-between;
-          padding: 0.85rem 1.5rem;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          border-radius: 8px;
-          color: #ffffff;
+          gap: 0.85rem;
+          padding: 0.95rem 1.5rem;
+          background: rgba(255, 255, 255, 0.045);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 10px;
+          color: #fff;
           text-decoration: none;
-          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-          font-weight: 300;
-          font-size: 0.95rem;
+          font-weight: 400;
+          font-size: 1rem;
+          transition: background 0.3s ease, border-color 0.3s ease,
+            transform 0.3s ease, box-shadow 0.3s ease;
           position: relative;
           overflow: hidden;
         }
 
-        .quick-link::before {
+        .action-button::before {
           content: '';
           position: absolute;
           inset: 0;
-          background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent);
+          background: linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.06),
+            transparent
+          );
           transform: translateX(-100%);
           transition: transform 0.6s ease;
         }
 
-        .quick-link:hover::before {
+        .action-button:hover::before {
           transform: translateX(0);
         }
 
-        .quick-link:hover {
-          background: rgba(255, 255, 255, 0.1);
-          border-color: rgba(255, 255, 255, 0.25);
+        .action-button:hover {
+          background: rgba(255, 255, 255, 0.09);
+          border-color: rgba(255, 255, 255, 0.22);
           transform: translateX(5px);
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
         }
 
-        .quick-link.primary {
-          background: rgba(255, 255, 255, 0.08);
-          border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .quick-link.primary:hover {
-          background: rgba(255, 255, 255, 0.15);
-          border-color: rgba(255, 255, 255, 0.35);
-          transform: translateX(5px);
-          box-shadow: 0 8px 30px rgba(255, 255, 255, 0.05);
-        }
-
-        .quick-link svg {
-          color: #ffffff !important;
+        .action-button svg {
           flex-shrink: 0;
+          position: relative;
+          z-index: 1;
           transition: transform 0.3s ease;
         }
 
-        .quick-link:hover svg {
-          transform: translateX(5px);
-        }
-
-        .quick-link span {
-          color: #ffffff;
+        .action-button span {
           position: relative;
           z-index: 1;
+          color: #fff;
         }
 
-        /* Images Column */
+        .action-button.with-arrow {
+          justify-content: space-between;
+        }
+
+        .action-button.with-arrow:hover svg {
+          transform: translateX(4px);
+        }
+
+        .action-button.primary {
+          background: rgba(255, 255, 255, 0.09);
+          border-color: rgba(255, 255, 255, 0.22);
+          font-weight: 500;
+        }
+
+        .action-button.primary:hover {
+          background: rgba(255, 255, 255, 0.16);
+          border-color: rgba(255, 255, 255, 0.35);
+          box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
+        }
+
+        /* ============ IMAGES ============ */
         .images-column {
-          display: flex;
-          flex-direction: column;
-          animation: contentFadeUp 0.8s ease-out 0.8s both;
+          animation: contentFadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
         }
 
         .images-grid {
@@ -573,23 +644,24 @@ export default function Apero() {
           overflow: hidden;
           background: #1a1a1a;
           aspect-ratio: 4/3;
-          transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+            box-shadow 0.5s ease;
           opacity: 0;
-          animation: imageReveal 0.8s ease-out forwards;
-          animation-delay: calc(1s + (var(--i, 0) * 0.1s));
+          transform: scale(0.94) translateY(20px);
+          animation: imageReveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
 
-        .image-wrapper:nth-child(1) { --i: 0; }
-        .image-wrapper:nth-child(2) { --i: 1; }
-        .image-wrapper:nth-child(3) { --i: 2; }
-        .image-wrapper:nth-child(4) { --i: 3; }
+        .image-wrapper:nth-child(1) { animation-delay: 0.6s; }
+        .image-wrapper:nth-child(2) { animation-delay: 0.72s; }
+        .image-wrapper:nth-child(3) { animation-delay: 0.84s; }
+        .image-wrapper:nth-child(4) { animation-delay: 0.96s; }
 
         @keyframes imageReveal {
-          0% {
+          from {
             opacity: 0;
-            transform: scale(0.92) translateY(20px);
+            transform: scale(0.94) translateY(20px);
           }
-          100% {
+          to {
             opacity: 1;
             transform: scale(1) translateY(0);
           }
@@ -597,7 +669,7 @@ export default function Apero() {
 
         .image-wrapper:hover {
           transform: scale(1.03);
-          box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
+          box-shadow: 0 18px 50px rgba(0, 0, 0, 0.6);
           z-index: 2;
         }
 
@@ -630,28 +702,22 @@ export default function Apero() {
         }
 
         .image {
-          transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .image-wrapper:hover .image {
-          transform: scale(1.1);
+          transform: scale(1.08);
         }
 
-        /* ===== RESPONSIVE ===== */
+        /* ============ RESPONSIVE ============ */
         @media (max-width: 1024px) {
-          .hero-image-container {
-            height: 50vh;
-            min-height: 350px;
-            max-height: 500px;
-          }
-
-          .hero-title {
-            font-size: 3rem;
+          .content-container {
+            padding: 3.5rem 1.8rem;
           }
 
           .content-grid {
             grid-template-columns: 1fr;
-            gap: 3rem;
+            gap: 2.8rem;
           }
 
           .images-grid {
@@ -670,48 +736,60 @@ export default function Apero() {
         }
 
         @media (max-width: 768px) {
-           .apero-page {
-          padding-top:8rem;
-        }
+          .apero-page {
+            padding-top: 8rem;
+          }
+
           .hero-image-container {
-            height: 40vh;
-            min-height: 300px;
-            max-height: 400px;
+            height: 45vh;
+            min-height: 320px;
+            max-height: 460px;
           }
 
-          .hero-title {
-            font-size: 2.5rem;
-            letter-spacing: 2px;
+          .hero-eyebrow {
+            letter-spacing: 4px;
+            font-size: 0.7rem;
           }
 
-          .hero-subtitle {
-            font-size: 1rem;
+          .content-container {
+            padding: 2.6rem 1.1rem;
           }
 
-          .text-content h2 {
-            font-size: 1.8rem;
+          .content-grid {
+            gap: 2rem;
+          }
+
+          .text-content {
+            gap: 1.3rem;
           }
 
           .description {
-            font-size: 1rem;
+            font-size: 1.02rem;
+            line-height: 1.8;
           }
 
           .features-grid {
             grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
+            gap: 0.7rem;
           }
 
           .feature-item {
-            padding: 0.75rem;
+            padding: 0.8rem 0.9rem;
+            gap: 0.7rem;
           }
 
-          .feature-item span {
-            font-size: 0.85rem;
+          .feature-icon {
+            width: 38px;
+            height: 38px;
+          }
+
+          .feature-item span:not(.feature-icon) {
+            font-size: 0.95rem;
           }
 
           .images-grid {
             grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
+            gap: 0.7rem;
           }
 
           .image-wrapper.image-1 {
@@ -728,46 +806,57 @@ export default function Apero() {
             aspect-ratio: 4/3;
           }
 
-          .content-container {
-            padding: 3rem 1rem 2rem;
+          .action-button {
+            padding: 0.85rem 1.2rem;
+            font-size: 0.95rem;
           }
 
-          .pdf-button,
-          .quick-link {
-            padding: 0.7rem 1.2rem;
-            font-size: 0.85rem;
+          .block-title {
+            font-size: 0.8rem;
+            letter-spacing: 2.5px;
           }
         }
 
         @media (max-width: 480px) {
-        
+          .apero-page {
+            padding-top: 6rem;
+          }
+
           .hero-image-container {
-
-            height: 30vh;
-            min-height: 250px;
-            max-height: 350px;
+            height: 38vh;
+            min-height: 260px;
+            max-height: 360px;
           }
 
-          .hero-title {
-            font-size: 2rem;
-            letter-spacing: 1px;
+          .content-container {
+            padding: 2rem 0.9rem;
           }
 
-          .hero-subtitle {
-            font-size: 0.9rem;
+          .text-content {
+            gap: 1.2rem;
           }
 
-          .text-content h2 {
-            font-size: 1.5rem;
+          .description {
+            font-size: 0.98rem;
+            line-height: 1.75;
           }
 
           .features-grid {
             grid-template-columns: 1fr;
+            gap: 0.6rem;
+          }
+
+          .feature-item {
+            padding: 0.8rem 1rem;
+          }
+
+          .feature-item span:not(.feature-icon) {
+            font-size: 0.95rem;
           }
 
           .images-grid {
             grid-template-columns: 1fr;
-            gap: 0.5rem;
+            gap: 0.6rem;
           }
 
           .image-wrapper.image-1,
@@ -775,12 +864,47 @@ export default function Apero() {
           .image-wrapper.image-3,
           .image-wrapper.image-4 {
             grid-column: span 1;
+            grid-row: span 1;
             aspect-ratio: 4/3;
+          }
+
+          .action-button {
+            font-size: 0.95rem;
+            padding: 0.8rem 1.1rem;
           }
 
           .pdf-buttons,
           .quick-links-buttons {
-            flex-direction: column;
+            gap: 0.6rem;
+          }
+        }
+
+        /* Accesibilidad */
+        @media (prefers-reduced-motion: reduce) {
+          .hero-image,
+          .hero-title,
+          .hero-subtitle,
+          .hero-line,
+          .hero-eyebrow,
+          .text-column,
+          .text-content,
+          .section-eyebrow,
+          .main-title,
+          .main-title::after,
+          .description,
+          .feature-item,
+          .pdf-downloads,
+          .quick-links,
+          .images-column,
+          .image-wrapper {
+            animation: none !important;
+            transition: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+            filter: none !important;
+          }
+          .main-title::after {
+            width: 100px !important;
           }
         }
       `}</style>

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { siteConfig, HeroSlide } from '../../config/siteConfig';
 
 export default function HomeHero() {
   const router = useRouter();
@@ -14,78 +15,10 @@ export default function HomeHero() {
   const isTransitioningRef = useRef(false);
 
   // ============================================
-  // SLIDES
+  // CONFIG
   // ============================================
-
-  const slides = [
-    {
-      type: 'image',
-      src: '/img/bar33.jpg',
-      alt: 'Bar Ambiente 3',
-    },
-    {
-      type: 'image',
-      src: '/img/bar23.jpg',
-      alt: 'Bar Ambiente 4',
-    },
-    {
-      type: 'image',
-      src: '/img/bar1w.webp',
-      alt: 'Bar Ambiente 1',
-    },
-    {
-      type: 'image',
-      src: '/img/bar5.jpg',
-      alt: 'Bar Ambiente 5',
-    },
-    {
-      type: 'image',
-      src: '/img/bar22.jpg',
-      alt: 'Bar Ambiente 2',
-    },
-    {
-      type: 'image',
-      src: '/img/bar44.jpg',
-      alt: 'Bar Ambiente 6',
-    },
-
-    // {
-    //   type: 'video',
-    //   src: '/img/videoPlato.mp4',
-    //   alt: 'Video Plato',
-    // },
-  ];
-
-  // ============================================
-  // NAVIGATION LINKS
-  // ============================================
-
-  const navLinks = [
-    {
-      href: '/firmenevents',
-      text: 'Eventlocation',
-    },
-    {
-      href: '/geburtstag',
-      text: 'Geburtstag',
-    },
-    // {
-    //   href: '/apero',
-    //   text: 'Apéro',
-    // },
-    {
-      href: '/mittagessen',
-      text: 'Mittagessen',
-    },
-    // {
-    //   href: '/jetztmieten',
-    //   text: 'Jetzt mieten',
-    // },
-    // {
-    //   href: '/konditionen',
-    //   text: 'Konditionen',
-    // },
-  ];
+  const { company } = siteConfig;
+  const { slides, links: navLinks, slideDuration } = siteConfig.home.hero;
 
   // ============================================
   // INITIAL LOAD
@@ -106,7 +39,6 @@ export default function HomeHero() {
       if (timerRef.current) {
         clearInterval(timerRef.current);
       }
-
       clearTimeout(contentTimer);
       clearTimeout(loadTimer);
 
@@ -126,7 +58,7 @@ export default function HomeHero() {
   useEffect(() => {
     setIsVideoEnded(false);
 
-    Object.entries(videoRefs.current).forEach(([index, video]) => {
+    Object.entries(videoRefs.current).forEach(([, video]) => {
       if (video) {
         video.pause();
         video.currentTime = 0;
@@ -134,16 +66,14 @@ export default function HomeHero() {
     });
 
     const currentVideo = videoRefs.current[currentIndex];
+    const currentSlide = slides[currentIndex];
 
-    if (
-      currentVideo &&
-      slides[currentIndex].type === 'video'
-    ) {
+    if (currentVideo && currentSlide.type === 'video') {
       currentVideo.play().catch((err) => {
         console.log('Autoplay bloqueado:', err);
       });
     }
-  }, [currentIndex]);
+  }, [currentIndex, slides]);
 
   const handleVideoEnded = () => {
     setIsVideoEnded(true);
@@ -167,15 +97,12 @@ export default function HomeHero() {
     timerRef.current = setInterval(() => {
       const currentSlide = slides[currentIndex];
 
-      if (
-        currentSlide.type !== 'video' ||
-        isVideoEnded
-      ) {
+      if (currentSlide.type !== 'video' || isVideoEnded) {
         if (!isTransitioningRef.current) {
           goToNext();
         }
       }
-    }, 5000);
+    }, slideDuration);
   };
 
   // ============================================
@@ -184,13 +111,9 @@ export default function HomeHero() {
 
   const goToPrevious = () => {
     if (isTransitioningRef.current) return;
-
     isTransitioningRef.current = true;
 
-    setCurrentIndex((prev) =>
-      prev === 0 ? slides.length - 1 : prev - 1
-    );
-
+    setCurrentIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
     resetTimer();
 
     setTimeout(() => {
@@ -200,13 +123,9 @@ export default function HomeHero() {
 
   const goToNext = () => {
     if (isTransitioningRef.current) return;
-
     isTransitioningRef.current = true;
 
-    setCurrentIndex(
-      (prev) => (prev + 1) % slides.length
-    );
-
+    setCurrentIndex((prev) => (prev + 1) % slides.length);
     resetTimer();
 
     setTimeout(() => {
@@ -215,17 +134,10 @@ export default function HomeHero() {
   };
 
   const goToSlide = (index: number) => {
-    if (
-      isTransitioningRef.current ||
-      index === currentIndex
-    ) {
-      return;
-    }
-
+    if (isTransitioningRef.current || index === currentIndex) return;
     isTransitioningRef.current = true;
 
     setCurrentIndex(index);
-
     resetTimer();
 
     setTimeout(() => {
@@ -252,10 +164,7 @@ export default function HomeHero() {
   // RENDER SLIDE
   // ============================================
 
-  const renderSlide = (
-    slide: typeof slides[0],
-    index: number
-  ) => {
+  const renderSlide = (slide: HeroSlide, index: number) => {
     const isActive = index === currentIndex;
 
     if (slide.type === 'video') {
@@ -291,9 +200,7 @@ export default function HomeHero() {
         quality={100}
         sizes="100vw"
         className="carousel-image"
-        style={{
-          objectFit: 'cover',
-        }}
+        style={{ objectFit: 'cover' }}
       />
     );
   };
@@ -304,19 +211,11 @@ export default function HomeHero() {
 
   return (
     <section className="hero-carousel">
-
       <div className="carousel-container">
-
-        {/* =====================================
-            SLIDES
-        ====================================== */}
-
+        {/* SLIDES */}
         {slides.map((slide, index) => {
-          const isFirstImage =
-            index === 0 && isFirstLoad;
-
-          const isActive =
-            index === currentIndex;
+          const isFirstImage = index === 0 && isFirstLoad;
+          const isActive = index === currentIndex;
 
           return (
             <div
@@ -329,190 +228,88 @@ export default function HomeHero() {
               style={{
                 opacity: isActive ? 1 : 0,
                 zIndex: isActive ? 2 : 1,
-                transition:
-                  'opacity 1.5s ease-in-out',
+                transition: 'opacity 1.5s ease-in-out',
               }}
             >
               {renderSlide(slide, index)}
-
               <div className="image-overlay" />
 
-              {/* VIDEO INDICATOR */}
-
-              {slide.type === 'video' &&
-                isActive && (
-                  <div className="video-indicator">
-                    <div className="video-progress" />
-                  </div>
-                )}
+              {slide.type === 'video' && isActive && (
+                <div className="video-indicator">
+                  <div className="video-progress" />
+                </div>
+              )}
             </div>
           );
         })}
 
-        {/* =====================================
-            HERO CONTENT
-        ====================================== */}
-
-        <div
-          className={`
-            hero-content
-            ${isContentVisible ? 'visible' : ''}
-          `}
-        >
-
+        {/* HERO CONTENT */}
+        <div className={`hero-content ${isContentVisible ? 'visible' : ''}`}>
           {/* LOGO */}
-
           <div className="logo-container">
-
             <img
-              src="/img/logo-salotto.png"
-              alt="Salotto Logo"
+              src={company.logo}
+              alt={`${company.name} Logo`}
               className="hero-logo"
             />
-
+            {/* <h1>{company.name}</h1> */}
           </div>
 
-          {/* ===================================
-              NAVIGATION
-          ==================================== */}
-
+          {/* NAVIGATION */}
           <div className="hero-links">
-
             {navLinks.map((link, index) => (
-
-              <span
-                key={index}
-                className="hero-link-wrapper"
-              >
-
+              <span key={index} className="hero-link-wrapper">
                 <button
-                  onClick={() =>
-                    handleNavigation(link.href)
-                  }
+                  onClick={() => handleNavigation(link.href)}
                   className="hero-link"
-                  style={{
-                    animationDelay:
-                      `${0.1 * index}s`,
-                  }}
+                  style={{ animationDelay: `${0.1 * index}s` }}
                 >
-
-                  {/* 
-                    IMPORTANTE:
-                    SOLO ESTE SPAN SE ESCALA
-                  */}
-
-                  <span className="hero-link-text">
-                    {link.text}
-                  </span>
-
+                  <span className="hero-link-text">{link.text}</span>
                 </button>
 
-                {index <
-                  navLinks.length - 1 && (
-                  <span className="hero-separator">
-                    |
-                  </span>
+                {index < navLinks.length - 1 && (
+                  <span className="hero-separator">|</span>
                 )}
-
               </span>
-
             ))}
-
           </div>
-
         </div>
 
-        {/* =====================================
-            DOTS
-        ====================================== */}
-
-        <div
-          className={`
-            dots-container
-            ${isContentVisible ? 'visible' : ''}
-          `}
-        >
-
+        {/* DOTS */}
+        <div className={`dots-container ${isContentVisible ? 'visible' : ''}`}>
           {slides.map((_, index) => (
-
             <button
               key={index}
-              className={`
-                dot
-                ${
-                  index === currentIndex
-                    ? 'active'
-                    : ''
-                }
-              `}
-              onClick={() =>
-                goToSlide(index)
-              }
-              aria-label={`Gehe zu Slide ${
-                index + 1
-              }`}
+              className={`dot ${index === currentIndex ? 'active' : ''}`}
+              onClick={() => goToSlide(index)}
+              aria-label={`Gehe zu Slide ${index + 1}`}
             />
-
           ))}
-
         </div>
 
-        {/* =====================================
-            PREVIOUS BUTTON
-        ====================================== */}
-
+        {/* PREVIOUS */}
         <button
-          className={`
-            nav-button
-            prev
-            ${isContentVisible ? 'visible' : ''}
-          `}
+          className={`nav-button prev ${isContentVisible ? 'visible' : ''}`}
           onClick={goToPrevious}
           aria-label="Vorheriges Bild"
           disabled={isTransitioningRef.current}
         >
-
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M15 18l-6-6 6-6" />
           </svg>
-
         </button>
 
-        {/* =====================================
-            NEXT BUTTON
-        ====================================== */}
-
+        {/* NEXT */}
         <button
-          className={`
-            nav-button
-            next
-            ${isContentVisible ? 'visible' : ''}
-          `}
+          className={`nav-button next ${isContentVisible ? 'visible' : ''}`}
           onClick={goToNext}
           aria-label="Nächstes Bild"
           disabled={isTransitioningRef.current}
         >
-
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M9 18l6-6-6-6" />
           </svg>
-
         </button>
-
       </div>
 
       {/* =========================================
@@ -749,7 +546,7 @@ export default function HomeHero() {
           opacity: 0;
 
           transform:
-            translateY(260px);
+            translateX(160px);
 
           transition:
             all

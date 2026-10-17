@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { useRef, useEffect, useState } from 'react';
+import { ArrowRight } from 'lucide-react';
 
 export default function Firmenevents() {
   const router = useRouter();
@@ -8,7 +9,7 @@ export default function Firmenevents() {
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
   const [isHeroVisible, setIsHeroVisible] = useState(false);
   const imageRef = useRef<HTMLDivElement>(null);
-  
+
   const introRef = useRef<HTMLDivElement>(null);
   const eventTypesRef = useRef<HTMLDivElement>(null);
   const anfrageRef = useRef<HTMLDivElement>(null);
@@ -26,7 +27,6 @@ export default function Firmenevents() {
     };
 
     window.addEventListener('scroll', handleScroll);
-
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -37,15 +37,12 @@ export default function Firmenevents() {
           if (entry.isIntersecting) {
             const sectionId = entry.target.getAttribute('data-section');
             if (sectionId) {
-              setVisibleSections(prev => new Set(prev).add(sectionId));
+              setVisibleSections((prev) => new Set(prev).add(sectionId));
             }
           }
         });
       },
-      { 
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      }
+      { threshold: 0.12, rootMargin: '0px 0px -60px 0px' }
     );
 
     const refs = [introRef, eventTypesRef, anfrageRef, ctaRef];
@@ -81,7 +78,7 @@ export default function Firmenevents() {
 
   return (
     <div className="firmenevents-page">
-      {/* Hero Image con Parallax y blur - 100% width */}
+      {/* HERO */}
       <div className="hero-image-container">
         <div className="hero-image-wrapper">
           <div className="hero-image-inner" ref={imageRef}>
@@ -99,69 +96,81 @@ export default function Firmenevents() {
           </div>
           <div className="hero-overlay">
             <div className="hero-content">
-              <div className="hero-text-wrapper">
-                <h1 className={`hero-title ${isHeroVisible ? 'visible' : ''}`}>
-                  Firmenevents
-                </h1>
-                <p className={`hero-subtitle ${isHeroVisible ? 'visible' : ''}`}>
-                  Du kümmerst dich ums Feiern – wir übernehmen den Rest
-                </p>
-                <div className={`hero-line ${isHeroVisible ? 'visible' : ''}`}></div>
-              </div>
+              <p className={`hero-eyebrow ${isHeroVisible ? 'visible' : ''}`}>
+                Salotto Zürich
+              </p>
+              <h1 className={`hero-title ${isHeroVisible ? 'visible' : ''}`}>
+                Firmenevents
+              </h1>
+              <p className={`hero-subtitle ${isHeroVisible ? 'visible' : ''}`}>
+                Du kümmerst dich ums Feiern – wir übernehmen den Rest
+              </p>
+              <div className={`hero-line ${isHeroVisible ? 'visible' : ''}`} />
             </div>
           </div>
         </div>
       </div>
 
-      {/* Intro Section */}
-      <div 
+      {/* INTRO */}
+      <div
         ref={introRef}
         data-section="intro"
-        className={`intro-section ${visibleSections.has('intro') ? 'visible' : ''}`}
+        className={`intro-section ${
+          visibleSections.has('intro') ? 'visible' : ''
+        }`}
       >
         <div className="intro-content">
           <p className="intro-text">
-            Das <strong>Salotto</strong> bietet dir ein All-in-One-Eventlocation-Paket für erfolgreiche Firmenevents. 
-            Ob Team-Event, Kundenanlass oder Firmenfeier – unsere stilvolle Location schafft den perfekten Rahmen 
-            für unvergessliche Veranstaltungen. Vom entspannten Apéro bis zur ausgelassenen Party feiern Unternehmen 
-            bei uns unkompliziert und in besonderer Atmosphäre.
+            Das <strong>Salotto</strong> bietet dir ein
+            All-in-One-Eventlocation-Paket für erfolgreiche Firmenevents. Ob
+            Team-Event, Kundenanlass oder Firmenfeier – unsere stilvolle
+            Location schafft den perfekten Rahmen für unvergessliche
+            Veranstaltungen. Vom entspannten Apéro bis zur ausgelassenen Party
+            feiern Unternehmen bei uns unkompliziert und in besonderer
+            Atmosphäre.
           </p>
         </div>
       </div>
 
-      {/* Event Types Grid */}
-      <div 
+      {/* EVENT TYPES */}
+      <div
         ref={eventTypesRef}
         data-section="eventTypes"
-        className={`event-types ${visibleSections.has('eventTypes') ? 'visible' : ''}`}
+        className={`event-types ${
+          visibleSections.has('eventTypes') ? 'visible' : ''
+        }`}
       >
-        <h2>Ideal für folgende Firmenevents</h2>
+        <span className="section-eyebrow center">Für jeden Anlass</span>
+        <h2 className="section-title center">
+          Ideal für folgende Firmenevents
+        </h2>
         <div className="event-grid">
           {eventTypes.map((event, index) => (
-            <div key={index} className={`event-tag tag-${index + 1}`}>
+            <div key={index} className="event-tag">
               {event}
             </div>
           ))}
         </div>
       </div>
 
-      {/* Anfrage Section + Image */}
-      <div 
+      {/* ANFRAGE */}
+      <div
         ref={anfrageRef}
         data-section="anfrage"
-        className={`section-with-image ${visibleSections.has('anfrage') ? 'visible' : ''}`}
+        className={`section-with-image ${
+          visibleSections.has('anfrage') ? 'visible' : ''
+        }`}
       >
         <div className="section-text">
-          <h2>Unverbindliche Anfrage senden</h2>
+          <span className="section-eyebrow">Kontakt</span>
+          <h2 className="section-title">Unverbindliche Anfrage senden</h2>
           <p>
-            Unser engagiertes Team begleitet dich von der Planung bis zur reibungslosen Durchführung – 
-            exakt nach deinen Vorstellungen.
+            Unser engagiertes Team begleitet dich von der Planung bis zur
+            reibungslosen Durchführung – exakt nach deinen Vorstellungen.
           </p>
-          <button 
-            onClick={handleAnfrageClick} 
-            className="anfrage-btn"
-          >
-            Jetzt Anfrage senden
+          <button onClick={handleAnfrageClick} className="anfrage-btn">
+            <span>Jetzt Anfrage senden</span>
+            <ArrowRight size={18} color="#ffffff" stroke="#ffffff" strokeWidth={2} />
           </button>
         </div>
         <div className="section-image">
@@ -176,56 +185,51 @@ export default function Firmenevents() {
         </div>
       </div>
 
-      {/* CTA Section */}
-      <div 
+      {/* CTA */}
+      <div
         ref={ctaRef}
         data-section="cta"
         className={`cta-section ${visibleSections.has('cta') ? 'visible' : ''}`}
       >
-        <h2>Bereit für Dein Firmenevent?</h2>
-        <p>Wir beraten Dich gerne persönlich</p>
-        <button 
-          onClick={handleAnfrageClick} 
-          className="cta-btn"
-        >
-          Jetzt Anfragen
+        <h2 className="cta-title">Bereit für Dein Firmenevent?</h2>
+        <p className="cta-text">Wir beraten Dich gerne persönlich</p>
+        <button onClick={handleAnfrageClick} className="cta-btn">
+          <span>Jetzt Anfragen</span>
+          <ArrowRight size={18} color="#ffffff" stroke="#ffffff" strokeWidth={2} />
         </button>
       </div>
 
-      {/* Quick Links - Al final de todo */}
+      {/* QUICK LINKS */}
       <div className="quick-links-section">
         <div className="quick-links-container">
           <a href="/konditionen" className="quick-link">
-            <span>→ Konditionen und Preise</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
+            <span>Konditionen und Preise</span>
+            <ArrowRight size={18} color="#ffffff" stroke="#ffffff" strokeWidth={2} />
           </a>
           <a href="/jetztmieten" className="quick-link primary">
-            <span>→ Jetzt mieten</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
+            <span>Jetzt mieten</span>
+            <ArrowRight size={18} color="#ffffff" stroke="#ffffff" strokeWidth={2} />
           </a>
         </div>
       </div>
 
       <style jsx>{`
+        /* ============ BASE ============ */
         .firmenevents-page {
-          background: #000000;
+          background: #000;
           min-height: 100vh;
-          color: #ffffff;
+          color: #fff;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
         }
 
-        /* ===== HERO IMAGE con Parallax - 100% ===== */
+        /* ============ HERO ============ */
         .hero-image-container {
           position: relative;
           width: 100%;
-          height: 60vh;
-          min-height: 400px;
-          max-height: 600px;
+          height: 65vh;
+          min-height: 420px;
+          max-height: 640px;
           overflow: hidden;
         }
 
@@ -245,29 +249,27 @@ export default function Firmenevents() {
         }
 
         .hero-image {
-          transition: filter 1.5s ease-out, transform 1.5s ease-out, opacity 1.5s ease-out;
-          filter: blur(30px);
-          transform: scale(1.1);
+          transition: filter 1.6s ease-out, transform 1.6s ease-out,
+            opacity 1.6s ease-out;
+          filter: blur(28px);
+          transform: scale(1.12);
           opacity: 0;
         }
 
         .hero-image.loaded {
-          filter: blur(0px);
+          filter: blur(0);
           transform: scale(1);
           opacity: 1;
         }
 
         .hero-overlay {
           position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
+          inset: 0;
           background: linear-gradient(
             to bottom,
-            rgba(0, 0, 0, 0.3) 0%,
-            rgba(0, 0, 0, 0.6) 50%,
-            rgba(0, 0, 0, 0.8) 100%
+            rgba(0, 0, 0, 0.35) 0%,
+            rgba(0, 0, 0, 0.65) 55%,
+            rgba(0, 0, 0, 0.9) 100%
           );
           display: flex;
           align-items: center;
@@ -279,73 +281,80 @@ export default function Firmenevents() {
         .hero-content {
           text-align: center;
           padding: 0;
-          max-width: 600px;
+          max-width: 900px;
           width: 100%;
         }
 
-        .hero-text-wrapper {
-          animation: textRevealFromRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        .hero-eyebrow {
+          font-size: 0.8rem;
+          font-weight: 600;
+          letter-spacing: 6px;
+          text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.55);
+          margin: 0 0 1rem;
+          opacity: 0;
+          transform: translateY(-16px);
+          transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
         }
 
-        @keyframes textRevealFromRight {
-          0% {
-            opacity: 0;
-            transform: translateX(60px) scale(0.55);
-            filter: blur(25px);
-          }
-          60% {
-            opacity: 0.7;
-            transform: translateX(10px) scale(0.98);
-            filter: blur(3px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateX(0) scale(1);
-            filter: blur(0px);
-          }
+        .hero-eyebrow.visible {
+          opacity: 1;
+          transform: translateY(0);
         }
 
         .hero-title {
-          font-size: 4rem;
-          font-weight: 300;
-          letter-spacing: 4px;
-          margin-bottom: 0.5rem;
-          color: #ffffff;
-          text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+          font-size: clamp(2rem, 5.5vw, 4.5rem);
+          font-weight: 500;
+          letter-spacing: 2px;
+          line-height: 1.05;
+          margin: 0 0 1rem;
+          color: #fff;
+          text-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
           opacity: 0;
-          transform: translateX(160px);
-          transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+          transform: translateY(40px) scale(0.96);
+          filter: blur(8px);
+          transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1) 0.35s,
+            transform 1s cubic-bezier(0.22, 1, 0.36, 1) 0.35s,
+            filter 1s cubic-bezier(0.22, 1, 0.36, 1) 0.35s;
         }
 
         .hero-title.visible {
           opacity: 1;
-          transform: translateX(0);
+          transform: translateY(0) scale(1);
+          filter: blur(0);
         }
 
         .hero-subtitle {
-          font-size: 1.2rem;
-          color: rgba(255, 255, 255, 0.8);
-          font-weight: 300;
-          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+          font-size: clamp(1rem, 1.8vw, 1.3rem);
+          color: rgba(255, 255, 255, 0.85);
+          font-weight: 400;
+          letter-spacing: 0.5px;
+          text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+          margin: 0;
           opacity: 0;
-          transform: translateX(60px);
-          transition: opacity 0.8s ease 0.5s, transform 0.8s ease 0.5s;
+          transform: translateY(24px);
+          transition: opacity 0.9s ease 0.7s, transform 0.9s ease 0.7s;
         }
 
         .hero-subtitle.visible {
           opacity: 1;
-          transform: translateX(0);
+          transform: translateY(0);
         }
 
         .hero-line {
-          width: 60px;
+          width: 70px;
           height: 2px;
-          background: rgba(255, 255, 255, 0.3);
-          margin: 1.5rem 0 0 auto;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.6),
+            transparent
+          );
+          margin: 1.6rem auto 0;
           opacity: 0;
           transform: scaleX(0);
-          transition: opacity 0.8s ease 0.7s, transform 0.8s ease 0.7s;
-          transform-origin: right;
+          transform-origin: center;
+          transition: opacity 0.8s ease 1s, transform 0.9s ease 1s;
         }
 
         .hero-line.visible {
@@ -353,16 +362,17 @@ export default function Firmenevents() {
           transform: scaleX(1);
         }
 
-        /* ===== INTRO ===== */
+        /* ============ INTRO ============ */
         .intro-section {
-          max-width: 800px;
+          max-width: 850px;
           margin: 0 auto;
-          padding: 4rem 2rem;
+          padding: 4.5rem 2rem;
           text-align: center;
           border-bottom: 1px solid rgba(255, 255, 255, 0.05);
           opacity: 0;
           transform: translateY(50px);
-          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+            transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .intro-section.visible {
@@ -371,25 +381,29 @@ export default function Firmenevents() {
         }
 
         .intro-text {
-          font-size: 1.05rem;
-          line-height: 1.8;
-          color: rgba(255, 255, 255, 0.7);
+          font-size: 1.1rem;
+          line-height: 1.85;
+          color: rgba(255, 255, 255, 0.88);
           margin: 0;
+          font-weight: 400;
         }
 
         .intro-text strong {
-          color: rgba(255, 255, 255, 0.9);
+          color: #fff;
+          font-weight: 600;
         }
 
-        /* ===== EVENT TYPES ===== */
+        /* ============ EVENT TYPES ============ */
         .event-types {
           max-width: 1200px;
           margin: 0 auto;
-          padding: 4rem 2rem;
+          padding: 4.5rem 2rem;
           border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          text-align: center;
           opacity: 0;
           transform: translateY(50px);
-          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+            transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .event-types.visible {
@@ -397,82 +411,159 @@ export default function Firmenevents() {
           transform: translateY(0);
         }
 
-        .event-types h2 {
-          font-size: 1.8rem;
-          font-weight: 300;
-          letter-spacing: 2px;
-          text-align: center;
-          margin-bottom: 2rem;
-          color: rgba(255, 255, 255, 0.9);
+        /* Eyebrow editorial */
+        .section-eyebrow {
+          display: inline-block;
+          font-size: 0.75rem;
+          font-weight: 600;
+          letter-spacing: 4px;
+          text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.45);
+          margin-bottom: 0.8rem;
+          opacity: 0;
+          transform: translateX(-20px);
+          transition: opacity 0.6s ease 0.15s, transform 0.6s ease 0.15s;
         }
 
+        .event-types.visible .section-eyebrow,
+        .section-with-image.visible .section-eyebrow {
+          opacity: 1;
+          transform: translateX(0);
+        }
+
+        .section-eyebrow.center {
+          display: block;
+          text-align: center;
+          transform: translateY(-10px);
+        }
+
+        .event-types.visible .section-eyebrow.center {
+          transform: translateY(0);
+        }
+
+        /* Títulos con subrayado animado */
+        .section-title {
+          font-size: clamp(1.6rem, 3vw, 2.3rem);
+          font-weight: 500;
+          letter-spacing: 1px;
+          margin: 0 0 2rem;
+          color: #fff;
+          position: relative;
+          padding-bottom: 1rem;
+          display: inline-block;
+          opacity: 0;
+          transform: translateY(24px);
+          transition: opacity 0.8s ease 0.25s, transform 0.8s ease 0.25s;
+        }
+
+        .event-types.visible .section-title,
+        .section-with-image.visible .section-title {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .section-title::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          height: 2px;
+          width: 0;
+          background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0));
+          transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.5s;
+        }
+
+        .section-title.center::after {
+          left: 50%;
+          transform: translateX(-50%);
+          background: linear-gradient(
+            90deg,
+            transparent,
+            #fff,
+            transparent
+          );
+        }
+
+        .section-title:not(.center)::after {
+          left: 0;
+        }
+
+        .event-types.visible .section-title::after,
+        .section-with-image.visible .section-title::after {
+          width: 90px;
+        }
+
+        /* Grid de tags */
         .event-grid {
           display: flex;
           flex-wrap: wrap;
           justify-content: center;
-          gap: 0.75rem;
+          gap: 0.85rem;
+          margin-top: 1rem;
         }
 
         .event-tag {
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.08);
-          padding: 0.5rem 1.2rem;
+          padding: 0.7rem 1.4rem;
           border-radius: 50px;
-          font-size: 0.9rem;
-          color: rgba(255, 255, 255, 0.7);
-          transition: all 0.3s ease;
+          font-size: 1rem;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 0.88);
+          transition: background 0.35s ease, border-color 0.35s ease,
+            color 0.3s ease, transform 0.35s ease;
           opacity: 0;
-          transform: scale(0.9);
+          transform: scale(0.9) translateY(10px);
         }
 
         .event-types.visible .event-tag {
-          animation: tagFadeIn 0.5s ease-out both;
+          animation: tagPop 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
 
-        .event-types.visible .tag-1 { animation-delay: 0.05s; }
-        .event-types.visible .tag-2 { animation-delay: 0.10s; }
-        .event-types.visible .tag-3 { animation-delay: 0.15s; }
-        .event-types.visible .tag-4 { animation-delay: 0.20s; }
-        .event-types.visible .tag-5 { animation-delay: 0.25s; }
-        .event-types.visible .tag-6 { animation-delay: 0.30s; }
-        .event-types.visible .tag-7 { animation-delay: 0.35s; }
-        .event-types.visible .tag-8 { animation-delay: 0.40s; }
-        .event-types.visible .tag-9 { animation-delay: 0.45s; }
-        .event-types.visible .tag-10 { animation-delay: 0.50s; }
-        .event-types.visible .tag-11 { animation-delay: 0.55s; }
-        .event-types.visible .tag-12 { animation-delay: 0.60s; }
+        .event-types.visible .event-tag:nth-child(1) { animation-delay: 0.1s; }
+        .event-types.visible .event-tag:nth-child(2) { animation-delay: 0.16s; }
+        .event-types.visible .event-tag:nth-child(3) { animation-delay: 0.22s; }
+        .event-types.visible .event-tag:nth-child(4) { animation-delay: 0.28s; }
+        .event-types.visible .event-tag:nth-child(5) { animation-delay: 0.34s; }
+        .event-types.visible .event-tag:nth-child(6) { animation-delay: 0.40s; }
+        .event-types.visible .event-tag:nth-child(7) { animation-delay: 0.46s; }
+        .event-types.visible .event-tag:nth-child(8) { animation-delay: 0.52s; }
+        .event-types.visible .event-tag:nth-child(9) { animation-delay: 0.58s; }
+        .event-types.visible .event-tag:nth-child(10) { animation-delay: 0.64s; }
+        .event-types.visible .event-tag:nth-child(11) { animation-delay: 0.70s; }
+        .event-types.visible .event-tag:nth-child(12) { animation-delay: 0.76s; }
 
-        @keyframes tagFadeIn {
+        @keyframes tagPop {
           from {
             opacity: 0;
-            transform: scale(0.9);
+            transform: scale(0.9) translateY(10px);
           }
           to {
             opacity: 1;
-            transform: scale(1);
+            transform: scale(1) translateY(0);
           }
         }
 
         .event-tag:hover {
           background: rgba(255, 255, 255, 0.1);
-          border-color: rgba(255, 255, 255, 0.2);
-          color: #ffffff;
-          transform: scale(1.05);
+          border-color: rgba(255, 255, 255, 0.22);
+          color: #fff;
+          transform: translateY(-2px) scale(1.03);
         }
 
-        /* ===== SECTION WITH IMAGE ===== */
+        /* ============ SECTION WITH IMAGE ============ */
         .section-with-image {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 3rem;
+          gap: 3.5rem;
           max-width: 1200px;
           margin: 0 auto;
-          padding: 4rem 2rem;
+          padding: 4.5rem 2rem;
           align-items: center;
           border-bottom: 1px solid rgba(255, 255, 255, 0.05);
           opacity: 0;
           transform: translateY(50px);
-          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+            transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .section-with-image.visible {
@@ -485,29 +576,49 @@ export default function Firmenevents() {
         }
 
         .section-text {
-          opacity: 0;
-          transform: translateX(-30px);
-          transition: all 0.8s ease 0.3s;
-        }
-
-        .section-with-image.visible .section-text {
-          opacity: 1;
-          transform: translateX(0);
-        }
-
-        .section-text h2 {
-          font-size: 1.8rem;
-          font-weight: 300;
-          letter-spacing: 2px;
-          margin-bottom: 1rem;
-          color: rgba(255, 255, 255, 0.9);
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
         }
 
         .section-text p {
-          font-size: 1rem;
+          font-size: 1.08rem;
           line-height: 1.8;
-          color: rgba(255, 255, 255, 0.7);
-          margin-bottom: 1.5rem;
+          color: rgba(255, 255, 255, 0.85);
+          margin: 0 0 1.8rem;
+          font-weight: 400;
+        }
+
+        .anfrage-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.75rem;
+          background: rgba(255, 255, 255, 0.07);
+          border: 1px solid rgba(255, 255, 255, 0.18);
+          color: #fff;
+          padding: 1rem 2.4rem;
+          border-radius: 50px;
+          font-size: 1.02rem;
+          font-weight: 500;
+          letter-spacing: 0.5px;
+          cursor: pointer;
+          transition: background 0.3s ease, border-color 0.3s ease,
+            transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .anfrage-btn svg {
+          transition: transform 0.3s ease;
+        }
+
+        .anfrage-btn:hover {
+          background: rgba(255, 255, 255, 0.14);
+          border-color: rgba(255, 255, 255, 0.35);
+          transform: translateY(-3px);
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+        }
+
+        .anfrage-btn:hover svg {
+          transform: translateX(4px);
         }
 
         .section-image {
@@ -518,8 +629,9 @@ export default function Firmenevents() {
           background: #1a1a1a;
           border-radius: 12px;
           opacity: 0;
-          transform: scale(0.95);
-          transition: all 0.8s ease 0.5s;
+          transform: scale(0.94);
+          transition: opacity 0.9s ease 0.45s,
+            transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.45s;
         }
 
         .section-with-image.visible .section-image {
@@ -527,49 +639,24 @@ export default function Firmenevents() {
           transform: scale(1);
         }
 
-        .section-image img {
-          transition: transform 0.6s ease;
+        .section-image :global(img) {
+          transition: transform 0.7s ease;
         }
 
-        .section-image:hover img {
-          transform: scale(1.05);
+        .section-image:hover :global(img) {
+          transform: scale(1.06);
         }
 
-        .anfrage-btn {
-          background: transparent;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          color: #ffffff;
-          padding: 0.8rem 2.5rem;
-          border-radius: 50px;
-          font-size: 1rem;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          letter-spacing: 1px;
-          opacity: 0;
-          transform: translateY(20px);
-          transition: all 0.6s ease 0.7s;
-        }
-
-        .section-with-image.visible .anfrage-btn {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        .anfrage-btn:hover {
-          background: rgba(255, 255, 255, 0.1);
-          border-color: rgba(255, 255, 255, 0.4);
-          transform: scale(1.02);
-        }
-
-        /* ===== CTA ===== */
+        /* ============ CTA ============ */
         .cta-section {
           max-width: 800px;
           margin: 0 auto;
-          padding: 4rem 2rem;
+          padding: 4.5rem 2rem;
           text-align: center;
           opacity: 0;
           transform: translateY(50px);
-          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+            transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .cta-section.visible {
@@ -577,43 +664,85 @@ export default function Firmenevents() {
           transform: translateY(0);
         }
 
-        .cta-section h2 {
-          font-size: 2rem;
-          font-weight: 300;
-          letter-spacing: 2px;
-          margin-bottom: 0.5rem;
-          color: rgba(255, 255, 255, 0.9);
+        .cta-title {
+          font-size: clamp(1.7rem, 3vw, 2.3rem);
+          font-weight: 500;
+          letter-spacing: 1px;
+          margin: 0 0 0.8rem;
+          color: #fff;
+          position: relative;
+          display: inline-block;
+          padding-bottom: 1rem;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
         }
 
-        .cta-section p {
-          color: rgba(255, 255, 255, 0.5);
-          font-size: 1.05rem;
-          margin-bottom: 2rem;
+        .cta-section.visible .cta-title {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .cta-title::after {
+          content: '';
+          position: absolute;
+          left: 50%;
+          bottom: 0;
+          transform: translateX(-50%);
+          height: 2px;
+          width: 0;
+          background: linear-gradient(90deg, transparent, #fff, transparent);
+          transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.55s;
+        }
+
+        .cta-section.visible .cta-title::after {
+          width: 90px;
+        }
+
+        .cta-text {
+          color: rgba(255, 255, 255, 0.7);
+          font-size: 1.08rem;
+          font-weight: 400;
+          margin: 0 0 2.2rem;
         }
 
         .cta-btn {
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          color: #ffffff;
-          padding: 1rem 3rem;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.75rem;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          color: #fff;
+          padding: 1rem 2.8rem;
           border-radius: 50px;
           font-size: 1.05rem;
+          font-weight: 500;
+          letter-spacing: 0.8px;
           cursor: pointer;
-          transition: all 0.3s ease;
-          letter-spacing: 1px;
+          transition: background 0.3s ease, border-color 0.3s ease,
+            transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-btn svg {
+          transition: transform 0.3s ease;
         }
 
         .cta-btn:hover {
-          background: rgba(255, 255, 255, 0.1);
-          border-color: rgba(255, 255, 255, 0.3);
-          transform: scale(1.02);
+          background: rgba(255, 255, 255, 0.16);
+          border-color: rgba(255, 255, 255, 0.35);
+          transform: translateY(-3px);
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
         }
 
-        /* ===== QUICK LINKS - Al final ===== */
+        .cta-btn:hover svg {
+          transform: translateX(4px);
+        }
+
+        /* ============ QUICK LINKS ============ */
         .quick-links-section {
           max-width: 800px;
           margin: 0 auto;
-          padding: 2rem 2rem 4rem;
+          padding: 2rem 2rem 4.5rem;
           border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
@@ -629,15 +758,16 @@ export default function Firmenevents() {
           display: inline-flex;
           align-items: center;
           justify-content: space-between;
-          padding: 0.85rem 1.5rem;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          border-radius: 8px;
-          color: #ffffff;
+          padding: 1rem 1.5rem;
+          background: rgba(255, 255, 255, 0.045);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 10px;
+          color: #fff;
           text-decoration: none;
-          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-          font-weight: 300;
-          font-size: 0.95rem;
+          transition: background 0.3s ease, border-color 0.3s ease,
+            transform 0.3s ease, box-shadow 0.3s ease;
+          font-weight: 400;
+          font-size: 1rem;
           position: relative;
           overflow: hidden;
         }
@@ -646,7 +776,11 @@ export default function Firmenevents() {
           content: '';
           position: absolute;
           inset: 0;
-          background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent);
+          background: linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.06),
+            transparent
+          );
           transform: translateX(-100%);
           transition: transform 0.6s ease;
         }
@@ -662,218 +796,203 @@ export default function Firmenevents() {
         }
 
         .quick-link.primary {
-          background: rgba(255, 255, 255, 0.08);
+          background: rgba(255, 255, 255, 0.09);
           border-color: rgba(255, 255, 255, 0.2);
+          font-weight: 500;
         }
 
         .quick-link.primary:hover {
-          background: rgba(255, 255, 255, 0.15);
+          background: rgba(255, 255, 255, 0.16);
           border-color: rgba(255, 255, 255, 0.35);
           transform: translateX(5px);
           box-shadow: 0 8px 30px rgba(255, 255, 255, 0.05);
         }
 
         .quick-link svg {
-          color: #ffffff !important;
           flex-shrink: 0;
+          position: relative;
+          z-index: 1;
           transition: transform 0.3s ease;
         }
 
         .quick-link:hover svg {
-          transform: translateX(5px);
+          transform: translateX(4px);
         }
 
         .quick-link span {
-          color: #ffffff;
           position: relative;
           z-index: 1;
+          color: #fff;
         }
 
-        /* ===== RESPONSIVE ===== */
+        /* ============ RESPONSIVE ============ */
         @media (max-width: 1024px) {
           .hero-image-container {
-            height: 50vh;
-            min-height: 350px;
-            max-height: 500px;
-          }
-
-          .hero-title {
-            font-size: 3rem;
+            height: 55vh;
+            min-height: 380px;
+            max-height: 540px;
           }
 
           .section-with-image {
-            gap: 2rem;
-            padding: 3rem 2rem;
-          }
-
-          .section-text h2 {
-            font-size: 1.5rem;
+            gap: 2.5rem;
+            padding: 3.5rem 2rem;
           }
         }
 
         @media (max-width: 768px) {
-            .firmenevents-page {
-          padding-top: 8rem;
-        }
+          .firmenevents-page {
+            padding-top: 8rem;
+          }
+
           .hero-image-container {
-            height: 40vh;
-            min-height: 300px;
-            max-height: 400px;
+            height: 45vh;
+            min-height: 320px;
+            max-height: 460px;
           }
 
           .hero-overlay {
             padding: 2rem;
-            justify-content: center;
           }
 
-          .hero-content {
-            text-align: center;
-          }
-
-          .hero-line {
-            margin: 1.5rem auto 0;
-            transform-origin: center;
-          }
-
-          .hero-title {
-            font-size: 2.5rem;
-          }
-
-          .hero-subtitle {
-            font-size: 1rem;
+          .hero-eyebrow {
+            letter-spacing: 4px;
+            font-size: 0.7rem;
           }
 
           .intro-section {
-            padding: 3rem 1.5rem;
+            padding: 3rem 1.4rem;
           }
 
           .intro-text {
-            font-size: 0.95rem;
+            font-size: 1.02rem;
           }
 
           .event-types {
-            padding: 3rem 1.5rem;
-          }
-
-          .event-types h2 {
-            font-size: 1.4rem;
+            padding: 3rem 1.4rem;
           }
 
           .event-tag {
-            font-size: 0.8rem;
-            padding: 0.4rem 1rem;
+            font-size: 0.92rem;
+            padding: 0.55rem 1.1rem;
           }
 
           .section-with-image {
             grid-template-columns: 1fr;
-            gap: 1.5rem;
-            padding: 3rem 1.5rem;
+            gap: 1.8rem;
+            padding: 3rem 1.4rem;
           }
 
           .section-image {
             aspect-ratio: 16/10;
           }
 
-          .section-text h2 {
-            font-size: 1.4rem;
-          }
-
           .section-text p {
-            font-size: 0.95rem;
+            font-size: 1.02rem;
           }
 
-          .anfrage-btn {
-            padding: 0.6rem 2rem;
-            font-size: 0.9rem;
+          .anfrage-btn,
+          .cta-btn {
+            padding: 0.9rem 2rem;
+            font-size: 0.98rem;
           }
 
           .cta-section {
-            padding: 3rem 1.5rem;
+            padding: 3rem 1.4rem;
           }
 
-          .cta-section h2 {
-            font-size: 1.6rem;
-          }
-
-          .cta-btn {
-            padding: 0.8rem 2.5rem;
-            font-size: 0.95rem;
+          .cta-text {
+            font-size: 1rem;
           }
 
           .quick-links-section {
-            padding: 1.5rem 1.5rem 3rem;
+            padding: 1.5rem 1.4rem 3rem;
+          }
+
+          .quick-link {
+            padding: 0.9rem 1.3rem;
+            font-size: 0.95rem;
           }
         }
 
         @media (max-width: 480px) {
-            .firmenevents-page {
-          padding-top: 6rem;
-        }
+          .firmenevents-page {
+            padding-top: 6rem;
+          }
+
           .hero-image-container {
-            height: 30vh;
-            min-height: 250px;
-            max-height: 350px;
+            height: 38vh;
+            min-height: 260px;
+            max-height: 360px;
           }
 
           .hero-overlay {
             padding: 1.5rem;
           }
 
-          .hero-title {
-            font-size: 2rem;
-            letter-spacing: 2px;
+          .section-title,
+          .cta-title {
+            font-size: 1.4rem;
           }
 
-          .hero-subtitle {
-            font-size: 0.9rem;
-          }
-
-          .intro-text {
-            font-size: 0.9rem;
-          }
-
-          .event-types h2 {
-            font-size: 1.2rem;
+          .intro-text,
+          .section-text p,
+          .cta-text {
+            font-size: 0.98rem;
           }
 
           .event-tag {
-            font-size: 0.75rem;
-            padding: 0.3rem 0.8rem;
-          }
-
-          .section-text h2 {
-            font-size: 1.2rem;
-          }
-
-          .section-text p {
-            font-size: 0.9rem;
-          }
-
-          .anfrage-btn {
-            padding: 0.5rem 1.6rem;
             font-size: 0.85rem;
+            padding: 0.5rem 0.95rem;
           }
 
-          .cta-section h2 {
-            font-size: 1.3rem;
+          .event-grid {
+            gap: 0.6rem;
           }
 
-          .cta-section p {
-            font-size: 0.9rem;
-          }
-
+          .anfrage-btn,
           .cta-btn {
-            padding: 0.6rem 2rem;
-            font-size: 0.85rem;
+            padding: 0.8rem 1.7rem;
+            font-size: 0.92rem;
           }
 
           .quick-links-section {
-            padding: 1rem 1rem 2rem;
+            padding: 1.2rem 1rem 2.5rem;
           }
 
           .quick-link {
-            padding: 0.7rem 1.2rem;
-            font-size: 0.85rem;
+            padding: 0.8rem 1.15rem;
+            font-size: 0.92rem;
+          }
+        }
+
+        /* Accesibilidad */
+        @media (prefers-reduced-motion: reduce) {
+          .hero-image,
+          .hero-title,
+          .hero-subtitle,
+          .hero-line,
+          .hero-eyebrow,
+          .intro-section,
+          .event-types,
+          .section-with-image,
+          .section-title,
+          .section-title::after,
+          .section-eyebrow,
+          .event-tag,
+          .section-image,
+          .cta-section,
+          .cta-title,
+          .cta-title::after,
+          .quick-link {
+            animation: none !important;
+            transition: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+            filter: none !important;
+          }
+          .section-title::after,
+          .cta-title::after {
+            width: 90px !important;
           }
         }
       `}</style>

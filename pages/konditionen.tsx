@@ -1,18 +1,17 @@
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import { 
-  Clock, 
-  Calendar, 
-  Users, 
-  GlassWater, 
-  Music, 
-  Sofa, 
-  Coffee, 
-  Umbrella, 
-  Moon, 
-  Sparkles, 
+import {
+  Clock,
+  Calendar,
+  Users,
+  GlassWater,
+  Music,
+  Sofa,
+  Coffee,
+  Umbrella,
+  Moon,
+  Sparkles,
   Mail,
-  Phone
 } from 'lucide-react';
 
 export default function Konditionen() {
@@ -24,11 +23,7 @@ export default function Konditionen() {
   const reservationRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Forzar la carga de la imagen después del montaje
-    const timer = setTimeout(() => {
-      setImageLoaded(true);
-    }, 500);
-
+    const timer = setTimeout(() => setImageLoaded(true), 500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -39,15 +34,12 @@ export default function Konditionen() {
           if (entry.isIntersecting) {
             const sectionId = entry.target.getAttribute('data-section');
             if (sectionId) {
-              setVisibleSections(prev => new Set(prev).add(sectionId));
+              setVisibleSections((prev) => new Set(prev).add(sectionId));
             }
           }
         });
       },
-      { 
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      }
+      { threshold: 0.12, rootMargin: '0px 0px -60px 0px' }
     );
 
     const refs = [mieteRef, umsatzRef, angebotRef, reservationRef];
@@ -61,9 +53,10 @@ export default function Konditionen() {
       });
     };
   }, []);
+
   return (
     <div className="konditionen-page">
-      {/* Hero Image */}
+      {/* Hero */}
       <div className="hero-image-container">
         <div className="hero-image-wrapper">
           <Image
@@ -73,79 +66,101 @@ export default function Konditionen() {
             className={`hero-image ${imageLoaded ? 'loaded' : ''}`}
             style={{ objectFit: 'cover' }}
             quality={90}
-            priority={true}
+            priority
             sizes="100vw"
             onLoad={() => setImageLoaded(true)}
           />
           <div className="hero-overlay">
             <div className="hero-content">
+              <p className="hero-eyebrow">Salotto Zürich</p>
               <h1 className="hero-title">Konditionen &amp; Preise</h1>
-              <p className="hero-subtitle">Alles was Du für Deinen Event wissen musst</p>
+              <p className="hero-subtitle">
+                Alles was Du für Deinen Event wissen musst
+              </p>
               <div className="hero-line"></div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="content-container">
-        {/* Miete Section */}
-        <div 
+        {/* MIETE */}
+        <div
           ref={mieteRef}
           data-section="miete"
           className={`section ${visibleSections.has('miete') ? 'visible' : ''}`}
         >
-          <h2 className="section-title">Miete</h2>
-          
+          <div className="section-heading">
+            <span className="section-eyebrow">01 — Miete</span>
+            <h2 className="section-title">Miete</h2>
+          </div>
+
           <div className="card-grid">
             <div className="card card-1">
               <div className="card-header">
-                <Calendar size={28} color="#ffffff" stroke="#ffffff" />
+                <span className="card-icon">
+                  <Calendar size={26} color="#ffffff" stroke="#ffffff" strokeWidth={1.8} />
+                </span>
                 <h3>Tagesmiete Wochentags</h3>
               </div>
               <p className="card-text">
-                Falls du deinen Event an einem Werktag machen möchtest, stellen wir für dich eine 
-                <span className="highlight"> individuelle Offerte</span> zusammen!
+                Falls du deinen Event an einem Werktag machen möchtest, stellen
+                wir für dich eine{' '}
+                <span className="highlight">individuelle Offerte</span> zusammen!
               </p>
               <div className="card-badge">
-                <Clock size={16} color="#ffffff" stroke="#ffffff" />
+                <Clock size={16} color="#ffffff" stroke="#ffffff" strokeWidth={1.8} />
                 <span className="badge-text">Bis 22.00 Uhr</span>
               </div>
             </div>
 
             <div className="card card-2">
               <div className="card-header">
-                <Moon size={28} color="#ffffff" stroke="#ffffff" />
+                <span className="card-icon">
+                  <Moon size={26} color="#ffffff" stroke="#ffffff" strokeWidth={1.8} />
+                </span>
                 <h3>Abendmiete – am Wochenende</h3>
               </div>
               <p className="card-text">
-                Zwischen <span className="highlight">17.00 bis 04.00 Uhr</span> – maximal 8 Stunden
+                Zwischen <span className="highlight">17.00 bis 04.00 Uhr</span>{' '}
+                – maximal 8 Stunden
               </p>
               <div className="card-details">
                 <div className="detail-item">
-                  <Clock size={16} color="#ffffff" stroke="#ffffff" />
+                  <Clock size={18} color="#ffffff" stroke="#ffffff" strokeWidth={1.8} />
                   <span className="detail-text">Maximal 8 Stunden</span>
                 </div>
                 <div className="detail-item">
-                  <GlassWater size={16} color="#ffffff" stroke="#ffffff" />
-                  <span className="detail-text">Getränke ausschliesslich an der Bar</span>
+                  <GlassWater size={18} color="#ffffff" stroke="#ffffff" strokeWidth={1.8} />
+                  <span className="detail-text">
+                    Getränke ausschliesslich an der Bar
+                  </span>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Mindestumsatz Section */}
-        <div 
+        {/* MINDESTUMSATZ */}
+        <div
           ref={umsatzRef}
           data-section="umsatz"
           className={`section ${visibleSections.has('umsatz') ? 'visible' : ''}`}
         >
-          <h2 className="section-title">Mindestumsatz</h2>
+          <div className="section-heading">
+            <span className="section-eyebrow">02 — Mindestumsatz</span>
+            <h2 className="section-title">Mindestumsatz</h2>
+          </div>
+
           <div className="umsatz-card">
             <p className="umsatz-text">
-              Der Mindestumsatz beträgt <span className="highlight">CHF 250/Stunde</span> (nur Getränke)
+              Der Mindestumsatz beträgt{' '}
+              <span className="highlight highlight-strong">
+                CHF 250 / Stunde
+              </span>{' '}
+              (nur Getränke)
             </p>
+
             <div className="umsatz-grid">
               <div className="umsatz-item">
                 <span className="hours">6 Std</span>
@@ -160,50 +175,55 @@ export default function Konditionen() {
                 <span className="price">CHF 2'000.-</span>
               </div>
             </div>
+
             <div className="umsatz-footer">
               <span className="highlight">Lokal-Reinigung CHF 100.-</span>
             </div>
           </div>
         </div>
 
-        {/* Angebot Section */}
-        <div 
+        {/* ANGEBOT */}
+        <div
           ref={angebotRef}
           data-section="angebot"
           className={`section ${visibleSections.has('angebot') ? 'visible' : ''}`}
         >
-          <h2 className="section-title">Angebot</h2>
+          <div className="section-heading">
+            <span className="section-eyebrow">03 — Inklusive</span>
+            <h2 className="section-title">Angebot</h2>
+          </div>
+
           <div className="angebot-grid">
             <div className="angebot-item">
-              <Sparkles size={20} color="#ffffff" stroke="#ffffff" />
+              <Sparkles size={20} color="#ffffff" stroke="#ffffff" strokeWidth={1.8} />
               <span>Exklusive Nutzung der gesamten Location</span>
             </div>
             <div className="angebot-item">
-              <Users size={20} color="#ffffff" stroke="#ffffff" />
+              <Users size={20} color="#ffffff" stroke="#ffffff" strokeWidth={1.8} />
               <span>Bis zu 60 Personen – perfekt für kleine &amp; mittlere Feiern</span>
             </div>
             <div className="angebot-item">
-              <GlassWater size={20} color="#ffffff" stroke="#ffffff" />
+              <GlassWater size={20} color="#ffffff" stroke="#ffffff" strokeWidth={1.8} />
               <span>Professioneller Barbetrieb</span>
             </div>
             <div className="angebot-item">
-              <Music size={20} color="#ffffff" stroke="#ffffff" />
-              <span>Professionelle Musikanlage – für die perfekte Party-Atmosphäre</span>
+              <Music size={20} color="#ffffff" stroke="#ffffff" strokeWidth={1.8} />
+              <span>Professionelle Musikanlage – perfekte Party-Atmosphäre</span>
             </div>
             <div className="angebot-item">
-              <Sofa size={20} color="#ffffff" stroke="#ffffff" />
+              <Sofa size={20} color="#ffffff" stroke="#ffffff" strokeWidth={1.8} />
               <span>Individuelle Möblierung – flexibel nach Deinen Wünschen</span>
             </div>
             <div className="angebot-item">
-              <Coffee size={20} color="#ffffff" stroke="#ffffff" />
+              <Coffee size={20} color="#ffffff" stroke="#ffffff" strokeWidth={1.8} />
               <span>Ausgesuchte Getränke- und Cocktailauswahl</span>
             </div>
             <div className="angebot-item">
-              <Umbrella size={20} color="#ffffff" stroke="#ffffff" />
-              <span>Gedeckter Aussenbereich – bei jedem Wetter geniessen</span>
+              <Umbrella size={20} color="#ffffff" stroke="#ffffff" strokeWidth={1.8} />
+              <span>Gedeckter Aussenbereich – bei jedem Wetter</span>
             </div>
             <div className="angebot-item">
-              <Moon size={20} color="#ffffff" stroke="#ffffff" />
+              <Moon size={20} color="#ffffff" stroke="#ffffff" strokeWidth={1.8} />
               <span>Verlängerte Nachtbewilligung am Wochenende</span>
             </div>
           </div>
@@ -212,15 +232,15 @@ export default function Konditionen() {
             <h4>Party-Info</h4>
             <div className="party-details">
               <div className="party-detail">
-                <Clock size={18} color="#ffffff" stroke="#ffffff" />
+                <Clock size={18} color="#ffffff" stroke="#ffffff" strokeWidth={1.8} />
                 <span className="party-text">Letzte Runde 3.30 Uhr</span>
               </div>
               <div className="party-detail">
-                <Clock size={18} color="#ffffff" stroke="#ffffff" />
+                <Clock size={18} color="#ffffff" stroke="#ffffff" strokeWidth={1.8} />
                 <span className="party-text">½ Stunde vorher einrichten</span>
               </div>
               <div className="party-detail">
-                <Clock size={18} color="#ffffff" stroke="#ffffff" />
+                <Clock size={18} color="#ffffff" stroke="#ffffff" strokeWidth={1.8} />
                 <span className="party-text">Party max. 8 Stunden</span>
               </div>
             </div>
@@ -228,31 +248,40 @@ export default function Konditionen() {
 
           <div className="highlight-box">
             <p>
-              <span className="highlight">Keine Mietkosten</span> – nur zahlen, was Du konsumierst
+              <span className="highlight highlight-strong">Keine Mietkosten</span>{' '}
+              – nur zahlen, was Du konsumierst
             </p>
             <p>
-              <span className="highlight">Catering auf Anfrage</span> – rundum sorglos feiern
+              <span className="highlight highlight-strong">Catering auf Anfrage</span>{' '}
+              – rundum sorglos feiern
             </p>
           </div>
         </div>
 
-        {/* Reservation Section */}
-        <div 
+        {/* RESERVATION */}
+        <div
           ref={reservationRef}
           data-section="reservation"
-          className={`section reservation-section ${visibleSections.has('reservation') ? 'visible' : ''}`}
+          className={`section reservation-section ${
+            visibleSections.has('reservation') ? 'visible' : ''
+          }`}
         >
-          <h2 className="section-title">Reservation</h2>
+          <div className="section-heading">
+            <span className="section-eyebrow">04 — Kontakt</span>
+            <h2 className="section-title">Reservation</h2>
+          </div>
+
           <div className="reservation-content">
             <p className="reservation-text">
-              Wir freuen uns, Dir unsere Möglichkeiten in unserem Eventlokal zu zeigen. 
-              Kommt anschliessend eine definitive Buchung zustande, senden wir Dir per E-Mail 
-              die Reservationsdetails.
+              Wir freuen uns, Dir unsere Möglichkeiten in unserem Eventlokal zu
+              zeigen. Kommt anschliessend eine definitive Buchung zustande,
+              senden wir Dir per E-Mail die Reservationsdetails.
             </p>
             <p className="reservation-text">
-              Vereinbare jetzt einen Termin mit <span className="highlight">Marcos</span>, 
-              um das Salotto Zürich kennenzulernen. Wir freuen uns sehr, einen Anlass nach 
-              Deinen persönlichen Wünschen zu organisieren und durchzuführen.
+              Vereinbare jetzt einen Termin mit{' '}
+              <span className="highlight">Marcos</span>, um das Salotto Zürich
+              kennenzulernen. Wir freuen uns sehr, einen Anlass nach Deinen
+              persönlichen Wünschen zu organisieren und durchzuführen.
             </p>
             <p className="reservation-text">
               Gerne stehen wir Dir für sämtliche weiteren Fragen zur Verfügung.
@@ -260,30 +289,32 @@ export default function Konditionen() {
 
             <div className="contact-buttons">
               <a href="/jetztmieten" className="contact-button primary">
-                <Mail size={20} color="#ffffff" stroke="#ffffff" />
+                <Mail size={20} color="#ffffff" stroke="#ffffff" strokeWidth={1.8} />
                 <span>Offerte Anfragen</span>
               </a>
-             
             </div>
           </div>
         </div>
       </div>
 
       <style jsx>{`
+        /* ============ BASE ============ */
         .konditionen-page {
-          background: #000000;
+          background: #000;
           min-height: 100vh;
-          color: #ffffff;
-          padding-top:9rem;
+          color: #fff;
+          padding-top: 9rem;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Hero Image */
+        /* ============ HERO ============ */
         .hero-image-container {
           position: relative;
           width: 100%;
-          height: 60vh;
-          min-height: 400px;
-          max-height: 600px;
+          height: 65vh;
+          min-height: 420px;
+          max-height: 640px;
           overflow: hidden;
         }
 
@@ -294,29 +325,27 @@ export default function Konditionen() {
         }
 
         .hero-image {
-          transition: filter 1.5s ease-out, transform 1.5s ease-out, opacity 1.5s ease-out;
-          filter: blur(30px);
-          transform: scale(1.1);
+          transition: filter 1.6s ease-out, transform 1.6s ease-out,
+            opacity 1.6s ease-out;
+          filter: blur(28px);
+          transform: scale(1.12);
           opacity: 0;
         }
 
         .hero-image.loaded {
-          filter: blur(0px);
+          filter: blur(0);
           transform: scale(1);
           opacity: 1;
         }
 
         .hero-overlay {
           position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
+          inset: 0;
           background: linear-gradient(
             to bottom,
-            rgba(0, 0, 0, 0.3) 0%,
-            rgba(0, 0, 0, 0.6) 50%,
-            rgba(0, 0, 0, 0.8) 100%
+            rgba(0, 0, 0, 0.35) 0%,
+            rgba(0, 0, 0, 0.65) 55%,
+            rgba(0, 0, 0, 0.9) 100%
           );
           display: flex;
           align-items: center;
@@ -326,38 +355,69 @@ export default function Konditionen() {
         .hero-content {
           text-align: center;
           padding: 2rem;
+          max-width: 900px;
+        }
+
+        .hero-eyebrow {
+          font-size: 0.8rem;
+          font-weight: 600;
+          letter-spacing: 6px;
+          text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.55);
+          margin-bottom: 1rem;
+          animation: fadeInDown 1s ease-out 0.2s both;
         }
 
         .hero-title {
-          font-size: 4rem;
-          font-weight: 300;
-          letter-spacing: 4px;
-          margin-bottom: 1rem;
-          color: #ffffff;
-          text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
-          animation: fadeInUp 1.2s ease-out 0.3s both;
+          font-size: clamp(2rem, 5.5vw, 4.5rem);
+          font-weight: 500;
+          letter-spacing: 2px;
+          line-height: 1.05;
+          margin: 0 0 1.2rem;
+          color: #fff;
+          text-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+          animation: heroReveal 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
         }
 
         .hero-subtitle {
-          font-size: 1.2rem;
-          color: rgba(255, 255, 255, 0.8);
-          font-weight: 300;
-          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+          font-size: clamp(1rem, 1.8vw, 1.3rem);
+          font-weight: 400;
+          color: rgba(255, 255, 255, 0.85);
+          letter-spacing: 0.5px;
+          text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
           animation: fadeInUp 1.2s ease-out 0.6s both;
         }
 
         .hero-line {
-          width: 60px;
+          width: 70px;
           height: 2px;
-          background: rgba(255, 255, 255, 0.3);
-          margin: 1.5rem auto 0;
-          animation: fadeInUp 1.2s ease-out 0.9s both;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.6),
+            transparent
+          );
+          margin: 1.8rem auto 0;
+          animation: lineGrow 1s ease-out 0.9s both;
+        }
+
+        @keyframes heroReveal {
+          from {
+            opacity: 0;
+            transform: translateY(40px) scale(0.96);
+            filter: blur(8px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0);
+          }
         }
 
         @keyframes fadeInUp {
           from {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(24px);
           }
           to {
             opacity: 1;
@@ -365,19 +425,41 @@ export default function Konditionen() {
           }
         }
 
-        /* Content Container */
-        .content-container {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 3rem 2rem 4rem;
+        @keyframes fadeInDown {
+          from {
+            opacity: 0;
+            transform: translateY(-16px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
 
-        /* Sections */
+        @keyframes lineGrow {
+          from {
+            width: 0;
+            opacity: 0;
+          }
+          to {
+            width: 70px;
+            opacity: 1;
+          }
+        }
+
+        /* ============ CONTENT ============ */
+        .content-container {
+          max-width: 1180px;
+          margin: 0 auto;
+          padding: 4rem 2rem 5rem;
+        }
+
         .section {
-          margin-bottom: 4rem;
+          margin-bottom: 5rem;
           opacity: 0;
-          transform: translateY(50px);
-          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+          transform: translateY(60px);
+          transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+            transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .section.visible {
@@ -389,45 +471,252 @@ export default function Konditionen() {
           margin-bottom: 0;
         }
 
-        .section-title {
-          font-size: 2.5rem;
-          font-weight: 300;
-          letter-spacing: 3px;
-          color: #ffffff;
-          margin-bottom: 2rem;
-          padding-bottom: 1rem;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        /* Heading con eyebrow + línea animada */
+        .section-heading {
+          margin-bottom: 2.5rem;
+          position: relative;
         }
 
-        /* Cards */
+        .section-eyebrow {
+          display: inline-block;
+          font-size: 0.78rem;
+          font-weight: 600;
+          letter-spacing: 4px;
+          text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.4);
+          margin-bottom: 0.6rem;
+          opacity: 0;
+          transform: translateX(-20px);
+          transition: opacity 0.6s ease 0.15s, transform 0.6s ease 0.15s;
+        }
+
+        .section.visible .section-eyebrow {
+          opacity: 1;
+          transform: translateX(0);
+        }
+
+        .section-title {
+          font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+          font-weight: 500;
+          letter-spacing: 1.5px;
+          color: #fff;
+          margin: 0;
+          padding-bottom: 1.2rem;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          position: relative;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 0.7s ease 0.25s, transform 0.7s ease 0.25s;
+        }
+
+        .section.visible .section-title {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        /* Línea que crece bajo el título al aparecer */
+        .section-title::after {
+          content: '';
+          position: absolute;
+          bottom: -1px;
+          left: 0;
+          height: 2px;
+          width: 0;
+          background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0));
+          transition: width 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.5s;
+        }
+
+        .section.visible .section-title::after {
+          width: 80px;
+        }
+
+        /* ============ CARDS (MIETE) ============ */
         .card-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 2rem;
+          gap: 1.5rem;
         }
 
         .card {
-          background: rgba(255, 255, 255, 0.03);
+          background: rgba(255, 255, 255, 0.035);
           border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 12px;
+          border-radius: 14px;
           padding: 2rem;
-          transition: all 0.5s ease;
+          transition: background 0.4s ease, border-color 0.4s ease,
+            box-shadow 0.4s ease, transform 0.4s ease;
           opacity: 0;
-          transform: translateY(30px);
+          transform: translateY(40px) scale(0.97);
         }
 
         .section.visible .card-1 {
-          animation: cardFadeIn 0.6s ease-out 0.2s both;
+          animation: cardPop 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
         }
-
         .section.visible .card-2 {
-          animation: cardFadeIn 0.6s ease-out 0.4s both;
+          animation: cardPop 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
         }
 
-        @keyframes cardFadeIn {
+        @keyframes cardPop {
           from {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(40px) scale(0.97);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+
+        .card:hover {
+          background: rgba(255, 255, 255, 0.06);
+          border-color: rgba(255, 255, 255, 0.18);
+          transform: translateY(-5px);
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-header {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-bottom: 1.4rem;
+        }
+
+        .card-icon {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 52px;
+          height: 52px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          flex-shrink: 0;
+        }
+
+        .card-header h3 {
+          font-size: clamp(1.15rem, 1.6vw, 1.35rem);
+          font-weight: 500;
+          letter-spacing: 0.3px;
+          color: #fff;
+          line-height: 1.3;
+          margin: 0;
+        }
+
+        .card-text {
+          font-size: 1.02rem;
+          line-height: 1.8;
+          color: rgba(255, 255, 255, 0.88);
+          margin: 0 0 1.3rem;
+          font-weight: 400;
+        }
+
+        .highlight {
+          color: #fff;
+          font-weight: 600;
+          background: rgba(255, 255, 255, 0.1);
+          padding: 0.08rem 0.45rem;
+          border-radius: 5px;
+          white-space: nowrap;
+        }
+
+        .highlight-strong {
+          background: rgba(255, 214, 100, 0.14);
+          color: #ffe08a;
+          border: 1px solid rgba(255, 214, 100, 0.22);
+        }
+
+        .card-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: rgba(255, 255, 255, 0.07);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          padding: 0.55rem 1.1rem;
+          border-radius: 999px;
+          font-size: 0.92rem;
+          font-weight: 500;
+        }
+
+        .badge-text {
+          color: #fff;
+        }
+
+        .card-details {
+          display: flex;
+          flex-direction: column;
+          gap: 0.6rem;
+          margin-top: 1.2rem;
+        }
+
+        .detail-item {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          font-size: 0.98rem;
+          font-weight: 400;
+        }
+
+        .detail-text {
+          color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* ============ UMSATZ ============ */
+        .umsatz-card {
+          background: rgba(255, 255, 255, 0.035);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 14px;
+          padding: 2.2rem;
+          opacity: 0;
+          transform: translateY(40px);
+          transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s,
+            transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
+        }
+
+        .section.visible .umsatz-card {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .umsatz-text {
+          font-size: clamp(1.05rem, 1.7vw, 1.3rem);
+          color: rgba(255, 255, 255, 0.95);
+          text-align: center;
+          margin: 0 0 2rem;
+          font-weight: 400;
+          line-height: 1.6;
+        }
+
+        .umsatz-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1rem;
+          margin-bottom: 1.6rem;
+        }
+
+        .umsatz-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 1.4rem 1rem;
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 10px;
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          transition: background 0.35s ease, transform 0.35s ease,
+            border-color 0.35s ease;
+          opacity: 0;
+          transform: translateY(20px);
+        }
+
+        .section.visible .umsatz-item {
+          animation: itemRise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .section.visible .umsatz-item:nth-child(1) { animation-delay: 0.45s; }
+        .section.visible .umsatz-item:nth-child(2) { animation-delay: 0.55s; }
+        .section.visible .umsatz-item:nth-child(3) { animation-delay: 0.65s; }
+
+        @keyframes itemRise {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
           }
           to {
             opacity: 1;
@@ -435,139 +724,35 @@ export default function Konditionen() {
           }
         }
 
-        .card:hover {
-          background: rgba(255, 255, 255, 0.06);
-          transform: translateY(-4px);
-          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .card-header {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          margin-bottom: 1.2rem;
-        }
-
-        .card-header h3 {
-          font-size: 1.3rem;
-          font-weight: 300;
-          letter-spacing: 1px;
-          color: #ffffff;
-        }
-
-        .card-text {
-          font-size: 1rem;
-          line-height: 1.8;
-          color: rgba(255, 255, 255, 0.8);
-          margin-bottom: 1.2rem;
-        }
-
-        .highlight {
-          color: #ffffff;
-          font-weight: 400;
-          background: rgba(255, 255, 255, 0.08);
-          padding: 0.1rem 0.4rem;
-          border-radius: 4px;
-        }
-
-        .card-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          background: rgba(255, 255, 255, 0.06);
-          padding: 0.5rem 1rem;
-          border-radius: 20px;
-          font-size: 0.9rem;
-        }
-
-        .badge-text {
-          color: #ffffff;
-        }
-
-        .card-details {
-          display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
-          margin-top: 1rem;
-        }
-
-        .detail-item {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          font-size: 0.95rem;
-        }
-
-        .detail-text {
-          color: #ffffff;
-        }
-
-        /* Umsatz */
-        .umsatz-card {
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 12px;
-          padding: 2rem;
-          opacity: 0;
-          transform: translateY(30px);
-          transition: all 0.6s ease;
-        }
-
-        .section.visible .umsatz-card {
-          opacity: 1;
-          transform: translateY(0);
-          transition-delay: 0.3s;
-        }
-
-        .umsatz-text {
-          font-size: 1.2rem;
-          color: rgba(255, 255, 255, 0.9);
-          text-align: center;
-          margin-bottom: 2rem;
-        }
-
-        .umsatz-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 1rem;
-          margin-bottom: 1.5rem;
-        }
-
-        .umsatz-item {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          padding: 1.2rem;
-          background: rgba(255, 255, 255, 0.05);
-          border-radius: 8px;
-          border: 1px solid rgba(255, 255, 255, 0.06);
-          transition: all 0.3s ease;
-        }
-
         .umsatz-item:hover {
-          background: rgba(255, 255, 255, 0.08);
-          transform: scale(1.02);
+          background: rgba(255, 255, 255, 0.09);
+          border-color: rgba(255, 255, 255, 0.15);
+          transform: translateY(-3px);
         }
 
         .umsatz-item .hours {
           font-size: 1rem;
-          color: rgba(255, 255, 255, 0.6);
-          margin-bottom: 0.3rem;
+          font-weight: 500;
+          letter-spacing: 1px;
+          color: rgba(255, 255, 255, 0.65);
+          margin-bottom: 0.5rem;
         }
 
         .umsatz-item .price {
-          font-size: 1.4rem;
-          color: #ffffff;
-          font-weight: 300;
+          font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+          color: #fff;
+          font-weight: 500;
+          letter-spacing: 0.5px;
         }
 
         .umsatz-footer {
           text-align: center;
-          padding-top: 1.5rem;
-          border-top: 1px solid rgba(255, 255, 255, 0.06);
+          padding-top: 1.6rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          font-size: 1rem;
         }
 
-        /* Angebot */
+        /* ============ ANGEBOT ============ */
         .angebot-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
@@ -579,32 +764,33 @@ export default function Konditionen() {
           display: flex;
           align-items: center;
           gap: 1rem;
-          padding: 1rem;
-          background: rgba(255, 255, 255, 0.03);
-          border-radius: 8px;
+          padding: 1.1rem 1.2rem;
+          background: rgba(255, 255, 255, 0.035);
+          border-radius: 10px;
           border: 1px solid rgba(255, 255, 255, 0.05);
-          transition: all 0.4s ease;
+          transition: background 0.35s ease, transform 0.35s ease,
+            border-color 0.35s ease;
           opacity: 0;
-          transform: translateX(-20px);
+          transform: translateX(-24px);
         }
 
         .section.visible .angebot-item {
-          animation: itemFadeIn 0.5s ease-out both;
+          animation: itemSlide 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
 
-        .section.visible .angebot-item:nth-child(1) { animation-delay: 0.1s; }
-        .section.visible .angebot-item:nth-child(2) { animation-delay: 0.2s; }
-        .section.visible .angebot-item:nth-child(3) { animation-delay: 0.3s; }
-        .section.visible .angebot-item:nth-child(4) { animation-delay: 0.4s; }
-        .section.visible .angebot-item:nth-child(5) { animation-delay: 0.5s; }
-        .section.visible .angebot-item:nth-child(6) { animation-delay: 0.6s; }
-        .section.visible .angebot-item:nth-child(7) { animation-delay: 0.7s; }
-        .section.visible .angebot-item:nth-child(8) { animation-delay: 0.8s; }
+        .section.visible .angebot-item:nth-child(1) { animation-delay: 0.25s; }
+        .section.visible .angebot-item:nth-child(2) { animation-delay: 0.33s; }
+        .section.visible .angebot-item:nth-child(3) { animation-delay: 0.41s; }
+        .section.visible .angebot-item:nth-child(4) { animation-delay: 0.49s; }
+        .section.visible .angebot-item:nth-child(5) { animation-delay: 0.57s; }
+        .section.visible .angebot-item:nth-child(6) { animation-delay: 0.65s; }
+        .section.visible .angebot-item:nth-child(7) { animation-delay: 0.73s; }
+        .section.visible .angebot-item:nth-child(8) { animation-delay: 0.81s; }
 
-        @keyframes itemFadeIn {
+        @keyframes itemSlide {
           from {
             opacity: 0;
-            transform: translateX(-20px);
+            transform: translateX(-24px);
           }
           to {
             opacity: 1;
@@ -613,159 +799,162 @@ export default function Konditionen() {
         }
 
         .angebot-item:hover {
-          background: rgba(255, 255, 255, 0.06);
-          transform: translateX(4px);
+          background: rgba(255, 255, 255, 0.07);
+          border-color: rgba(255, 255, 255, 0.14);
+          transform: translateX(6px);
         }
 
         .angebot-item span {
-          font-size: 0.95rem;
-          color: #ffffff;
+          font-size: 1rem;
+          line-height: 1.5;
+          color: rgba(255, 255, 255, 0.92);
+          font-weight: 400;
         }
 
         .party-info {
-          background: rgba(255, 255, 255, 0.03);
+          background: rgba(255, 255, 255, 0.035);
           border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 12px;
-          padding: 1.5rem 2rem;
+          border-radius: 14px;
+          padding: 1.6rem 2rem;
           margin-bottom: 1.5rem;
           opacity: 0;
-          transform: translateY(20px);
-          transition: all 0.6s ease;
+          transform: translateY(30px);
+          transition: opacity 0.7s ease 0.55s, transform 0.7s ease 0.55s;
         }
 
         .section.visible .party-info {
           opacity: 1;
           transform: translateY(0);
-          transition-delay: 0.5s;
         }
 
         .party-info h4 {
-          font-size: 1.1rem;
-          font-weight: 300;
-          letter-spacing: 1px;
-          color: rgba(255, 255, 255, 0.7);
-          margin-bottom: 1rem;
+          font-size: 1.05rem;
+          font-weight: 600;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.55);
+          margin: 0 0 1.1rem;
         }
 
         .party-details {
           display: flex;
           flex-direction: column;
-          gap: 0.5rem;
+          gap: 0.7rem;
         }
 
         .party-detail {
           display: flex;
           align-items: center;
-          gap: 0.75rem;
-          font-size: 0.95rem;
+          gap: 0.8rem;
+          font-size: 1rem;
         }
 
         .party-text {
-          color: #ffffff;
+          color: rgba(255, 255, 255, 0.9);
         }
 
         .highlight-box {
           display: flex;
           flex-direction: column;
-          gap: 0.5rem;
-          padding: 1.5rem;
+          gap: 0.7rem;
+          padding: 1.7rem;
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
+          border-radius: 14px;
           text-align: center;
           opacity: 0;
-          transform: translateY(20px);
-          transition: all 0.6s ease;
+          transform: scale(0.96);
+          transition: opacity 0.7s ease 0.7s, transform 0.7s ease 0.7s;
         }
 
         .section.visible .highlight-box {
           opacity: 1;
-          transform: translateY(0);
-          transition-delay: 0.7s;
+          transform: scale(1);
         }
 
         .highlight-box p {
-          font-size: 1.1rem;
-          color: rgba(255, 255, 255, 0.9);
+          font-size: 1.08rem;
+          color: rgba(255, 255, 255, 0.95);
+          font-weight: 400;
+          margin: 0;
+          line-height: 1.6;
         }
 
-        /* Reservation */
+        /* ============ RESERVATION ============ */
         .reservation-section {
-          background: rgba(255, 255, 255, 0.02);
-          border: 1px solid rgba(255, 255, 255, 0.05);
-          border-radius: 12px;
-          padding: 2rem;
+          background: rgba(255, 255, 255, 0.025);
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          border-radius: 14px;
+          padding: 2.5rem;
+        }
+
+        .reservation-content {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+        }
+
+        .section.visible .reservation-content {
+          opacity: 1;
+          transform: translateY(0);
         }
 
         .reservation-text {
           font-size: 1.05rem;
-          line-height: 1.8;
-          color: rgba(255, 255, 255, 0.8);
-          margin-bottom: 1.5rem;
+          line-height: 1.85;
+          color: rgba(255, 255, 255, 0.88);
+          margin-bottom: 1.4rem;
+          font-weight: 400;
+        }
+
+        .reservation-text:last-of-type {
+          margin-bottom: 0;
         }
 
         .contact-buttons {
           display: flex;
           gap: 1rem;
-          margin-top: 1.5rem;
-          opacity: 0;
-          transform: translateY(20px);
-          transition: all 0.6s ease;
-        }
-
-        .section.visible .contact-buttons {
-          opacity: 1;
-          transform: translateY(0);
-          transition-delay: 0.6s;
+          margin-top: 2rem;
         }
 
         .contact-button {
           display: inline-flex;
           align-items: center;
           gap: 0.75rem;
-          padding: 0.85rem 2rem;
-          border-radius: 8px;
+          padding: 0.95rem 2.2rem;
+          border-radius: 10px;
           text-decoration: none;
           font-size: 1rem;
-          font-weight: 300;
-          transition: all 0.3s ease;
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          font-weight: 500;
+          letter-spacing: 0.3px;
+          transition: background 0.3s ease, transform 0.3s ease,
+            box-shadow 0.3s ease, border-color 0.3s ease;
+          border: 1px solid rgba(255, 255, 255, 0.12);
         }
 
         .contact-button.primary {
-          background: rgba(255, 255, 255, 0.08);
-          color: #ffffff;
+          background: rgba(255, 255, 255, 0.09);
+          color: #fff;
         }
 
         .contact-button.primary:hover {
-          background: rgba(255, 255, 255, 0.15);
-          transform: translateY(-2px);
-          box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .contact-button.secondary {
-          background: transparent;
-          color: rgba(255, 255, 255, 0.7);
-        }
-
-        .contact-button.secondary:hover {
-          background: rgba(255, 255, 255, 0.05);
-          transform: translateY(-2px);
+          background: rgba(255, 255, 255, 0.18);
+          border-color: rgba(255, 255, 255, 0.28);
+          transform: translateY(-3px);
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
         }
 
         .contact-button span {
-          color: #ffffff;
+          color: #fff;
         }
 
-        /* Responsive */
+        /* ============ RESPONSIVE ============ */
         @media (max-width: 1024px) {
-          
-          .hero-title {
-            font-size: 3rem;
-          }
-
           .content-container {
-            padding: 2rem 1.5rem 3rem;
+            padding: 3rem 1.5rem 4rem;
+          }
+          .section {
+            margin-bottom: 4rem;
           }
         }
 
@@ -775,32 +964,51 @@ export default function Konditionen() {
           }
 
           .hero-image-container {
-            height: 40vh;
-            min-height: 300px;
+            height: 45vh;
+            min-height: 320px;
           }
 
-          .hero-title {
-            font-size: 2.2rem;
+          .hero-eyebrow {
+            letter-spacing: 4px;
+            font-size: 0.7rem;
           }
 
-          .hero-subtitle {
-            font-size: 1rem;
+          .content-container {
+            padding: 2.5rem 1.2rem 3rem;
           }
 
-          .section-title {
-            font-size: 2rem;
+          .section {
+            margin-bottom: 3.5rem;
+          }
+
+          .section-heading {
+            margin-bottom: 1.8rem;
           }
 
           .card-grid {
             grid-template-columns: 1fr;
+            gap: 1.2rem;
+          }
+
+          .card {
+            padding: 1.6rem;
+          }
+
+          .umsatz-card {
+            padding: 1.5rem;
           }
 
           .umsatz-grid {
             grid-template-columns: 1fr;
+            gap: 0.8rem;
           }
 
           .angebot-grid {
             grid-template-columns: 1fr;
+          }
+
+          .party-info {
+            padding: 1.4rem;
           }
 
           .contact-buttons {
@@ -809,42 +1017,77 @@ export default function Konditionen() {
 
           .contact-button {
             justify-content: center;
+            width: 100%;
+          }
+
+          .reservation-section {
+            padding: 1.8rem;
           }
         }
 
         @media (max-width: 480px) {
-           .konditionen-page {
-        
-          padding-top:6rem;
-        }
+          .konditionen-page {
+            padding-top: 6rem;
+          }
+
           .hero-image-container {
-            height: 30vh;
-            min-height: 250px;
+            height: 38vh;
+            min-height: 260px;
           }
 
-          .hero-title {
-            font-size: 1.8rem;
-            letter-spacing: 2px;
-          }
-
-          .section-title {
-            font-size: 1.6rem;
+          .content-container {
+            padding: 2rem 1rem 2.5rem;
           }
 
           .card {
-            padding: 1rem;
+            padding: 1.3rem;
           }
 
-          .card-header h3 {
-            font-size: 1.1rem;
+          .card-header {
+            gap: 0.8rem;
+            margin-bottom: 1.1rem;
           }
 
-          .umsatz-text {
-            font-size: 1rem;
+          .card-icon {
+            width: 44px;
+            height: 44px;
+          }
+
+          .umsatz-item .price {
+            font-size: 1.35rem;
           }
 
           .reservation-section {
-            padding: 1.5rem;
+            padding: 1.4rem;
+          }
+        }
+
+        /* Accesibilidad: sin animaciones si el usuario lo pide */
+        @media (prefers-reduced-motion: reduce) {
+          .hero-image,
+          .hero-title,
+          .hero-subtitle,
+          .hero-line,
+          .hero-eyebrow,
+          .section,
+          .card,
+          .umsatz-card,
+          .umsatz-item,
+          .angebot-item,
+          .party-info,
+          .highlight-box,
+          .reservation-content,
+          .section-title,
+          .section-title::after,
+          .section-eyebrow {
+            animation: none !important;
+            transition: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+            filter: none !important;
+          }
+          .section-title::after {
+            width: 80px !important;
           }
         }
       `}</style>
