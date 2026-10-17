@@ -247,12 +247,12 @@ export default function HomeHero() {
         <div className={`hero-content ${isContentVisible ? 'visible' : ''}`}>
           {/* LOGO */}
           <div className="logo-container">
-            <img
+           <img
               src={company.logo}
               alt={`${company.name} Logo`}
               className="hero-logo"
-            />
-            {/* <h1>{company.name}</h1> */}
+            /> 
+            
           </div>
 
           {/* NAVIGATION */}

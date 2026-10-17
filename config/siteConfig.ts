@@ -44,7 +44,7 @@ export const siteConfig = {
     legalName: "Salotto GmbH",
     tagline: "Bar | Restaurant | Eventlocation",
     slogan: "Ihre Eventlocation in Zürich",
-    logo: "/img/logo-salotto.png",
+    logo: "/img/logo-salotto.png", 
     logoAlt: "Salotto - Bar & Restaurant",
     logoSeo: "/img/S.png", 
     favicon: "/img/favicon.ico",
@@ -250,12 +250,12 @@ footer: {
 
       // Slides del carrusel
       slides: [
-        { type: "image", src: "/img/bar33.jpg",  alt: "Bar Ambiente 3" },
-        { type: "image", src: "/img/bar23.jpg",  alt: "Bar Ambiente 4" },
+        { type: "image", src: "/img/bar44.png",  alt: "Bar Ambiente 6" },
         { type: "image", src: "/img/bar1w.webp", alt: "Bar Ambiente 1" },
+        { type: "image", src: "/img/bar23.jpg",  alt: "Bar Ambiente 4" },
+        { type: "image", src: "/img/bar33.jpg",  alt: "Bar Ambiente 3" },
         { type: "image", src: "/img/bar5.jpg",   alt: "Bar Ambiente 5" },
         { type: "image", src: "/img/bar22.jpg",  alt: "Bar Ambiente 2" },
-        { type: "image", src: "/img/bar44.png",  alt: "Bar Ambiente 6" },
 
         // Descomenta cuando lo necesites:
         // { type: "video", src: "/img/videoPlato.mp4", alt: "Video Plato" },

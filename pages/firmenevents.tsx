@@ -169,7 +169,7 @@ export default function Firmenevents() {
             reibungslosen Durchführung – exakt nach deinen Vorstellungen.
           </p>
           <button onClick={handleAnfrageClick} className="anfrage-btn">
-            <span>Jetzt Anfrage senden</span>
+            <span className="span" >Jetzt Anfrage senden</span>
             <ArrowRight size={18} color="#ffffff" stroke="#ffffff" strokeWidth={2} />
           </button>
         </div>
@@ -194,7 +194,7 @@ export default function Firmenevents() {
         <h2 className="cta-title">Bereit für Dein Firmenevent?</h2>
         <p className="cta-text">Wir beraten Dich gerne persönlich</p>
         <button onClick={handleAnfrageClick} className="cta-btn">
-          <span>Jetzt Anfragen</span>
+          <span className="span">Jetzt Anfragen</span>
           <ArrowRight size={18} color="#ffffff" stroke="#ffffff" strokeWidth={2} />
         </button>
       </div>
@@ -720,7 +720,10 @@ export default function Firmenevents() {
           letter-spacing: 0.8px;
           cursor: pointer;
           transition: background 0.3s ease, border-color 0.3s ease,
-            transform 0.3s ease, box-shadow 0.3s ease;
+          transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .span{
+          color: #fff;
         }
 
         .cta-btn svg {
