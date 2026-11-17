@@ -156,7 +156,7 @@ export default function Konditionen() {
             <p className="umsatz-text">
               Der Mindestumsatz beträgt{' '}
               <span className="highlight highlight-strong">
-                CHF 250 / Stunde
+                CHF 300 / Stunde
               </span>{' '}
               (nur Getränke)
             </p>
@@ -164,20 +164,20 @@ export default function Konditionen() {
             <div className="umsatz-grid">
               <div className="umsatz-item">
                 <span className="hours">6 Std</span>
-                <span className="price">CHF 1'500.-</span>
+                <span className="price">CHF 1'800.-</span>
               </div>
               <div className="umsatz-item">
                 <span className="hours">7 Std</span>
-                <span className="price">CHF 1'750.-</span>
+                <span className="price">CHF 2'100.-</span>
               </div>
               <div className="umsatz-item">
                 <span className="hours">8 Std</span>
-                <span className="price">CHF 2'000.-</span>
+                <span className="price">CHF 2'400.-</span>
               </div>
             </div>
 
             <div className="umsatz-footer">
-              <span className="highlight">Lokal-Reinigung CHF 100.-</span>
+              <span className="highlight">Lokal-Reinigung CHF 150.-</span>
             </div>
           </div>
         </div>

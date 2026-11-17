@@ -70,7 +70,7 @@ export const siteConfig = {
   contact: {
     phone: "+41 76 227 55 43",
     phoneHref: "tel:+41762275543",
-    email: "info@salotto.ch",
+    email: "info@salotto-zurich.ch",
     emailHref: "mailto:info@salotto.ch",
   },
 
@@ -239,9 +239,7 @@ footer: {
       buttonText: "Jetzt anrufen",
     },
   },
-
   },
-
   // ====== HOME (Hero) ======
   home: {
     hero: {
@@ -265,13 +263,12 @@ footer: {
       links: [
         { href: "/firmenevents", text: "Eventlocation" },
         { href: "/geburtstag",   text: "Geburtstag" },
-       { href: "/apero",      text: "Apéro" },
+        { href: "/apero",      text: "Apéro" },
         { href: "/mittagessen",  text: "Mittagessen" },
         { href: "/jetztmieten", text: "Jetzt mieten" },
         { href: "/konditionen", text: "Konditionen" },
       ] as HeroLink[],
     },
   },
-
 
 } as const;

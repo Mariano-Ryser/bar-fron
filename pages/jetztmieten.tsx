@@ -1,9 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { 
   Phone, 
-  Mail, 
   Calendar, 
   CheckCircle,
   Send,
@@ -16,12 +14,13 @@ import {
 import emailjs from '@emailjs/browser';
 
 export default function JetztMieten() {
-  const router = useRouter();
   const [imageLoaded, setImageLoaded] = useState(false);
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
   const [isHeroVisible, setIsHeroVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [formData, setFormData] = useState({
     betreff: '',
     name: '',
@@ -88,41 +87,56 @@ export default function JetztMieten() {
     });
   };
 
- const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setIsSubmitting(true);
-  
-  try {
-    const result = await emailjs.send(
-      'YOUR_SERVICE_ID',
-      'YOUR_TEMPLATE_ID',
-      {
-        betreff: formData.betreff,
-        name: formData.name,
-        email: formData.email,
-        telefon: formData.telefon,
-        text: formData.text,
-      },
-      'YOUR_PUBLIC_KEY'
-    );
-    
-    if (result.status === 200) {
-      setSubmitSuccess(true);
-      setFormData({
-        betreff: '',
-        name: '',
-        email: '',
-        telefon: '',
-        text: ''
-      });
-      setTimeout(() => setSubmitSuccess(false), 5000);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError(false);
+    setErrorMessage('');
+
+    try {
+      const result = await emailjs.send(
+        'service_vl2ehmc',
+        'template_wapk55q',
+        {
+          betreff: formData.betreff,
+          name: formData.name,
+          email: formData.email,
+          telefon: formData.telefon,
+          text: formData.text,
+        },
+        'EzNEOI1CBzrK6C2MJ'
+      );
+
+      if (result.status === 200) {
+        setSubmitSuccess(true);
+        setFormData({
+          betreff: '',
+          name: '',
+          email: '',
+          telefon: '',
+          text: ''
+        });
+        setTimeout(() => setSubmitSuccess(false), 5000);
+      }
+    } catch (error: any) {
+      // Mostrar información útil del error en consola
+      console.error('Error al enviar:', error?.text || error?.message || error);
+      
+      // Guardar un mensaje amigable para el usuario
+      if (error?.status === 412) {
+        setErrorMessage('Der E-Mail-Dienst ist derzeit nicht korrekt konfiguriert. Bitte ruf uns an.');
+      } else if (error?.status === 429) {
+        setErrorMessage('Zu viele Anfragen. Bitte warte einen Moment und versuche es erneut.');
+      } else {
+        setErrorMessage('Es gab ein Problem beim Senden. Bitte versuche es erneut oder ruf uns an.');
+      }
+
+      setSubmitError(true);
+      setTimeout(() => setSubmitError(false), 8000);
+    } finally {
+      setIsSubmitting(false);
     }
-  } catch (error) {
-    console.error('Error al enviar:', error);
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+  };
 
   const handlePhoneClick = () => {
     window.location.href = 'tel:0762275543';
@@ -163,7 +177,7 @@ export default function JetztMieten() {
         </div>
       </div>
 
-      {/* Intro Section - TEXTO COMPLETO */}
+      {/* Intro Section */}
       <div 
         ref={introRef}
         data-section="intro"
@@ -296,6 +310,12 @@ export default function JetztMieten() {
                     required
                   />
                 </div>
+
+                {submitError && (
+                  <div className="error-message">
+                    <p>{errorMessage}</p>
+                  </div>
+                )}
 
                 <button 
                   type="submit" 
@@ -710,6 +730,19 @@ export default function JetztMieten() {
           font-size: 1rem;
         }
 
+        .error-message {
+          padding: 1rem 1.5rem;
+          background: rgba(255, 0, 0, 0.1);
+          border: 1px solid rgba(255, 0, 0, 0.3);
+          border-radius: 8px;
+        }
+
+        .error-message p {
+          color: #ff6b6b;
+          font-size: 0.95rem;
+          margin: 0;
+        }
+
         /* Image Column */
         .image-column {
           display: flex;
@@ -847,13 +880,13 @@ export default function JetztMieten() {
 
         @media (max-width: 768px) {
           .jetztmieten-page {
-          background: #000000;
-          min-height: 100vh;
-          padding-top: 8rem;
-          color: #ffffff;
-          overflow: hidden;
-          width: 100%;
-        }
+            background: #000000;
+            min-height: 100vh;
+            padding-top: 8rem;
+            color: #ffffff;
+            overflow: hidden;
+            width: 100%;
+          }
           .hero-image-container {
             height: 40vh;
             min-height: 300px;
